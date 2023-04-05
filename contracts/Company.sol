@@ -1,46 +1,47 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
-import "./library/StringArray.sol";
+import "./library/UintArray.sol";
 
 contract Company {
     struct AppCompany {
-        string id;
-        string owner;
+        uint id;
+        uint ownerId;
         string name;
         string logo;
         string background;
         string about;
         string scale;
         string website;
-        string locationId;
+        uint locationId;
         string addr;
         string introduction;
     }
 
-    using StringArray for string[];
-    string[] internal s_compIds;
-    mapping(string => AppCompany) internal s_companies;
-    mapping(string => string[]) internal s_locationToCompany;
+    using UintArray for uint[];
+    uint[] internal s_compIds;
+    mapping(uint => AppCompany) internal s_companies;
+    mapping(uint => uint[]) internal s_locationToCompany;
+    uint internal s_companyCounter = 0;
 
     function addCompany(
-        string memory _id,
-        string memory _owner,
+        uint _ownerId,
         string memory _name,
         string memory _logo,
         string memory _background,
         string memory _about,
         string memory _scale,
         string memory _website,
-        string memory _locationId,
+        uint _locationId,
         string memory _addr,
         string memory _introduction
     ) public {
+        uint _id = s_companyCounter;
         s_compIds.push(_id);
         s_locationToCompany[_locationId].push(_id);
         s_companies[_id] = AppCompany(
             _id,
-            _owner,
+            _ownerId,
             _name,
             _logo,
             _background,
@@ -51,17 +52,18 @@ contract Company {
             _addr,
             _introduction
         );
+        s_companyCounter++;
     }
 
     function updateCompany(
-        string memory _id,
+        uint _id,
         string memory _name,
         string memory _logo,
         string memory _background,
         string memory _about,
         string memory _scale,
         string memory _website,
-        string memory _locationId,
+        uint _locationId,
         string memory _addr,
         string memory _introduction
     ) public {
@@ -77,21 +79,23 @@ contract Company {
         s_companies[_id].introduction = _introduction;
     }
 
-    function deleteCompany(string memory _id) public {
+    function deleteCompany(uint _id) public {
         s_compIds.removeElement(_id);
-        string memory locationId = s_companies[_id].locationId;
+        uint locationId = s_companies[_id].locationId;
         s_locationToCompany[locationId].removeElement(_id);
         delete s_companies[_id];
     }
 
-    function getCompany(
-        string memory _id
-    ) public view returns (AppCompany memory) {
+    function getCompany(uint _id) public view returns (AppCompany memory) {
         return s_companies[_id];
     }
 
+    function getNewestCompany() public view returns (AppCompany memory) {
+        return s_companies[s_compIds.length - 1];
+    }
+
     function getCompanies(
-        string[] memory _ids
+        uint[] memory _ids
     ) public view returns (AppCompany[] memory) {
         AppCompany[] memory companies = new AppCompany[](_ids.length);
         for (uint i = 0; i < _ids.length; i++) {
@@ -109,9 +113,9 @@ contract Company {
     }
 
     function getCompaniesThruLocation(
-        string memory _id
+        uint _id
     ) public view returns (AppCompany[] memory) {
-        string[] memory ids = s_locationToCompany[_id];
+        uint[] memory ids = s_locationToCompany[_id];
         return getCompanies(ids);
     }
 }

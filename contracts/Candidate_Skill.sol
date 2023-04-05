@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
-import "./library/StringArray.sol";
+import "./library/UintArray.sol";
 
 /**
  * @custom:many-to-many-constraint
@@ -10,23 +10,23 @@ import "./library/StringArray.sol";
  */
 
 contract Candidate_SKill {
-    using StringArray for string[];
-    mapping(string => string[]) internal s_candidateToSkill;
-    mapping(string => string[]) internal s_skillToCandidate;
+    using UintArray for uint[];
+    mapping(uint => uint[]) internal s_candidateToSkill;
+    mapping(uint => uint[]) internal s_skillToCandidate;
 
-    function connectCandidateSkill(string memory _skill, string memory _candidate) public {
+    function connectCandidateSkill(uint _skill, uint _candidate) public {
         s_skillToCandidate[_skill].push(_candidate);
         s_candidateToSkill[_candidate].push(_skill);
     }
 
-    function disconnectCandidateSkill(string memory _skill, string memory _candidate) public {
+    function disconnectCandidateSkill(uint _skill, uint _candidate) public {
         s_skillToCandidate[_skill].removeElement(_candidate);
         s_candidateToSkill[_candidate].removeElement(_skill);
     }
 
     function isExistedCandidateSkill(
-        string memory _skill,
-        string memory _candidate
+        uint _skill,
+        uint _candidate
     ) public view returns (bool) {
         if (s_skillToCandidate[_skill].isElementExisted(_candidate)) {
             return true;
@@ -35,14 +35,14 @@ contract Candidate_SKill {
     }
 
     function getSkillsThruCandidate(
-        string memory _candidate
-    ) public view returns (string[] memory) {
+        uint _candidate
+    ) public view returns (uint[] memory) {
         return s_candidateToSkill[_candidate];
     }
 
     function getCandidatesThruSkill(
-        string memory _skill
-    ) public view returns (string[] memory) {
+        uint _skill
+    ) public view returns (uint[] memory) {
         return s_skillToCandidate[_skill];
     }
 }

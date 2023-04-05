@@ -31,6 +31,10 @@ import "./Job_Skill.sol";
 
 // Skill Relation
 import "./Skill.sol";
+
+// Field Relation
+import "./Field.sol";
+
 contract Resumiro is
     User,
     Candidate,
@@ -47,7 +51,8 @@ contract Resumiro is
     JobType,
     Job_Candidate,
     Job_Skill,
-    Skill
+    Skill,
+    Field
 {
     /**
      * @custom:resumiro
@@ -71,3 +76,4 @@ contract Resumiro is
      * @custom:skill-contract
      * */
 }
+

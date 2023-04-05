@@ -2,11 +2,11 @@
 
 pragma solidity ^0.8.0;
 
-import "./library/StringArray.sol";
+import "./library/UintArray.sol";
 
 contract Candidate {
     struct AppCandidate {
-        string id;
+        uint id;
         string avatar;
         string background;
         string addressWallet;
@@ -16,12 +16,12 @@ contract Candidate {
         string about;
     }
 
-    using StringArray for string[];
-    string[] internal s_CandidateIds;
-    mapping(string => AppCandidate) internal s_candidates;
+    using UintArray for uint[];
+    uint[] internal s_CandidateIds;
+    mapping(uint => AppCandidate) internal s_candidates;
 
     function addCandidate(
-        string memory _id,
+        uint _id,
         string memory _avatar,
         string memory _background,
         string memory _addressWallet,
@@ -44,7 +44,7 @@ contract Candidate {
     }
 
     function updateCandidate(
-        string memory _id,
+        uint _id,
         string memory _avatar,
         string memory _background,
         string memory _addressWallet,
@@ -62,19 +62,17 @@ contract Candidate {
         s_candidates[_id].about = _about;
     }
 
-    function deleteCandidate(string memory _id) public {
+    function deleteCandidate(uint _id) public {
         s_CandidateIds.removeElement(_id);
         delete s_candidates[_id];
     }
 
-    function getCandidate(
-        string memory _id
-    ) public view returns (AppCandidate memory) {
+    function getCandidate(uint _id) public view returns (AppCandidate memory) {
         return s_candidates[_id];
     }
 
     function getCandidates(
-        string[] memory _ids
+        uint[] memory _ids
     ) public view returns (AppCandidate[] memory) {
         AppCandidate[] memory candidates = new AppCandidate[](_ids.length);
         for (uint i = 0; i < _ids.length; i++) {

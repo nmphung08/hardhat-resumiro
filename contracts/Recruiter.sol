@@ -2,12 +2,12 @@
 
 pragma solidity ^0.8.0;
 
-import "./library/StringArray.sol";
+import "./library/UintArray.sol";
 
 contract Recruiter {
     struct AppRecruiter {
-        string id;
-        string owned;
+        uint id;
+        uint owned;
         string avatar;
         string background;
         string addressWallet;
@@ -17,13 +17,13 @@ contract Recruiter {
         string position;
     }
 
-    using StringArray for string[];
-    string[] internal s_recruiterIds;
-    mapping(string => AppRecruiter) internal s_recruiters;
+    using UintArray for uint[];
+    uint[] internal s_recruiterIds;
+    mapping(uint => AppRecruiter) internal s_recruiters;
 
     function addRecruiter(
-        string memory _id,
-        string memory _owned,
+        uint _id,
+        uint _owned,
         string memory _avatar,
         string memory _background,
         string memory _addressWallet,
@@ -47,8 +47,7 @@ contract Recruiter {
     }
 
     function updateRecruiter(
-        string memory _id,
-        string memory _owned,
+        uint _id,
         string memory _avatar,
         string memory _background,
         string memory _addressWallet,
@@ -57,7 +56,6 @@ contract Recruiter {
         string memory _phone,
         string memory _position
     ) public {
-        s_recruiters[_id].owned = _owned;
         s_recruiters[_id].avatar = _avatar;
         s_recruiters[_id].background = _background;
         s_recruiters[_id].addressWallet = _addressWallet;
@@ -67,19 +65,17 @@ contract Recruiter {
         s_recruiters[_id].position = _position;
     }
 
-    function deleteRecruiter(string memory _id) public {
+    function deleteRecruiter(uint _id) public {
         s_recruiterIds.removeElement(_id);
         delete s_recruiters[_id];
     }
 
-    function getRecruiter(
-        string memory _id
-    ) public view returns (AppRecruiter memory) {
+    function getRecruiter(uint _id) public view returns (AppRecruiter memory) {
         return s_recruiters[_id];
     }
 
     function getRecruiters(
-        string[] memory _ids
+        uint[] memory _ids
     ) public view returns (AppRecruiter[] memory) {
         AppRecruiter[] memory recruiters = new AppRecruiter[](_ids.length);
         for (uint i = 0; i < _ids.length; i++) {

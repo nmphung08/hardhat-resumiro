@@ -2,6 +2,7 @@ node_modules
 .env
 coverage
 coverage.json
+# constants/*.json
 
 # vscode
 .vscode

@@ -1,49 +1,64 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
-import "./library/StringArray.sol";
+import "./library/UintArray.sol";
 
 contract Resume {
     struct AppResume {
-        string id;
-        string candidate;
+        uint id;
         string data;
+        uint candidate;
+        string title;
+        string createAt;
     }
 
-    using StringArray for string[];
-    mapping(string => AppResume) internal s_resumes;
-    string[] internal s_resumeIds;
-    mapping(string => string[]) internal s_candidateToResume;
+    using UintArray for uint[];
+    mapping(uint => AppResume) internal s_resumes;
+    uint[] internal s_resumeIds;
+    mapping(uint => uint[]) internal s_candidateToResume;
+    uint internal s_resumeCounter = 0;
 
     function addResume(
-        string memory _id,
-        string memory _candidate,
-        string memory _data
+        string memory _data,
+        uint _candidate,
+        string memory _title,
+        string memory _createAt
     ) public virtual {
+        uint _id = s_resumeCounter;
         s_resumeIds.push(_id);
         s_candidateToResume[_candidate].push(_id);
-        s_resumes[_id] = AppResume(_id, _candidate, _data);
+        s_resumes[_id] = AppResume(_id, _data, _candidate, _title, _createAt);
+        s_resumeCounter++;
     }
 
-    function updateResume(string memory _id, string memory _data) public {
+    function updateResume(
+        uint _id,
+        string memory _data,
+        string memory _title,
+        string memory _createAt
+    ) public {
         s_resumes[_id].data = _data;
+        s_resumes[_id].title = _title;
+        s_resumes[_id].createAt = _createAt;
     }
 
-    function deleteResume(string memory _id) public {
+    function deleteResume(uint _id) public {
         s_resumeIds.removeElement(_id);
-        string memory candidateId = s_resumes[_id].candidate;
+        uint candidateId = s_resumes[_id].candidate;
         s_candidateToResume[candidateId].removeElement(_id);
         delete s_resumes[_id];
     }
 
-    function getResume(
-        string memory _id
-    ) public view returns (AppResume memory) {
+    function getResume(uint _id) public view returns (AppResume memory) {
         return s_resumes[_id];
     }
 
+    function getReNewestsume() public view returns (AppResume memory) {
+        return s_resumes[s_resumeIds.length - 1];
+    }
+
     function getResumes(
-        string[] memory _ids
+        uint[] memory _ids
     ) public view returns (AppResume[] memory) {
         AppResume[] memory Resumes = new AppResume[](_ids.length);
         for (uint i = 0; i < _ids.length; i++) {
@@ -61,9 +76,9 @@ contract Resume {
     }
 
     function getResumesThruCandidate(
-        string memory _id
+        uint _id
     ) public view returns (AppResume[] memory) {
-        string[] memory ids = s_candidateToResume[_id];
+        uint[] memory ids = s_candidateToResume[_id];
         return getResumes(ids);
     }
 }

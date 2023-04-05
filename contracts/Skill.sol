@@ -2,37 +2,37 @@
 
 pragma solidity ^0.8.0;
 
-import "./library/StringArray.sol";
+import "./library/UintArray.sol";
 
 contract Skill {
     struct AppSkill {
-        string id;
+        uint id;
         string name;
     }
 
-    using StringArray for string[];
-    string[] internal s_skillIds;
-    mapping(string => AppSkill) internal s_skills;
+    using UintArray for uint[];
+    uint[] internal s_skillIds;
+    mapping(uint => AppSkill) internal s_skills;
+    uint internal s_skillCounter = 0;
 
-    function addSkill(
-        string memory _id,
-        string memory _name
-    ) public {
+    function addSkill(string memory _name) public {
+        uint _id = s_skillCounter;
         s_skillIds.push(_id);
         s_skills[_id] = AppSkill(_id, _name);
+        s_skillCounter++;
     }
 
-    function deleteSkill(string memory _id) public {
+    function deleteSkill(uint _id) public {
         s_skillIds.removeElement(_id);
         delete s_skills[_id];
     }
 
-    function getSkill(string memory _id) public view returns (AppSkill memory) {
+    function getSkill(uint _id) public view returns (AppSkill memory) {
         return s_skills[_id];
     }
 
     function getSkills(
-        string[] memory _ids
+        uint[] memory _ids
     ) public view returns (AppSkill[] memory) {
         AppSkill[] memory skills = new AppSkill[](_ids.length);
         for (uint i = 0; i < _ids.length; i++) {

@@ -1,32 +1,33 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
-import "./library/StringArray.sol";
+import "./library/UintArray.sol";
 
 contract Experience {
     struct AppExperience {
-        string id;
+        uint id;
         string position;
         string start;
         string finish;
-        string companyId;
-        string userId;
+        uint companyId;
+        uint userId;
     }
 
-    using StringArray for string[];
-    mapping(string => AppExperience) internal s_experiences;
-    string[] internal s_experienceIds;
-    mapping(string => string[]) internal s_companyToExperience;
-    mapping(string => string[]) internal s_userToExperience;
+    using UintArray for uint[];
+    mapping(uint => AppExperience) internal s_experiences;
+    uint[] internal s_experienceIds;
+    mapping(uint => uint[]) internal s_companyToExperience;
+    mapping(uint => uint[]) internal s_userToExperience;
+    uint internal s_experienceCounter = 0;
 
     function addExperience(
-        string memory _id,
         string memory _position,
         string memory _start,
         string memory _finish,
-        string memory _companyId,
-        string memory _userId
+        uint _companyId,
+        uint _userId
     ) public {
+        uint _id = s_experienceCounter;
         s_experienceIds.push(_id);
         s_companyToExperience[_companyId].push(_id);
         s_userToExperience[_userId].push(_id);
@@ -38,22 +39,25 @@ contract Experience {
             _companyId,
             _userId
         );
+        s_experienceCounter++;
     }
 
     function updateExperience(
-        string memory _id,
+        uint _id,
         string memory _position,
         string memory _start,
-        string memory _finish
+        string memory _finish,
+        uint _companyId
     ) public {
         s_experiences[_id].position = _position;
         s_experiences[_id].start = _start;
         s_experiences[_id].finish = _finish;
+        s_experiences[_id].companyId = _companyId;
     }
 
-    function deleteExperience(string memory _id) public {
-        string memory companyId = s_experiences[_id].companyId;
-        string memory userId = s_experiences[_id].userId;
+    function deleteExperience(uint _id) public {
+        uint companyId = s_experiences[_id].companyId;
+        uint userId = s_experiences[_id].userId;
         s_experienceIds.removeElement(_id);
         s_companyToExperience[companyId].removeElement(_id);
         s_userToExperience[userId].removeElement(_id);
@@ -61,13 +65,17 @@ contract Experience {
     }
 
     function getExperience(
-        string memory _id
+        uint _id
     ) public view returns (AppExperience memory) {
         return s_experiences[_id];
     }
 
+    function getNewestExperience() public view returns (AppExperience memory) {
+        return s_experiences[s_experienceIds.length - 1];
+    }
+
     function getExperiences(
-        string[] memory _ids
+        uint[] memory _ids
     ) public view returns (AppExperience[] memory) {
         AppExperience[] memory exps = new AppExperience[](_ids.length);
         for (uint i = 0; i < _ids.length; i++) {
@@ -87,16 +95,16 @@ contract Experience {
     }
 
     function getExperiencesThruCompany(
-        string memory _id
+        uint _id
     ) public view returns (AppExperience[] memory) {
-        string[] memory ids = s_companyToExperience[_id];
+        uint[] memory ids = s_companyToExperience[_id];
         return getExperiences(ids);
     }
 
     function getExperiencesThruUser(
-        string memory _id
+        uint _id
     ) public view returns (AppExperience[] memory) {
-        string[] memory ids = s_userToExperience[_id];
+        uint[] memory ids = s_userToExperience[_id];
         return getExperiences(ids);
     }
 }

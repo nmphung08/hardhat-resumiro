@@ -4,7 +4,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     const { deployer } = await getNamedAccounts()
     
     log("==================================")
-    await deploy("Resumio", {
+    await deploy("Resumiro", {
         from: deployer,
         log: true,
         args: [],

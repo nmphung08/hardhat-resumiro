@@ -1,40 +1,45 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
-import "./library/StringArray.sol";
+import "./library/UintArray.sol";
 
 contract JobType {
     struct AppJobType {
-        string id;
+        uint id;
         string name;
     }
 
-    using StringArray for string[];
-    mapping(string => AppJobType) internal s_jobtypes;
-    string[] internal s_jobtypeIds;
+    using UintArray for uint[];
+    mapping(uint => AppJobType) internal s_jobtypes;
+    uint[] internal s_jobtypeIds;
+    uint internal s_jobTypeCounter = 0;
 
-    function addJobType(string memory _id, string memory _name) public {
+    function addJobType(string memory _name) public {
+        uint _id = s_jobTypeCounter;
         s_jobtypeIds.push(_id);
         s_jobtypes[_id] = AppJobType(_id, _name);
+        s_jobTypeCounter++;
     }
 
-    function updateJobType(string memory _id, string memory _name) public {
+    function updateJobType(uint _id, string memory _name) public {
         s_jobtypes[_id].name = _name;
     }
 
-    function deleteJobType(string memory _id) public {
+    function deleteJobType(uint _id) public {
         s_jobtypeIds.removeElement(_id);
         delete s_jobtypes[_id];
     }
 
-    function getJobType(
-        string memory _id
-    ) public view returns (AppJobType memory) {
+    function getJobType(uint _id) public view returns (AppJobType memory) {
         return s_jobtypes[_id];
     }
 
+    function getNewestJobType() public view returns (AppJobType memory) {
+        return s_jobtypes[s_jobtypeIds.length - 1];
+    }
+
     function getJobTypes(
-        string[] memory _ids
+        uint[] memory _ids
     ) public view returns (AppJobType[] memory) {
         AppJobType[] memory jobtypes = new AppJobType[](_ids.length);
         for (uint i = 0; i < _ids.length; i++) {

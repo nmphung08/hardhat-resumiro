@@ -1,35 +1,37 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.0;
-import "./library/StringArray.sol";
+import "./library/UintArray.sol";
 
 contract Certificate {
     struct AppCertificate {
-        string id;
+        uint id;
         string name;
         string verifiedAt;
-        string userId;
+        uint userId;
     }
 
-    using StringArray for string[];
-    mapping(string => AppCertificate) internal s_certificates;
-    string[] internal s_certificateIds;
+    using UintArray for uint[];
+    mapping(uint => AppCertificate) internal s_certificates;
+    uint[] internal s_certificateIds;
     // one-to-many constraint
-    mapping(string => string[]) internal s_userToCertificate;
+    mapping(uint => uint[]) internal s_userToCertificate;
+    uint internal s_certificateCounter = 0;
 
     function addCertificate(
-        string memory _id,
         string memory _name,
         string memory _verifiedAt,
-        string memory _userId
+        uint _userId
     ) public {
+        uint _id = s_certificateCounter;
         s_certificateIds.push(_id);
         s_certificates[_id] = AppCertificate(_id, _name, _verifiedAt, _userId);
         s_userToCertificate[_userId].push(_id);
+        s_certificateCounter++;
     }
 
     function updateCertificate(
-        string memory _id,
+        uint _id,
         string memory _name,
         string memory _verifiedAt
     ) public {
@@ -37,21 +39,29 @@ contract Certificate {
         s_certificates[_id].verifiedAt = _verifiedAt;
     }
 
-    function deleteCertificate(string memory _id) public {
+    function deleteCertificate(uint _id) public {
         s_certificateIds.removeElement(_id);
-        string memory userId = s_certificates[_id].userId;
+        uint userId = s_certificates[_id].userId;
         s_userToCertificate[userId].removeElement(_id);
         delete s_certificates[_id];
     }
 
     function getCertificate(
-        string memory _id
+        uint _id
     ) public view returns (AppCertificate memory) {
         return s_certificates[_id];
     }
 
+    function getNewestCertificate()
+        public
+        view
+        returns (AppCertificate memory)
+    {
+        return s_certificates[s_certificateIds.length - 1];
+    }
+
     function getCertificates(
-        string[] memory _ids
+        uint[] memory _ids
     ) public view returns (AppCertificate[] memory) {
         AppCertificate[] memory certs = new AppCertificate[](_ids.length);
         for (uint i = 0; i < _ids.length; i++) {
@@ -75,9 +85,9 @@ contract Certificate {
     }
 
     function getCertificatesThruUser(
-        string memory _id
+        uint _id
     ) public view returns (AppCertificate[] memory) {
-        string[] memory certIds = s_userToCertificate[_id];
+        uint[] memory certIds = s_userToCertificate[_id];
         return getCertificates(certIds);
     }
 }

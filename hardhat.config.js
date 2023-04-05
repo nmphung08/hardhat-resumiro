@@ -1,12 +1,20 @@
 require("@nomicfoundation/hardhat-toolbox")
 require("hardhat-deploy")
 require("@nomiclabs/hardhat-ethers")
+require("dotenv").config()
 
 /** @type import('hardhat/config').HardhatUserConfig */
 
 module.exports = {
-  solidity: "0.8.8",
-
+  solidity: {
+    compilers: [{ version: "0.8.8" }],
+    settings: {
+      optimizer: {
+        enabled: true,
+      },
+    },
+  },
+  defaultNetwork: "localhost",
   networks: {
     ganache: {
       url: "http://0.0.0.0:7545",
@@ -18,6 +26,14 @@ module.exports = {
         "0x7cc73893143c45bd41920b9f92eda77c5fc80c4a3e88782f1202e1ba6f0743c4"
       ],
       chainId: 1337,
+    },
+    hardhat: {
+      allowUnlimitedContractSize: true,
+      chainId: 31337,
+    },
+    localhost: {
+      allowUnlimitedContractSize: true,
+      chainId: 31337,
     }
   },
 
