@@ -1,0 +1,7229 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_userAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_type",
+          "type": "uint256"
+        }
+      ],
+      "name": "addUser",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_userAddress",
+          "type": "address"
+        }
+      ],
+      "name": "deleteUser",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_userAddress",
+          "type": "address"
+        }
+      ],
+      "name": "isExisted",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        },
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "enum User.UserType",
+              "name": "userType",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bool",
+              "name": "exist",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct User.AppUser",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "allSourcePaths": {
+    "17": "contracts/User.sol"
+  },
+  "ast": {
+    "absolutePath": "contracts/User.sol",
+    "exportedSymbols": {
+      "User": [
+        3847
+      ]
+    },
+    "id": 3848,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 3723,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:17"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "User",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 3847,
+        "linearizedBaseContracts": [
+          3847
+        ],
+        "name": "User",
+        "nameLocation": "130:4:17",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "User.UserType",
+            "id": 3726,
+            "members": [
+              {
+                "id": 3724,
+                "name": "RECRUITER",
+                "nameLocation": "165:9:17",
+                "nodeType": "EnumValue",
+                "src": "165:9:17"
+              },
+              {
+                "id": 3725,
+                "name": "CANDIDATE",
+                "nameLocation": "184:9:17",
+                "nodeType": "EnumValue",
+                "src": "184:9:17"
+              }
+            ],
+            "name": "UserType",
+            "nameLocation": "146:8:17",
+            "nodeType": "EnumDefinition",
+            "src": "141:58:17"
+          },
+          {
+            "canonicalName": "User.AppUser",
+            "id": 3734,
+            "members": [
+              {
+                "constant": false,
+                "id": 3728,
+                "mutability": "mutable",
+                "name": "id",
+                "nameLocation": "235:2:17",
+                "nodeType": "VariableDeclaration",
+                "scope": 3734,
+                "src": "230:7:17",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 3727,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "230:4:17",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 3731,
+                "mutability": "mutable",
+                "name": "userType",
+                "nameLocation": "256:8:17",
+                "nodeType": "VariableDeclaration",
+                "scope": 3734,
+                "src": "247:17:17",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_UserType_$3726",
+                  "typeString": "enum User.UserType"
+                },
+                "typeName": {
+                  "id": 3730,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 3729,
+                    "name": "UserType",
+                    "nameLocations": [
+                      "247:8:17"
+                    ],
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 3726,
+                    "src": "247:8:17"
+                  },
+                  "referencedDeclaration": 3726,
+                  "src": "247:8:17",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_UserType_$3726",
+                    "typeString": "enum User.UserType"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 3733,
+                "mutability": "mutable",
+                "name": "exist",
+                "nameLocation": "279:5:17",
+                "nodeType": "VariableDeclaration",
+                "scope": 3734,
+                "src": "274:10:17",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 3732,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "274:4:17",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "AppUser",
+            "nameLocation": "212:7:17",
+            "nodeType": "StructDefinition",
+            "scope": 3847,
+            "src": "205:86:17",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 3738,
+            "mutability": "mutable",
+            "name": "s_userIds",
+            "nameLocation": "331:9:17",
+            "nodeType": "VariableDeclaration",
+            "scope": 3847,
+            "src": "297:43:17",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+              "typeString": "mapping(address => uint256)"
+            },
+            "typeName": {
+              "id": 3737,
+              "keyName": "",
+              "keyNameLocation": "-1:-1:-1",
+              "keyType": {
+                "id": 3735,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "305:7:17",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "297:24:17",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                "typeString": "mapping(address => uint256)"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 3736,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "316:4:17",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 3743,
+            "mutability": "mutable",
+            "name": "s_users",
+            "nameLocation": "380:7:17",
+            "nodeType": "VariableDeclaration",
+            "scope": 3847,
+            "src": "346:41:17",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_AppUser_$3734_storage_$",
+              "typeString": "mapping(uint256 => struct User.AppUser)"
+            },
+            "typeName": {
+              "id": 3742,
+              "keyName": "",
+              "keyNameLocation": "-1:-1:-1",
+              "keyType": {
+                "id": 3739,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "354:4:17",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "346:24:17",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_AppUser_$3734_storage_$",
+                "typeString": "mapping(uint256 => struct User.AppUser)"
+              },
+              "valueName": "",
+              "valueNameLocation": "-1:-1:-1",
+              "valueType": {
+                "id": 3741,
+                "nodeType": "UserDefinedTypeName",
+                "pathNode": {
+                  "id": 3740,
+                  "name": "AppUser",
+                  "nameLocations": [
+                    "362:7:17"
+                  ],
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 3734,
+                  "src": "362:7:17"
+                },
+                "referencedDeclaration": 3734,
+                "src": "362:7:17",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_AppUser_$3734_storage_ptr",
+                  "typeString": "struct User.AppUser"
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 3746,
+            "mutability": "mutable",
+            "name": "s_userCounter",
+            "nameLocation": "407:13:17",
+            "nodeType": "VariableDeclaration",
+            "scope": 3847,
+            "src": "393:31:17",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 3744,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "393:4:17",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "30",
+              "id": 3745,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "423:1:17",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_0_by_1",
+                "typeString": "int_const 0"
+              },
+              "value": "0"
+            },
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 3778,
+              "nodeType": "Block",
+              "src": "489:263:17",
+              "statements": [
+                {
+                  "assignments": [
+                    3754
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 3754,
+                      "mutability": "mutable",
+                      "name": "_id",
+                      "nameLocation": "602:3:17",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 3778,
+                      "src": "597:8:17",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 3753,
+                        "name": "uint",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "597:4:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 3756,
+                  "initialValue": {
+                    "id": 3755,
+                    "name": "s_userCounter",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 3746,
+                    "src": "608:13:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "597:24:17"
+                },
+                {
+                  "expression": {
+                    "id": 3761,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "id": 3757,
+                        "name": "s_userIds",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3738,
+                        "src": "631:9:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                          "typeString": "mapping(address => uint256)"
+                        }
+                      },
+                      "id": 3759,
+                      "indexExpression": {
+                        "id": 3758,
+                        "name": "_userAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3748,
+                        "src": "641:12:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "631:23:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "id": 3760,
+                      "name": "_id",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3754,
+                      "src": "657:3:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "631:29:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 3762,
+                  "nodeType": "ExpressionStatement",
+                  "src": "631:29:17"
+                },
+                {
+                  "expression": {
+                    "id": 3773,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "baseExpression": {
+                        "id": 3763,
+                        "name": "s_users",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3743,
+                        "src": "670:7:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_AppUser_$3734_storage_$",
+                          "typeString": "mapping(uint256 => struct User.AppUser storage ref)"
+                        }
+                      },
+                      "id": 3765,
+                      "indexExpression": {
+                        "id": 3764,
+                        "name": "_id",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3754,
+                        "src": "678:3:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "670:12:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_AppUser_$3734_storage",
+                        "typeString": "struct User.AppUser storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "arguments": [
+                        {
+                          "id": 3767,
+                          "name": "_id",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 3754,
+                          "src": "693:3:17",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        {
+                          "arguments": [
+                            {
+                              "id": 3769,
+                              "name": "_type",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 3750,
+                              "src": "707:5:17",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            ],
+                            "id": 3768,
+                            "name": "UserType",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 3726,
+                            "src": "698:8:17",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_enum$_UserType_$3726_$",
+                              "typeString": "type(enum User.UserType)"
+                            }
+                          },
+                          "id": 3770,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "typeConversion",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "698:15:17",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_enum$_UserType_$3726",
+                            "typeString": "enum User.UserType"
+                          }
+                        },
+                        {
+                          "hexValue": "74727565",
+                          "id": 3771,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "bool",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "715:4:17",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          },
+                          "value": "true"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          {
+                            "typeIdentifier": "t_enum$_UserType_$3726",
+                            "typeString": "enum User.UserType"
+                          },
+                          {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        ],
+                        "id": 3766,
+                        "name": "AppUser",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3734,
+                        "src": "685:7:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_struct$_AppUser_$3734_storage_ptr_$",
+                          "typeString": "type(struct User.AppUser storage pointer)"
+                        }
+                      },
+                      "id": 3772,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "structConstructorCall",
+                      "lValueRequested": false,
+                      "nameLocations": [],
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "685:35:17",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_AppUser_$3734_memory_ptr",
+                        "typeString": "struct User.AppUser memory"
+                      }
+                    },
+                    "src": "670:50:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_AppUser_$3734_storage",
+                      "typeString": "struct User.AppUser storage ref"
+                    }
+                  },
+                  "id": 3774,
+                  "nodeType": "ExpressionStatement",
+                  "src": "670:50:17"
+                },
+                {
+                  "expression": {
+                    "id": 3776,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "++",
+                    "prefix": false,
+                    "src": "730:15:17",
+                    "subExpression": {
+                      "id": 3775,
+                      "name": "s_userCounter",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3746,
+                      "src": "730:13:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 3777,
+                  "nodeType": "ExpressionStatement",
+                  "src": "730:15:17"
+                }
+              ]
+            },
+            "functionSelector": "d3017193",
+            "id": 3779,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addUser",
+            "nameLocation": "440:7:17",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3751,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3748,
+                  "mutability": "mutable",
+                  "name": "_userAddress",
+                  "nameLocation": "456:12:17",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3779,
+                  "src": "448:20:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3747,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "448:7:17",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3750,
+                  "mutability": "mutable",
+                  "name": "_type",
+                  "nameLocation": "475:5:17",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3779,
+                  "src": "470:10:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 3749,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "470:4:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "447:34:17"
+            },
+            "returnParameters": {
+              "id": 3752,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "489:0:17"
+            },
+            "scope": 3847,
+            "src": "431:321:17",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 3800,
+              "nodeType": "Block",
+              "src": "807:214:17",
+              "statements": [
+                {
+                  "assignments": [
+                    3785
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 3785,
+                      "mutability": "mutable",
+                      "name": "id",
+                      "nameLocation": "918:2:17",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 3800,
+                      "src": "913:7:17",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 3784,
+                        "name": "uint",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "913:4:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 3789,
+                  "initialValue": {
+                    "baseExpression": {
+                      "id": 3786,
+                      "name": "s_userIds",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3738,
+                      "src": "923:9:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                        "typeString": "mapping(address => uint256)"
+                      }
+                    },
+                    "id": 3788,
+                    "indexExpression": {
+                      "id": 3787,
+                      "name": "_userAddress",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3781,
+                      "src": "933:12:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "923:23:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "913:33:17"
+                },
+                {
+                  "expression": {
+                    "id": 3793,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "delete",
+                    "prefix": true,
+                    "src": "956:18:17",
+                    "subExpression": {
+                      "baseExpression": {
+                        "id": 3790,
+                        "name": "s_users",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3743,
+                        "src": "963:7:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_AppUser_$3734_storage_$",
+                          "typeString": "mapping(uint256 => struct User.AppUser storage ref)"
+                        }
+                      },
+                      "id": 3792,
+                      "indexExpression": {
+                        "id": 3791,
+                        "name": "id",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3785,
+                        "src": "971:2:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "963:11:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_AppUser_$3734_storage",
+                        "typeString": "struct User.AppUser storage ref"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 3794,
+                  "nodeType": "ExpressionStatement",
+                  "src": "956:18:17"
+                },
+                {
+                  "expression": {
+                    "id": 3798,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "UnaryOperation",
+                    "operator": "delete",
+                    "prefix": true,
+                    "src": "984:30:17",
+                    "subExpression": {
+                      "baseExpression": {
+                        "id": 3795,
+                        "name": "s_userIds",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3738,
+                        "src": "991:9:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                          "typeString": "mapping(address => uint256)"
+                        }
+                      },
+                      "id": 3797,
+                      "indexExpression": {
+                        "id": 3796,
+                        "name": "_userAddress",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 3781,
+                        "src": "1001:12:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "991:23:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 3799,
+                  "nodeType": "ExpressionStatement",
+                  "src": "984:30:17"
+                }
+              ]
+            },
+            "functionSelector": "5c60f226",
+            "id": 3801,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "deleteUser",
+            "nameLocation": "767:10:17",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3782,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3781,
+                  "mutability": "mutable",
+                  "name": "_userAddress",
+                  "nameLocation": "786:12:17",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3801,
+                  "src": "778:20:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3780,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "778:7:17",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "777:22:17"
+            },
+            "returnParameters": {
+              "id": 3783,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "807:0:17"
+            },
+            "scope": 3847,
+            "src": "758:263:17",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 3845,
+              "nodeType": "Block",
+              "src": "1125:246:17",
+              "statements": [
+                {
+                  "assignments": [
+                    3812
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 3812,
+                      "mutability": "mutable",
+                      "name": "id",
+                      "nameLocation": "1140:2:17",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 3845,
+                      "src": "1135:7:17",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 3811,
+                        "name": "uint",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1135:4:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 3816,
+                  "initialValue": {
+                    "baseExpression": {
+                      "id": 3813,
+                      "name": "s_userIds",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3738,
+                      "src": "1145:9:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                        "typeString": "mapping(address => uint256)"
+                      }
+                    },
+                    "id": 3815,
+                    "indexExpression": {
+                      "id": 3814,
+                      "name": "_userAddress",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3803,
+                      "src": "1155:12:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1145:23:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1135:33:17"
+                },
+                {
+                  "assignments": [
+                    3819
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 3819,
+                      "mutability": "mutable",
+                      "name": "user",
+                      "nameLocation": "1193:4:17",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 3845,
+                      "src": "1178:19:17",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_AppUser_$3734_memory_ptr",
+                        "typeString": "struct User.AppUser"
+                      },
+                      "typeName": {
+                        "id": 3818,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 3817,
+                          "name": "AppUser",
+                          "nameLocations": [
+                            "1178:7:17"
+                          ],
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 3734,
+                          "src": "1178:7:17"
+                        },
+                        "referencedDeclaration": 3734,
+                        "src": "1178:7:17",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_AppUser_$3734_storage_ptr",
+                          "typeString": "struct User.AppUser"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 3823,
+                  "initialValue": {
+                    "baseExpression": {
+                      "id": 3820,
+                      "name": "s_users",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3743,
+                      "src": "1200:7:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_AppUser_$3734_storage_$",
+                        "typeString": "mapping(uint256 => struct User.AppUser storage ref)"
+                      }
+                    },
+                    "id": 3822,
+                    "indexExpression": {
+                      "id": 3821,
+                      "name": "id",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3812,
+                      "src": "1208:2:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1200:11:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_AppUser_$3734_storage",
+                      "typeString": "struct User.AppUser storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1178:33:17"
+                },
+                {
+                  "condition": {
+                    "expression": {
+                      "id": 3824,
+                      "name": "user",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 3819,
+                      "src": "1225:4:17",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_AppUser_$3734_memory_ptr",
+                        "typeString": "struct User.AppUser memory"
+                      }
+                    },
+                    "id": 3825,
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "memberLocation": "1230:5:17",
+                    "memberName": "exist",
+                    "nodeType": "MemberAccess",
+                    "referencedDeclaration": 3733,
+                    "src": "1225:10:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": {
+                    "id": 3843,
+                    "nodeType": "Block",
+                    "src": "1294:71:17",
+                    "statements": [
+                      {
+                        "expression": {
+                          "components": [
+                            {
+                              "hexValue": "66616c7365",
+                              "id": 3833,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "bool",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "1316:5:17",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_bool",
+                                "typeString": "bool"
+                              },
+                              "value": "false"
+                            },
+                            {
+                              "arguments": [
+                                {
+                                  "hexValue": "30",
+                                  "id": 3835,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "kind": "number",
+                                  "lValueRequested": false,
+                                  "nodeType": "Literal",
+                                  "src": "1331:1:17",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_rational_0_by_1",
+                                    "typeString": "int_const 0"
+                                  },
+                                  "value": "0"
+                                },
+                                {
+                                  "arguments": [
+                                    {
+                                      "hexValue": "30",
+                                      "id": 3837,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": true,
+                                      "kind": "number",
+                                      "lValueRequested": false,
+                                      "nodeType": "Literal",
+                                      "src": "1343:1:17",
+                                      "typeDescriptions": {
+                                        "typeIdentifier": "t_rational_0_by_1",
+                                        "typeString": "int_const 0"
+                                      },
+                                      "value": "0"
+                                    }
+                                  ],
+                                  "expression": {
+                                    "argumentTypes": [
+                                      {
+                                        "typeIdentifier": "t_rational_0_by_1",
+                                        "typeString": "int_const 0"
+                                      }
+                                    ],
+                                    "id": 3836,
+                                    "name": "UserType",
+                                    "nodeType": "Identifier",
+                                    "overloadedDeclarations": [],
+                                    "referencedDeclaration": 3726,
+                                    "src": "1334:8:17",
+                                    "typeDescriptions": {
+                                      "typeIdentifier": "t_type$_t_enum$_UserType_$3726_$",
+                                      "typeString": "type(enum User.UserType)"
+                                    }
+                                  },
+                                  "id": 3838,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "kind": "typeConversion",
+                                  "lValueRequested": false,
+                                  "nameLocations": [],
+                                  "names": [],
+                                  "nodeType": "FunctionCall",
+                                  "src": "1334:11:17",
+                                  "tryCall": false,
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_enum$_UserType_$3726",
+                                    "typeString": "enum User.UserType"
+                                  }
+                                },
+                                {
+                                  "hexValue": "66616c7365",
+                                  "id": 3839,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "kind": "bool",
+                                  "lValueRequested": false,
+                                  "nodeType": "Literal",
+                                  "src": "1347:5:17",
+                                  "typeDescriptions": {
+                                    "typeIdentifier": "t_bool",
+                                    "typeString": "bool"
+                                  },
+                                  "value": "false"
+                                }
+                              ],
+                              "expression": {
+                                "argumentTypes": [
+                                  {
+                                    "typeIdentifier": "t_rational_0_by_1",
+                                    "typeString": "int_const 0"
+                                  },
+                                  {
+                                    "typeIdentifier": "t_enum$_UserType_$3726",
+                                    "typeString": "enum User.UserType"
+                                  },
+                                  {
+                                    "typeIdentifier": "t_bool",
+                                    "typeString": "bool"
+                                  }
+                                ],
+                                "id": 3834,
+                                "name": "AppUser",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 3734,
+                                "src": "1323:7:17",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_type$_t_struct$_AppUser_$3734_storage_ptr_$",
+                                  "typeString": "type(struct User.AppUser storage pointer)"
+                                }
+                              },
+                              "id": 3840,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "structConstructorCall",
+                              "lValueRequested": false,
+                              "nameLocations": [],
+                              "names": [],
+                              "nodeType": "FunctionCall",
+                              "src": "1323:30:17",
+                              "tryCall": false,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_AppUser_$3734_memory_ptr",
+                                "typeString": "struct User.AppUser memory"
+                              }
+                            }
+                          ],
+                          "id": 3841,
+                          "isConstant": false,
+                          "isInlineArray": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "TupleExpression",
+                          "src": "1315:39:17",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$_t_bool_$_t_struct$_AppUser_$3734_memory_ptr_$",
+                            "typeString": "tuple(bool,struct User.AppUser memory)"
+                          }
+                        },
+                        "functionReturnParameters": 3810,
+                        "id": 3842,
+                        "nodeType": "Return",
+                        "src": "1308:46:17"
+                      }
+                    ]
+                  },
+                  "id": 3844,
+                  "nodeType": "IfStatement",
+                  "src": "1221:144:17",
+                  "trueBody": {
+                    "id": 3832,
+                    "nodeType": "Block",
+                    "src": "1237:51:17",
+                    "statements": [
+                      {
+                        "expression": {
+                          "components": [
+                            {
+                              "hexValue": "74727565",
+                              "id": 3826,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "bool",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "1259:4:17",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_bool",
+                                "typeString": "bool"
+                              },
+                              "value": "true"
+                            },
+                            {
+                              "baseExpression": {
+                                "id": 3827,
+                                "name": "s_users",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 3743,
+                                "src": "1265:7:17",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_AppUser_$3734_storage_$",
+                                  "typeString": "mapping(uint256 => struct User.AppUser storage ref)"
+                                }
+                              },
+                              "id": 3829,
+                              "indexExpression": {
+                                "id": 3828,
+                                "name": "id",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 3812,
+                                "src": "1273:2:17",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              },
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "nodeType": "IndexAccess",
+                              "src": "1265:11:17",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_AppUser_$3734_storage",
+                                "typeString": "struct User.AppUser storage ref"
+                              }
+                            }
+                          ],
+                          "id": 3830,
+                          "isConstant": false,
+                          "isInlineArray": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "TupleExpression",
+                          "src": "1258:19:17",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$_t_bool_$_t_struct$_AppUser_$3734_storage_$",
+                            "typeString": "tuple(bool,struct User.AppUser storage ref)"
+                          }
+                        },
+                        "functionReturnParameters": 3810,
+                        "id": 3831,
+                        "nodeType": "Return",
+                        "src": "1251:26:17"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "functionSelector": "aaad0c84",
+            "id": 3846,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isExisted",
+            "nameLocation": "1036:9:17",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 3804,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3803,
+                  "mutability": "mutable",
+                  "name": "_userAddress",
+                  "nameLocation": "1063:12:17",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3846,
+                  "src": "1055:20:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 3802,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1055:7:17",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1045:36:17"
+            },
+            "returnParameters": {
+              "id": 3810,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 3806,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3846,
+                  "src": "1103:4:17",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 3805,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1103:4:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 3809,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 3846,
+                  "src": "1109:14:17",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_AppUser_$3734_memory_ptr",
+                    "typeString": "struct User.AppUser"
+                  },
+                  "typeName": {
+                    "id": 3808,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 3807,
+                      "name": "AppUser",
+                      "nameLocations": [
+                        "1109:7:17"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 3734,
+                      "src": "1109:7:17"
+                    },
+                    "referencedDeclaration": 3734,
+                    "src": "1109:7:17",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_AppUser_$3734_storage_ptr",
+                      "typeString": "struct User.AppUser"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1102:22:17"
+            },
+            "scope": 3847,
+            "src": "1027:344:17",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 3848,
+        "src": "121:1252:17",
+        "usedErrors": []
+      }
+    ],
+    "src": "33:1341:17"
+  },
+  "bytecode": "6080604052600060025534801561001557600080fd5b50610416806100256000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c80635c60f22614610046578063aaad0c8414610093578063d3017193146100bd575b600080fd5b610091610054366004610306565b6001600160a01b0316600081815260208181526040808320805484526001808452918420848155909101805461ffff191690559282528190529055565b005b6100a66100a1366004610306565b6100d0565b6040516100b492919061033e565b60405180910390f35b6100916100cb36600461038f565b610219565b604080516060810182526000808252602082018190529181018290526001600160a01b038316600090815260208181526040808320548084526001808452828520835160608101909452805484528082015492959490929084019160ff9091169081111561014057610140610328565b600181111561015157610151610328565b815260019190910154610100900460ff1615156020909101526040810151909150156101f157600082815260016020818152604092839020835160608101909452805484528083015492939092909183919083019060ff16858111156101b9576101b9610328565b60018111156101ca576101ca610328565b815260019190910154610100900460ff161515602090910152919791965090945050505050565b5050604080516060810182526000808252602082018190529181018290529094909350915050565b6002546001600160a01b03831660009081526020818152604091829020839055815160608101909252828252810183600181111561025957610259610328565b600181111561026a5761026a610328565b815260016020918201819052600084815281835260409020835181559183015182820180549192909160ff19169083818111156102a9576102a9610328565b021790555060409190910151600190910180549115156101000261ff0019909216919091179055600280549060006102e0836103b9565b9190505550505050565b80356001600160a01b038116811461030157600080fd5b919050565b60006020828403121561031857600080fd5b610321826102ea565b9392505050565b634e487b7160e01b600052602160045260246000fd5b600060808201905083151582528251602083015260208301516002811061037557634e487b7160e01b600052602160045260246000fd5b806040840152506040830151151560608301529392505050565b600080604083850312156103a257600080fd5b6103ab836102ea565b946020939093013593505050565b6000600182016103d957634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220884f0c359141459840cbf7e4ead381a15cad6116266b9bd79d85ce8f34c0888b64736f6c63430008120033",
+  "bytecodeSha1": "262ad1ea1c119f712094d69a42bdb44ae996b0f7",
+  "compiler": {
+    "evm_version": "istanbul",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "version": "0.8.18+commit.87f61d96"
+  },
+  "contractName": "User",
+  "coverageMap": {
+    "branches": {
+      "17": {
+        "User.isExisted": {
+          "7": [
+            1225,
+            1235,
+            false
+          ]
+        }
+      }
+    },
+    "statements": {
+      "17": {
+        "User.addUser": {
+          "4": [
+            631,
+            660
+          ],
+          "5": [
+            670,
+            720
+          ],
+          "6": [
+            730,
+            745
+          ]
+        },
+        "User.deleteUser": {
+          "0": [
+            956,
+            974
+          ],
+          "1": [
+            984,
+            1014
+          ]
+        },
+        "User.isExisted": {
+          "2": [
+            1251,
+            1277
+          ],
+          "3": [
+            1308,
+            1354
+          ]
+        }
+      }
+    }
+  },
+  "dependencies": [],
+  "deployedBytecode": "608060405234801561001057600080fd5b50600436106100415760003560e01c80635c60f22614610046578063aaad0c8414610093578063d3017193146100bd575b600080fd5b610091610054366004610306565b6001600160a01b0316600081815260208181526040808320805484526001808452918420848155909101805461ffff191690559282528190529055565b005b6100a66100a1366004610306565b6100d0565b6040516100b492919061033e565b60405180910390f35b6100916100cb36600461038f565b610219565b604080516060810182526000808252602082018190529181018290526001600160a01b038316600090815260208181526040808320548084526001808452828520835160608101909452805484528082015492959490929084019160ff9091169081111561014057610140610328565b600181111561015157610151610328565b815260019190910154610100900460ff1615156020909101526040810151909150156101f157600082815260016020818152604092839020835160608101909452805484528083015492939092909183919083019060ff16858111156101b9576101b9610328565b60018111156101ca576101ca610328565b815260019190910154610100900460ff161515602090910152919791965090945050505050565b5050604080516060810182526000808252602082018190529181018290529094909350915050565b6002546001600160a01b03831660009081526020818152604091829020839055815160608101909252828252810183600181111561025957610259610328565b600181111561026a5761026a610328565b815260016020918201819052600084815281835260409020835181559183015182820180549192909160ff19169083818111156102a9576102a9610328565b021790555060409190910151600190910180549115156101000261ff0019909216919091179055600280549060006102e0836103b9565b9190505550505050565b80356001600160a01b038116811461030157600080fd5b919050565b60006020828403121561031857600080fd5b610321826102ea565b9392505050565b634e487b7160e01b600052602160045260246000fd5b600060808201905083151582528251602083015260208301516002811061037557634e487b7160e01b600052602160045260246000fd5b806040840152506040830151151560608301529392505050565b600080604083850312156103a257600080fd5b6103ab836102ea565b946020939093013593505050565b6000600182016103d957634e487b7160e01b600052601160045260246000fd5b506001019056fea2646970667358221220884f0c359141459840cbf7e4ead381a15cad6116266b9bd79d85ce8f34c0888b64736f6c63430008120033",
+  "deployedSourceMap": "121:1252:17:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;758:263;;;;;;:::i;:::-;-1:-1:-1;;;;;923:23:17;913:7;923:23;;;;;;;;;;;;;963:11;;:7;:11;;;;;;956:18;;;;;;;;-1:-1:-1;;956:18:17;;;991:23;;;;;;984:30;;758:263;;;1027:344;;;;;;:::i;:::-;;:::i;:::-;;;;;;;;:::i;:::-;;;;;;;;431:321;;;;;;:::i;:::-;;:::i;1027:344::-;-1:-1:-1;;;;;;;;1103:4:17;-1:-1:-1;;;;;;;;;;;;;;;;;;;;1145:23:17;;1135:7;1145:23;;;;;;;;;;;;1200:11;;;:7;:11;;;;;;1178:33;;;;;;;;;;;;;;;;1145:23;;1135:7;1200:11;;1178:33;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;1225:10;;;;;;-1:-1:-1;1221:144:17;;;1265:11;;;;1259:4;1265:11;;;;;;;;;1251:26;;;;;;;;;;;;;;;;1259:4;;1265:11;;1251:26;;1265:11;;1251:26;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;1251:26:17;;-1:-1:-1;;;;;1027:344:17:o;1221:144::-;-1:-1:-1;;1323:30:17;;;;;;;;-1:-1:-1;1323:30:17;;;;;;;;;;;;;;;-1:-1:-1;;1323:30:17;;-1:-1:-1;1308:46:17;-1:-1:-1;;1027:344:17:o;431:321::-;608:13;;-1:-1:-1;;;;;631:23:17;;597:8;631:23;;;;;;;;;;;;:29;;;685:35;;;;;;;;;;;;;707:5;698:15;;;;;;;;:::i;:::-;685:35;;;;;;;;:::i;:::-;;;715:4;685:35;;;;;;;;670:12;;;;;;;;;:50;;;;;;;;;;;;;;;;;-1:-1:-1;;670:50:17;;;;;;;;;;;:::i;:::-;;;;;-1:-1:-1;670:50:17;;;;;;;;;;;;;;;;;-1:-1:-1;;670:50:17;;;;;;;;;730:13;:15;;;-1:-1:-1;730:15:17;;;:::i;:::-;;;;;;489:263;431:321;;:::o;14:173:20:-;82:20;;-1:-1:-1;;;;;131:31:20;;121:42;;111:70;;177:1;174;167:12;111:70;14:173;;;:::o;192:186::-;251:6;304:2;292:9;283:7;279:23;275:32;272:52;;;320:1;317;310:12;272:52;343:29;362:9;343:29;:::i;:::-;333:39;192:186;-1:-1:-1;;;192:186:20:o;383:127::-;444:10;439:3;435:20;432:1;425:31;475:4;472:1;465:15;499:4;496:1;489:15;515:650;679:4;721:3;710:9;706:19;698:27;;766:6;759:14;752:22;741:9;734:41;817:6;811:13;806:2;795:9;791:18;784:41;872:2;864:6;860:15;854:22;912:1;898:12;895:19;885:150;;957:10;952:3;948:20;945:1;938:31;992:4;989:1;982:15;1020:4;1017:1;1010:15;885:150;1071:12;1066:2;1055:9;1051:18;1044:40;;1152:2;1144:6;1140:15;1134:22;1127:30;1120:38;1115:2;1104:9;1100:18;1093:66;515:650;;;;;:::o;1170:254::-;1238:6;1246;1299:2;1287:9;1278:7;1274:23;1270:32;1267:52;;;1315:1;1312;1305:12;1267:52;1338:29;1357:9;1338:29;:::i;:::-;1328:39;1414:2;1399:18;;;;1386:32;;-1:-1:-1;;;1170:254:20:o;1429:232::-;1468:3;1489:17;;;1486:140;;1548:10;1543:3;1539:20;1536:1;1529:31;1583:4;1580:1;1573:15;1611:4;1608:1;1601:15;1486:140;-1:-1:-1;1653:1:20;1642:13;;1429:232::o",
+  "language": "Solidity",
+  "natspec": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "offset": [
+    121,
+    1373
+  ],
+  "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH2 0x41 JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x5C60F226 EQ PUSH2 0x46 JUMPI DUP1 PUSH4 0xAAAD0C84 EQ PUSH2 0x93 JUMPI DUP1 PUSH4 0xD3017193 EQ PUSH2 0xBD JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x91 PUSH2 0x54 CALLDATASIZE PUSH1 0x4 PUSH2 0x306 JUMP JUMPDEST PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND PUSH1 0x0 DUP2 DUP2 MSTORE PUSH1 0x20 DUP2 DUP2 MSTORE PUSH1 0x40 DUP1 DUP4 KECCAK256 DUP1 SLOAD DUP5 MSTORE PUSH1 0x1 DUP1 DUP5 MSTORE SWAP2 DUP5 KECCAK256 DUP5 DUP2 SSTORE SWAP1 SWAP2 ADD DUP1 SLOAD PUSH2 0xFFFF NOT AND SWAP1 SSTORE SWAP3 DUP3 MSTORE DUP2 SWAP1 MSTORE SWAP1 SSTORE JUMP JUMPDEST STOP JUMPDEST PUSH2 0xA6 PUSH2 0xA1 CALLDATASIZE PUSH1 0x4 PUSH2 0x306 JUMP JUMPDEST PUSH2 0xD0 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH2 0xB4 SWAP3 SWAP2 SWAP1 PUSH2 0x33E JUMP JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH2 0x91 PUSH2 0xCB CALLDATASIZE PUSH1 0x4 PUSH2 0x38F JUMP JUMPDEST PUSH2 0x219 JUMP JUMPDEST PUSH1 0x40 DUP1 MLOAD PUSH1 0x60 DUP2 ADD DUP3 MSTORE PUSH1 0x0 DUP1 DUP3 MSTORE PUSH1 0x20 DUP3 ADD DUP2 SWAP1 MSTORE SWAP2 DUP2 ADD DUP3 SWAP1 MSTORE PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP4 AND PUSH1 0x0 SWAP1 DUP2 MSTORE PUSH1 0x20 DUP2 DUP2 MSTORE PUSH1 0x40 DUP1 DUP4 KECCAK256 SLOAD DUP1 DUP5 MSTORE PUSH1 0x1 DUP1 DUP5 MSTORE DUP3 DUP6 KECCAK256 DUP4 MLOAD PUSH1 0x60 DUP2 ADD SWAP1 SWAP5 MSTORE DUP1 SLOAD DUP5 MSTORE DUP1 DUP3 ADD SLOAD SWAP3 SWAP6 SWAP5 SWAP1 SWAP3 SWAP1 DUP5 ADD SWAP2 PUSH1 0xFF SWAP1 SWAP2 AND SWAP1 DUP2 GT ISZERO PUSH2 0x140 JUMPI PUSH2 0x140 PUSH2 0x328 JUMP JUMPDEST PUSH1 0x1 DUP2 GT ISZERO PUSH2 0x151 JUMPI PUSH2 0x151 PUSH2 0x328 JUMP JUMPDEST DUP2 MSTORE PUSH1 0x1 SWAP2 SWAP1 SWAP2 ADD SLOAD PUSH2 0x100 SWAP1 DIV PUSH1 0xFF AND ISZERO ISZERO PUSH1 0x20 SWAP1 SWAP2 ADD MSTORE PUSH1 0x40 DUP2 ADD MLOAD SWAP1 SWAP2 POP ISZERO PUSH2 0x1F1 JUMPI PUSH1 0x0 DUP3 DUP2 MSTORE PUSH1 0x1 PUSH1 0x20 DUP2 DUP2 MSTORE PUSH1 0x40 SWAP3 DUP4 SWAP1 KECCAK256 DUP4 MLOAD PUSH1 0x60 DUP2 ADD SWAP1 SWAP5 MSTORE DUP1 SLOAD DUP5 MSTORE DUP1 DUP4 ADD SLOAD SWAP3 SWAP4 SWAP1 SWAP3 SWAP1 SWAP2 DUP4 SWAP2 SWAP1 DUP4 ADD SWAP1 PUSH1 0xFF AND DUP6 DUP2 GT ISZERO PUSH2 0x1B9 JUMPI PUSH2 0x1B9 PUSH2 0x328 JUMP JUMPDEST PUSH1 0x1 DUP2 GT ISZERO PUSH2 0x1CA JUMPI PUSH2 0x1CA PUSH2 0x328 JUMP JUMPDEST DUP2 MSTORE PUSH1 0x1 SWAP2 SWAP1 SWAP2 ADD SLOAD PUSH2 0x100 SWAP1 DIV PUSH1 0xFF AND ISZERO ISZERO PUSH1 0x20 SWAP1 SWAP2 ADD MSTORE SWAP2 SWAP8 SWAP2 SWAP7 POP SWAP1 SWAP5 POP POP POP POP POP JUMP JUMPDEST POP POP PUSH1 0x40 DUP1 MLOAD PUSH1 0x60 DUP2 ADD DUP3 MSTORE PUSH1 0x0 DUP1 DUP3 MSTORE PUSH1 0x20 DUP3 ADD DUP2 SWAP1 MSTORE SWAP2 DUP2 ADD DUP3 SWAP1 MSTORE SWAP1 SWAP5 SWAP1 SWAP4 POP SWAP2 POP POP JUMP JUMPDEST PUSH1 0x2 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP4 AND PUSH1 0x0 SWAP1 DUP2 MSTORE PUSH1 0x20 DUP2 DUP2 MSTORE PUSH1 0x40 SWAP2 DUP3 SWAP1 KECCAK256 DUP4 SWAP1 SSTORE DUP2 MLOAD PUSH1 0x60 DUP2 ADD SWAP1 SWAP3 MSTORE DUP3 DUP3 MSTORE DUP2 ADD DUP4 PUSH1 0x1 DUP2 GT ISZERO PUSH2 0x259 JUMPI PUSH2 0x259 PUSH2 0x328 JUMP JUMPDEST PUSH1 0x1 DUP2 GT ISZERO PUSH2 0x26A JUMPI PUSH2 0x26A PUSH2 0x328 JUMP JUMPDEST DUP2 MSTORE PUSH1 0x1 PUSH1 0x20 SWAP2 DUP3 ADD DUP2 SWAP1 MSTORE PUSH1 0x0 DUP5 DUP2 MSTORE DUP2 DUP4 MSTORE PUSH1 0x40 SWAP1 KECCAK256 DUP4 MLOAD DUP2 SSTORE SWAP2 DUP4 ADD MLOAD DUP3 DUP3 ADD DUP1 SLOAD SWAP2 SWAP3 SWAP1 SWAP2 PUSH1 0xFF NOT AND SWAP1 DUP4 DUP2 DUP2 GT ISZERO PUSH2 0x2A9 JUMPI PUSH2 0x2A9 PUSH2 0x328 JUMP JUMPDEST MUL OR SWAP1 SSTORE POP PUSH1 0x40 SWAP2 SWAP1 SWAP2 ADD MLOAD PUSH1 0x1 SWAP1 SWAP2 ADD DUP1 SLOAD SWAP2 ISZERO ISZERO PUSH2 0x100 MUL PUSH2 0xFF00 NOT SWAP1 SWAP3 AND SWAP2 SWAP1 SWAP2 OR SWAP1 SSTORE PUSH1 0x2 DUP1 SLOAD SWAP1 PUSH1 0x0 PUSH2 0x2E0 DUP4 PUSH2 0x3B9 JUMP JUMPDEST SWAP2 SWAP1 POP SSTORE POP POP POP POP JUMP JUMPDEST DUP1 CALLDATALOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP2 AND DUP2 EQ PUSH2 0x301 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST SWAP2 SWAP1 POP JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x318 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x321 DUP3 PUSH2 0x2EA JUMP JUMPDEST SWAP4 SWAP3 POP POP POP JUMP JUMPDEST PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x21 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST PUSH1 0x0 PUSH1 0x80 DUP3 ADD SWAP1 POP DUP4 ISZERO ISZERO DUP3 MSTORE DUP3 MLOAD PUSH1 0x20 DUP4 ADD MSTORE PUSH1 0x20 DUP4 ADD MLOAD PUSH1 0x2 DUP2 LT PUSH2 0x375 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x21 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST DUP1 PUSH1 0x40 DUP5 ADD MSTORE POP PUSH1 0x40 DUP4 ADD MLOAD ISZERO ISZERO PUSH1 0x60 DUP4 ADD MSTORE SWAP4 SWAP3 POP POP POP JUMP JUMPDEST PUSH1 0x0 DUP1 PUSH1 0x40 DUP4 DUP6 SUB SLT ISZERO PUSH2 0x3A2 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x3AB DUP4 PUSH2 0x2EA JUMP JUMPDEST SWAP5 PUSH1 0x20 SWAP4 SWAP1 SWAP4 ADD CALLDATALOAD SWAP4 POP POP POP JUMP JUMPDEST PUSH1 0x0 PUSH1 0x1 DUP3 ADD PUSH2 0x3D9 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x11 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST POP PUSH1 0x1 ADD SWAP1 JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 DUP9 0x4F 0xC CALLDATALOAD SWAP2 COINBASE GASLIMIT SWAP9 BLOCKHASH 0xCB 0xF7 0xE4 0xEA 0xD3 DUP2 LOG1 0x5C 0xAD PUSH2 0x1626 PUSH12 0x9BD79D85CE8F34C0888B6473 PUSH16 0x6C634300081200330000000000000000 ",
+  "pcMap": {
+    "0": {
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x80"
+    },
+    "2": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x40"
+    },
+    "4": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "5": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "CALLVALUE",
+      "path": "17"
+    },
+    "6": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "7": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "8": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x10"
+    },
+    "11": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "12": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x0"
+    },
+    "14": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "15": {
+      "dev": "Cannot send ether to nonpayable function",
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "REVERT",
+      "path": "17"
+    },
+    "16": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "17": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "POP",
+      "path": "17"
+    },
+    "18": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x4"
+    },
+    "20": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "CALLDATASIZE",
+      "path": "17"
+    },
+    "21": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "LT",
+      "path": "17"
+    },
+    "22": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x41"
+    },
+    "25": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "26": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x0"
+    },
+    "28": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "CALLDATALOAD",
+      "path": "17"
+    },
+    "29": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0xE0"
+    },
+    "31": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "SHR",
+      "path": "17"
+    },
+    "32": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "33": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH4",
+      "path": "17",
+      "value": "0x5C60F226"
+    },
+    "38": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "EQ",
+      "path": "17"
+    },
+    "39": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x46"
+    },
+    "42": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "43": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "44": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH4",
+      "path": "17",
+      "value": "0xAAAD0C84"
+    },
+    "49": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "EQ",
+      "path": "17"
+    },
+    "50": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x93"
+    },
+    "53": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "54": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "55": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH4",
+      "path": "17",
+      "value": "0xD3017193"
+    },
+    "60": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "EQ",
+      "path": "17"
+    },
+    "61": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0xBD"
+    },
+    "64": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "65": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "66": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x0"
+    },
+    "68": {
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "69": {
+      "first_revert": true,
+      "fn": null,
+      "offset": [
+        121,
+        1373
+      ],
+      "op": "REVERT",
+      "path": "17"
+    },
+    "70": {
+      "fn": "User.deleteUser",
+      "offset": [
+        758,
+        1021
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "71": {
+      "fn": "User.deleteUser",
+      "offset": [
+        758,
+        1021
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x91"
+    },
+    "74": {
+      "fn": "User.deleteUser",
+      "offset": [
+        758,
+        1021
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x54"
+    },
+    "77": {
+      "fn": "User.deleteUser",
+      "offset": [
+        758,
+        1021
+      ],
+      "op": "CALLDATASIZE",
+      "path": "17"
+    },
+    "78": {
+      "fn": "User.deleteUser",
+      "offset": [
+        758,
+        1021
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x4"
+    },
+    "80": {
+      "fn": "User.deleteUser",
+      "offset": [
+        758,
+        1021
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x306"
+    },
+    "83": {
+      "fn": "User.deleteUser",
+      "jump": "i",
+      "offset": [
+        758,
+        1021
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "84": {
+      "fn": "User.deleteUser",
+      "offset": [
+        758,
+        1021
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "85": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "87": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "89": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "91": {
+      "op": "SHL"
+    },
+    "92": {
+      "op": "SUB"
+    },
+    "93": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "AND",
+      "path": "17"
+    },
+    "94": {
+      "fn": "User.deleteUser",
+      "offset": [
+        913,
+        920
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x0"
+    },
+    "96": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "97": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "98": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "99": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x20"
+    },
+    "101": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "102": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "103": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "104": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x40"
+    },
+    "106": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "107": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "108": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "KECCAK256",
+      "path": "17"
+    },
+    "109": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "110": {
+      "fn": "User.deleteUser",
+      "offset": [
+        923,
+        946
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "111": {
+      "fn": "User.deleteUser",
+      "offset": [
+        963,
+        974
+      ],
+      "op": "DUP5",
+      "path": "17",
+      "statement": 0
+    },
+    "112": {
+      "fn": "User.deleteUser",
+      "offset": [
+        963,
+        974
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "113": {
+      "fn": "User.deleteUser",
+      "offset": [
+        963,
+        970
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x1"
+    },
+    "115": {
+      "fn": "User.deleteUser",
+      "offset": [
+        963,
+        974
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "116": {
+      "fn": "User.deleteUser",
+      "offset": [
+        963,
+        974
+      ],
+      "op": "DUP5",
+      "path": "17"
+    },
+    "117": {
+      "fn": "User.deleteUser",
+      "offset": [
+        963,
+        974
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "118": {
+      "fn": "User.deleteUser",
+      "offset": [
+        963,
+        974
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "119": {
+      "fn": "User.deleteUser",
+      "offset": [
+        963,
+        974
+      ],
+      "op": "DUP5",
+      "path": "17"
+    },
+    "120": {
+      "fn": "User.deleteUser",
+      "offset": [
+        963,
+        974
+      ],
+      "op": "KECCAK256",
+      "path": "17"
+    },
+    "121": {
+      "fn": "User.deleteUser",
+      "offset": [
+        956,
+        974
+      ],
+      "op": "DUP5",
+      "path": "17"
+    },
+    "122": {
+      "fn": "User.deleteUser",
+      "offset": [
+        956,
+        974
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "123": {
+      "fn": "User.deleteUser",
+      "offset": [
+        956,
+        974
+      ],
+      "op": "SSTORE",
+      "path": "17"
+    },
+    "124": {
+      "fn": "User.deleteUser",
+      "offset": [
+        956,
+        974
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "125": {
+      "fn": "User.deleteUser",
+      "offset": [
+        956,
+        974
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "126": {
+      "fn": "User.deleteUser",
+      "offset": [
+        956,
+        974
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "127": {
+      "fn": "User.deleteUser",
+      "offset": [
+        956,
+        974
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "128": {
+      "fn": "User.deleteUser",
+      "offset": [
+        956,
+        974
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "129": {
+      "op": "PUSH2",
+      "value": "0xFFFF"
+    },
+    "132": {
+      "op": "NOT"
+    },
+    "133": {
+      "fn": "User.deleteUser",
+      "offset": [
+        956,
+        974
+      ],
+      "op": "AND",
+      "path": "17"
+    },
+    "134": {
+      "fn": "User.deleteUser",
+      "offset": [
+        956,
+        974
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "135": {
+      "fn": "User.deleteUser",
+      "offset": [
+        956,
+        974
+      ],
+      "op": "SSTORE",
+      "path": "17"
+    },
+    "136": {
+      "fn": "User.deleteUser",
+      "offset": [
+        991,
+        1014
+      ],
+      "op": "SWAP3",
+      "path": "17",
+      "statement": 1
+    },
+    "137": {
+      "fn": "User.deleteUser",
+      "offset": [
+        991,
+        1014
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "138": {
+      "fn": "User.deleteUser",
+      "offset": [
+        991,
+        1014
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "139": {
+      "fn": "User.deleteUser",
+      "offset": [
+        991,
+        1014
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "140": {
+      "fn": "User.deleteUser",
+      "offset": [
+        991,
+        1014
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "141": {
+      "fn": "User.deleteUser",
+      "offset": [
+        991,
+        1014
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "142": {
+      "fn": "User.deleteUser",
+      "offset": [
+        984,
+        1014
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "143": {
+      "fn": "User.deleteUser",
+      "offset": [
+        984,
+        1014
+      ],
+      "op": "SSTORE",
+      "path": "17"
+    },
+    "144": {
+      "fn": "User.deleteUser",
+      "offset": [
+        758,
+        1021
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "145": {
+      "fn": "User.deleteUser",
+      "offset": [
+        758,
+        1021
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "146": {
+      "fn": "User.deleteUser",
+      "offset": [
+        758,
+        1021
+      ],
+      "op": "STOP",
+      "path": "17"
+    },
+    "147": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "148": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0xA6"
+    },
+    "151": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0xA1"
+    },
+    "154": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "CALLDATASIZE",
+      "path": "17"
+    },
+    "155": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x4"
+    },
+    "157": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x306"
+    },
+    "160": {
+      "fn": "User.isExisted",
+      "jump": "i",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "161": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "162": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0xD0"
+    },
+    "165": {
+      "fn": "User.isExisted",
+      "jump": "i",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "166": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "167": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x40"
+    },
+    "169": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "MLOAD",
+      "path": "17"
+    },
+    "170": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0xB4"
+    },
+    "173": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "SWAP3",
+      "path": "17"
+    },
+    "174": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "175": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "176": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x33E"
+    },
+    "179": {
+      "fn": "User.isExisted",
+      "jump": "i",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "180": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "181": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x40"
+    },
+    "183": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "MLOAD",
+      "path": "17"
+    },
+    "184": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "185": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "186": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "SUB",
+      "path": "17"
+    },
+    "187": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "188": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "RETURN",
+      "path": "17"
+    },
+    "189": {
+      "fn": "User.addUser",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "190": {
+      "fn": "User.addUser",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x91"
+    },
+    "193": {
+      "fn": "User.addUser",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0xCB"
+    },
+    "196": {
+      "fn": "User.addUser",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "CALLDATASIZE",
+      "path": "17"
+    },
+    "197": {
+      "fn": "User.addUser",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x4"
+    },
+    "199": {
+      "fn": "User.addUser",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x38F"
+    },
+    "202": {
+      "fn": "User.addUser",
+      "jump": "i",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "203": {
+      "fn": "User.addUser",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "204": {
+      "fn": "User.addUser",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x219"
+    },
+    "207": {
+      "fn": "User.addUser",
+      "jump": "i",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "208": {
+      "fn": "User.isExisted",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "209": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "211": {
+      "op": "DUP1"
+    },
+    "212": {
+      "op": "MLOAD"
+    },
+    "213": {
+      "op": "PUSH1",
+      "value": "0x60"
+    },
+    "215": {
+      "op": "DUP2"
+    },
+    "216": {
+      "op": "ADD"
+    },
+    "217": {
+      "op": "DUP3"
+    },
+    "218": {
+      "op": "MSTORE"
+    },
+    "219": {
+      "fn": "User.isExisted",
+      "offset": [
+        1103,
+        1107
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x0"
+    },
+    "221": {
+      "op": "DUP1"
+    },
+    "222": {
+      "op": "DUP3"
+    },
+    "223": {
+      "op": "MSTORE"
+    },
+    "224": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "226": {
+      "op": "DUP3"
+    },
+    "227": {
+      "op": "ADD"
+    },
+    "228": {
+      "op": "DUP2"
+    },
+    "229": {
+      "op": "SWAP1"
+    },
+    "230": {
+      "op": "MSTORE"
+    },
+    "231": {
+      "op": "SWAP2"
+    },
+    "232": {
+      "op": "DUP2"
+    },
+    "233": {
+      "op": "ADD"
+    },
+    "234": {
+      "op": "DUP3"
+    },
+    "235": {
+      "op": "SWAP1"
+    },
+    "236": {
+      "op": "MSTORE"
+    },
+    "237": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "239": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "241": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "243": {
+      "op": "SHL"
+    },
+    "244": {
+      "op": "SUB"
+    },
+    "245": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "246": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "AND",
+      "path": "17"
+    },
+    "247": {
+      "fn": "User.isExisted",
+      "offset": [
+        1135,
+        1142
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x0"
+    },
+    "249": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "250": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "251": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "252": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x20"
+    },
+    "254": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "255": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "256": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "257": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x40"
+    },
+    "259": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "260": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "261": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "KECCAK256",
+      "path": "17"
+    },
+    "262": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "263": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1211
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "264": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1211
+      ],
+      "op": "DUP5",
+      "path": "17"
+    },
+    "265": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1211
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "266": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1207
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x1"
+    },
+    "268": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1211
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "269": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1211
+      ],
+      "op": "DUP5",
+      "path": "17"
+    },
+    "270": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1211
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "271": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1211
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "272": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1211
+      ],
+      "op": "DUP6",
+      "path": "17"
+    },
+    "273": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1211
+      ],
+      "op": "KECCAK256",
+      "path": "17"
+    },
+    "274": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "275": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "MLOAD",
+      "path": "17"
+    },
+    "276": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x60"
+    },
+    "278": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "279": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "280": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "281": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP5",
+      "path": "17"
+    },
+    "282": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "283": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "284": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "285": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "DUP5",
+      "path": "17"
+    },
+    "286": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "287": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "288": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "289": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "290": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "291": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "SWAP3",
+      "path": "17"
+    },
+    "292": {
+      "fn": "User.isExisted",
+      "offset": [
+        1145,
+        1168
+      ],
+      "op": "SWAP6",
+      "path": "17"
+    },
+    "293": {
+      "fn": "User.isExisted",
+      "offset": [
+        1135,
+        1142
+      ],
+      "op": "SWAP5",
+      "path": "17"
+    },
+    "294": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1211
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "295": {
+      "fn": "User.isExisted",
+      "offset": [
+        1200,
+        1211
+      ],
+      "op": "SWAP3",
+      "path": "17"
+    },
+    "296": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "297": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "DUP5",
+      "path": "17"
+    },
+    "298": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "299": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "300": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0xFF"
+    },
+    "302": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "303": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "304": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "AND",
+      "path": "17"
+    },
+    "305": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "306": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "307": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "GT",
+      "path": "17"
+    },
+    "308": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "309": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x140"
+    },
+    "312": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "313": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x140"
+    },
+    "316": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x328"
+    },
+    "319": {
+      "fn": "User.isExisted",
+      "jump": "i",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "320": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "321": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x1"
+    },
+    "323": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "324": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "GT",
+      "path": "17"
+    },
+    "325": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "326": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x151"
+    },
+    "329": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "330": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x151"
+    },
+    "333": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x328"
+    },
+    "336": {
+      "fn": "User.isExisted",
+      "jump": "i",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "337": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "338": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "339": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "340": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x1"
+    },
+    "342": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "343": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "344": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "345": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "346": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "347": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x100"
+    },
+    "350": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "351": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "DIV",
+      "path": "17"
+    },
+    "352": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0xFF"
+    },
+    "354": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "AND",
+      "path": "17"
+    },
+    "355": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "356": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "357": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x20"
+    },
+    "359": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "360": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "361": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "362": {
+      "fn": "User.isExisted",
+      "offset": [
+        1178,
+        1211
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "363": {
+      "fn": "User.isExisted",
+      "offset": [
+        1225,
+        1235
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x40"
+    },
+    "365": {
+      "fn": "User.isExisted",
+      "offset": [
+        1225,
+        1235
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "366": {
+      "fn": "User.isExisted",
+      "offset": [
+        1225,
+        1235
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "367": {
+      "fn": "User.isExisted",
+      "offset": [
+        1225,
+        1235
+      ],
+      "op": "MLOAD",
+      "path": "17"
+    },
+    "368": {
+      "fn": "User.isExisted",
+      "offset": [
+        1225,
+        1235
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "369": {
+      "branch": 7,
+      "fn": "User.isExisted",
+      "offset": [
+        1225,
+        1235
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "370": {
+      "op": "POP"
+    },
+    "371": {
+      "fn": "User.isExisted",
+      "offset": [
+        1221,
+        1365
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "372": {
+      "fn": "User.isExisted",
+      "offset": [
+        1221,
+        1365
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x1F1"
+    },
+    "375": {
+      "branch": 7,
+      "fn": "User.isExisted",
+      "offset": [
+        1221,
+        1365
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "376": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "statement": 2,
+      "value": "0x0"
+    },
+    "378": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "379": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "380": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "381": {
+      "fn": "User.isExisted",
+      "offset": [
+        1259,
+        1263
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x1"
+    },
+    "383": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x20"
+    },
+    "385": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "386": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "387": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "388": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x40"
+    },
+    "390": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "SWAP3",
+      "path": "17"
+    },
+    "391": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "392": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "393": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "KECCAK256",
+      "path": "17"
+    },
+    "394": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "395": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "MLOAD",
+      "path": "17"
+    },
+    "396": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x60"
+    },
+    "398": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "399": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "400": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "401": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP5",
+      "path": "17"
+    },
+    "402": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "403": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "404": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "405": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DUP5",
+      "path": "17"
+    },
+    "406": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "407": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "408": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "409": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "410": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "411": {
+      "fn": "User.isExisted",
+      "offset": [
+        1259,
+        1263
+      ],
+      "op": "SWAP3",
+      "path": "17"
+    },
+    "412": {
+      "fn": "User.isExisted",
+      "offset": [
+        1259,
+        1263
+      ],
+      "op": "SWAP4",
+      "path": "17"
+    },
+    "413": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "414": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "SWAP3",
+      "path": "17"
+    },
+    "415": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "416": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "417": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "418": {
+      "fn": "User.isExisted",
+      "offset": [
+        1265,
+        1276
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "419": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "420": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "421": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "422": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "423": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0xFF"
+    },
+    "425": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "AND",
+      "path": "17"
+    },
+    "426": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DUP6",
+      "path": "17"
+    },
+    "427": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "428": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "GT",
+      "path": "17"
+    },
+    "429": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "430": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x1B9"
+    },
+    "433": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "434": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x1B9"
+    },
+    "437": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x328"
+    },
+    "440": {
+      "fn": "User.isExisted",
+      "jump": "i",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "441": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "442": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x1"
+    },
+    "444": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "445": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "GT",
+      "path": "17"
+    },
+    "446": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "447": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x1CA"
+    },
+    "450": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "451": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x1CA"
+    },
+    "454": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x328"
+    },
+    "457": {
+      "fn": "User.isExisted",
+      "jump": "i",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "458": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "459": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "460": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "461": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x1"
+    },
+    "463": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "464": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "465": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "466": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "467": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "468": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x100"
+    },
+    "471": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "472": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "DIV",
+      "path": "17"
+    },
+    "473": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0xFF"
+    },
+    "475": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "AND",
+      "path": "17"
+    },
+    "476": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "477": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "478": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x20"
+    },
+    "480": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "481": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "482": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "483": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "484": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "485": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP8",
+      "path": "17"
+    },
+    "486": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "487": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP7",
+      "path": "17"
+    },
+    "488": {
+      "op": "POP"
+    },
+    "489": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "490": {
+      "fn": "User.isExisted",
+      "offset": [
+        1251,
+        1277
+      ],
+      "op": "SWAP5",
+      "path": "17"
+    },
+    "491": {
+      "op": "POP"
+    },
+    "492": {
+      "op": "POP"
+    },
+    "493": {
+      "op": "POP"
+    },
+    "494": {
+      "op": "POP"
+    },
+    "495": {
+      "op": "POP"
+    },
+    "496": {
+      "fn": "User.isExisted",
+      "jump": "o",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "497": {
+      "fn": "User.isExisted",
+      "offset": [
+        1221,
+        1365
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "498": {
+      "op": "POP"
+    },
+    "499": {
+      "op": "POP"
+    },
+    "500": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "statement": 3,
+      "value": "0x40"
+    },
+    "502": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "503": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "MLOAD",
+      "path": "17"
+    },
+    "504": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x60"
+    },
+    "506": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "507": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "508": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "509": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "510": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "512": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "513": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "514": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "515": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x20"
+    },
+    "517": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "518": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "519": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "520": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "521": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "522": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "523": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "524": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "525": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "526": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "527": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "528": {
+      "op": "SWAP1"
+    },
+    "529": {
+      "op": "SWAP5"
+    },
+    "530": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "531": {
+      "fn": "User.isExisted",
+      "offset": [
+        1323,
+        1353
+      ],
+      "op": "SWAP4",
+      "path": "17"
+    },
+    "532": {
+      "op": "POP"
+    },
+    "533": {
+      "fn": "User.isExisted",
+      "offset": [
+        1308,
+        1354
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "534": {
+      "op": "POP"
+    },
+    "535": {
+      "op": "POP"
+    },
+    "536": {
+      "fn": "User.isExisted",
+      "jump": "o",
+      "offset": [
+        1027,
+        1371
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "537": {
+      "fn": "User.addUser",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "538": {
+      "fn": "User.addUser",
+      "offset": [
+        608,
+        621
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x2"
+    },
+    "540": {
+      "fn": "User.addUser",
+      "offset": [
+        608,
+        621
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "541": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "543": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "545": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "547": {
+      "op": "SHL"
+    },
+    "548": {
+      "op": "SUB"
+    },
+    "549": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "DUP4",
+      "path": "17",
+      "statement": 4
+    },
+    "550": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "AND",
+      "path": "17"
+    },
+    "551": {
+      "fn": "User.addUser",
+      "offset": [
+        597,
+        605
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x0"
+    },
+    "553": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "554": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "555": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "556": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x20"
+    },
+    "558": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "559": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "560": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "561": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x40"
+    },
+    "563": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "564": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "565": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "566": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        654
+      ],
+      "op": "KECCAK256",
+      "path": "17"
+    },
+    "567": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        660
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "568": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        660
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "569": {
+      "fn": "User.addUser",
+      "offset": [
+        631,
+        660
+      ],
+      "op": "SSTORE",
+      "path": "17"
+    },
+    "570": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "DUP2",
+      "path": "17",
+      "statement": 5
+    },
+    "571": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "MLOAD",
+      "path": "17"
+    },
+    "572": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x60"
+    },
+    "574": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "575": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "576": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "577": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "SWAP3",
+      "path": "17"
+    },
+    "578": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "579": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "580": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "581": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "582": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "583": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "584": {
+      "fn": "User.addUser",
+      "offset": [
+        707,
+        712
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "585": {
+      "fn": "User.addUser",
+      "offset": [
+        698,
+        713
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x1"
+    },
+    "587": {
+      "fn": "User.addUser",
+      "offset": [
+        698,
+        713
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "588": {
+      "fn": "User.addUser",
+      "offset": [
+        698,
+        713
+      ],
+      "op": "GT",
+      "path": "17"
+    },
+    "589": {
+      "fn": "User.addUser",
+      "offset": [
+        698,
+        713
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "590": {
+      "fn": "User.addUser",
+      "offset": [
+        698,
+        713
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x259"
+    },
+    "593": {
+      "fn": "User.addUser",
+      "offset": [
+        698,
+        713
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "594": {
+      "fn": "User.addUser",
+      "offset": [
+        698,
+        713
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x259"
+    },
+    "597": {
+      "fn": "User.addUser",
+      "offset": [
+        698,
+        713
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x328"
+    },
+    "600": {
+      "fn": "User.addUser",
+      "jump": "i",
+      "offset": [
+        698,
+        713
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "601": {
+      "fn": "User.addUser",
+      "offset": [
+        698,
+        713
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "602": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x1"
+    },
+    "604": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "605": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "GT",
+      "path": "17"
+    },
+    "606": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "607": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x26A"
+    },
+    "610": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "611": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x26A"
+    },
+    "614": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x328"
+    },
+    "617": {
+      "fn": "User.addUser",
+      "jump": "i",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "618": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "619": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "620": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "621": {
+      "fn": "User.addUser",
+      "offset": [
+        715,
+        719
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x1"
+    },
+    "623": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x20"
+    },
+    "625": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "626": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "627": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "628": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "629": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "630": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "631": {
+      "fn": "User.addUser",
+      "offset": [
+        685,
+        720
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x0"
+    },
+    "633": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        682
+      ],
+      "op": "DUP5",
+      "path": "17"
+    },
+    "634": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        682
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "635": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        682
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "636": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        682
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "637": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        682
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "638": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        682
+      ],
+      "op": "MSTORE",
+      "path": "17"
+    },
+    "639": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        682
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x40"
+    },
+    "641": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        682
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "642": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        682
+      ],
+      "op": "KECCAK256",
+      "path": "17"
+    },
+    "643": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "644": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "MLOAD",
+      "path": "17"
+    },
+    "645": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "646": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SSTORE",
+      "path": "17"
+    },
+    "647": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "648": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "649": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "650": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "MLOAD",
+      "path": "17"
+    },
+    "651": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "652": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "DUP3",
+      "path": "17"
+    },
+    "653": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "654": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "655": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "656": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "657": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP3",
+      "path": "17"
+    },
+    "658": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "659": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "660": {
+      "op": "PUSH1",
+      "value": "0xFF"
+    },
+    "662": {
+      "op": "NOT"
+    },
+    "663": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "AND",
+      "path": "17"
+    },
+    "664": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "665": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "666": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "667": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "DUP2",
+      "path": "17"
+    },
+    "668": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "GT",
+      "path": "17"
+    },
+    "669": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "670": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x2A9"
+    },
+    "673": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "JUMPI",
+      "path": "17"
+    },
+    "674": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x2A9"
+    },
+    "677": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x328"
+    },
+    "680": {
+      "fn": "User.addUser",
+      "jump": "i",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "681": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "682": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "MUL",
+      "path": "17"
+    },
+    "683": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "OR",
+      "path": "17"
+    },
+    "684": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "685": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SSTORE",
+      "path": "17"
+    },
+    "686": {
+      "op": "POP"
+    },
+    "687": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x40"
+    },
+    "689": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "690": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "691": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "692": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "693": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "MLOAD",
+      "path": "17"
+    },
+    "694": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "value": "0x1"
+    },
+    "696": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "697": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "698": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "ADD",
+      "path": "17"
+    },
+    "699": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "700": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "701": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "702": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "703": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "ISZERO",
+      "path": "17"
+    },
+    "704": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x100"
+    },
+    "707": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "MUL",
+      "path": "17"
+    },
+    "708": {
+      "op": "PUSH2",
+      "value": "0xFF00"
+    },
+    "711": {
+      "op": "NOT"
+    },
+    "712": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "713": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP3",
+      "path": "17"
+    },
+    "714": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "AND",
+      "path": "17"
+    },
+    "715": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "716": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "717": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "718": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "OR",
+      "path": "17"
+    },
+    "719": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "720": {
+      "fn": "User.addUser",
+      "offset": [
+        670,
+        720
+      ],
+      "op": "SSTORE",
+      "path": "17"
+    },
+    "721": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        743
+      ],
+      "op": "PUSH1",
+      "path": "17",
+      "statement": 6,
+      "value": "0x2"
+    },
+    "723": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "DUP1",
+      "path": "17"
+    },
+    "724": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "SLOAD",
+      "path": "17"
+    },
+    "725": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "726": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "728": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x2E0"
+    },
+    "731": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "DUP4",
+      "path": "17"
+    },
+    "732": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "PUSH2",
+      "path": "17",
+      "value": "0x3B9"
+    },
+    "735": {
+      "fn": "User.addUser",
+      "jump": "i",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "736": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "JUMPDEST",
+      "path": "17"
+    },
+    "737": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "SWAP2",
+      "path": "17"
+    },
+    "738": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "SWAP1",
+      "path": "17"
+    },
+    "739": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "POP",
+      "path": "17"
+    },
+    "740": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "SSTORE",
+      "path": "17"
+    },
+    "741": {
+      "fn": "User.addUser",
+      "offset": [
+        730,
+        745
+      ],
+      "op": "POP",
+      "path": "17"
+    },
+    "742": {
+      "fn": "User.addUser",
+      "offset": [
+        489,
+        752
+      ],
+      "op": "POP",
+      "path": "17"
+    },
+    "743": {
+      "fn": "User.addUser",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "POP",
+      "path": "17"
+    },
+    "744": {
+      "fn": "User.addUser",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "POP",
+      "path": "17"
+    },
+    "745": {
+      "fn": "User.addUser",
+      "jump": "o",
+      "offset": [
+        431,
+        752
+      ],
+      "op": "JUMP",
+      "path": "17"
+    },
+    "746": {
+      "op": "JUMPDEST"
+    },
+    "747": {
+      "op": "DUP1"
+    },
+    "748": {
+      "op": "CALLDATALOAD"
+    },
+    "749": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "751": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "753": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "755": {
+      "op": "SHL"
+    },
+    "756": {
+      "op": "SUB"
+    },
+    "757": {
+      "op": "DUP2"
+    },
+    "758": {
+      "op": "AND"
+    },
+    "759": {
+      "op": "DUP2"
+    },
+    "760": {
+      "op": "EQ"
+    },
+    "761": {
+      "op": "PUSH2",
+      "value": "0x301"
+    },
+    "764": {
+      "op": "JUMPI"
+    },
+    "765": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "767": {
+      "op": "DUP1"
+    },
+    "768": {
+      "op": "REVERT"
+    },
+    "769": {
+      "op": "JUMPDEST"
+    },
+    "770": {
+      "op": "SWAP2"
+    },
+    "771": {
+      "op": "SWAP1"
+    },
+    "772": {
+      "op": "POP"
+    },
+    "773": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "774": {
+      "op": "JUMPDEST"
+    },
+    "775": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "777": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "779": {
+      "op": "DUP3"
+    },
+    "780": {
+      "op": "DUP5"
+    },
+    "781": {
+      "op": "SUB"
+    },
+    "782": {
+      "op": "SLT"
+    },
+    "783": {
+      "op": "ISZERO"
+    },
+    "784": {
+      "op": "PUSH2",
+      "value": "0x318"
+    },
+    "787": {
+      "op": "JUMPI"
+    },
+    "788": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "790": {
+      "op": "DUP1"
+    },
+    "791": {
+      "op": "REVERT"
+    },
+    "792": {
+      "op": "JUMPDEST"
+    },
+    "793": {
+      "op": "PUSH2",
+      "value": "0x321"
+    },
+    "796": {
+      "op": "DUP3"
+    },
+    "797": {
+      "op": "PUSH2",
+      "value": "0x2EA"
+    },
+    "800": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "801": {
+      "op": "JUMPDEST"
+    },
+    "802": {
+      "op": "SWAP4"
+    },
+    "803": {
+      "op": "SWAP3"
+    },
+    "804": {
+      "op": "POP"
+    },
+    "805": {
+      "op": "POP"
+    },
+    "806": {
+      "op": "POP"
+    },
+    "807": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "808": {
+      "op": "JUMPDEST"
+    },
+    "809": {
+      "op": "PUSH4",
+      "value": "0x4E487B71"
+    },
+    "814": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "816": {
+      "op": "SHL"
+    },
+    "817": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "819": {
+      "op": "MSTORE"
+    },
+    "820": {
+      "op": "PUSH1",
+      "value": "0x21"
+    },
+    "822": {
+      "op": "PUSH1",
+      "value": "0x4"
+    },
+    "824": {
+      "op": "MSTORE"
+    },
+    "825": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "827": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "829": {
+      "op": "REVERT"
+    },
+    "830": {
+      "op": "JUMPDEST"
+    },
+    "831": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "833": {
+      "op": "PUSH1",
+      "value": "0x80"
+    },
+    "835": {
+      "op": "DUP3"
+    },
+    "836": {
+      "op": "ADD"
+    },
+    "837": {
+      "op": "SWAP1"
+    },
+    "838": {
+      "op": "POP"
+    },
+    "839": {
+      "op": "DUP4"
+    },
+    "840": {
+      "op": "ISZERO"
+    },
+    "841": {
+      "op": "ISZERO"
+    },
+    "842": {
+      "op": "DUP3"
+    },
+    "843": {
+      "op": "MSTORE"
+    },
+    "844": {
+      "op": "DUP3"
+    },
+    "845": {
+      "op": "MLOAD"
+    },
+    "846": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "848": {
+      "op": "DUP4"
+    },
+    "849": {
+      "op": "ADD"
+    },
+    "850": {
+      "op": "MSTORE"
+    },
+    "851": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "853": {
+      "op": "DUP4"
+    },
+    "854": {
+      "op": "ADD"
+    },
+    "855": {
+      "op": "MLOAD"
+    },
+    "856": {
+      "op": "PUSH1",
+      "value": "0x2"
+    },
+    "858": {
+      "op": "DUP2"
+    },
+    "859": {
+      "op": "LT"
+    },
+    "860": {
+      "op": "PUSH2",
+      "value": "0x375"
+    },
+    "863": {
+      "op": "JUMPI"
+    },
+    "864": {
+      "op": "PUSH4",
+      "value": "0x4E487B71"
+    },
+    "869": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "871": {
+      "op": "SHL"
+    },
+    "872": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "874": {
+      "op": "MSTORE"
+    },
+    "875": {
+      "op": "PUSH1",
+      "value": "0x21"
+    },
+    "877": {
+      "op": "PUSH1",
+      "value": "0x4"
+    },
+    "879": {
+      "op": "MSTORE"
+    },
+    "880": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "882": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "884": {
+      "op": "REVERT"
+    },
+    "885": {
+      "op": "JUMPDEST"
+    },
+    "886": {
+      "op": "DUP1"
+    },
+    "887": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "889": {
+      "op": "DUP5"
+    },
+    "890": {
+      "op": "ADD"
+    },
+    "891": {
+      "op": "MSTORE"
+    },
+    "892": {
+      "op": "POP"
+    },
+    "893": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "895": {
+      "op": "DUP4"
+    },
+    "896": {
+      "op": "ADD"
+    },
+    "897": {
+      "op": "MLOAD"
+    },
+    "898": {
+      "op": "ISZERO"
+    },
+    "899": {
+      "op": "ISZERO"
+    },
+    "900": {
+      "op": "PUSH1",
+      "value": "0x60"
+    },
+    "902": {
+      "op": "DUP4"
+    },
+    "903": {
+      "op": "ADD"
+    },
+    "904": {
+      "op": "MSTORE"
+    },
+    "905": {
+      "op": "SWAP4"
+    },
+    "906": {
+      "op": "SWAP3"
+    },
+    "907": {
+      "op": "POP"
+    },
+    "908": {
+      "op": "POP"
+    },
+    "909": {
+      "op": "POP"
+    },
+    "910": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "911": {
+      "op": "JUMPDEST"
+    },
+    "912": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "914": {
+      "op": "DUP1"
+    },
+    "915": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "917": {
+      "op": "DUP4"
+    },
+    "918": {
+      "op": "DUP6"
+    },
+    "919": {
+      "op": "SUB"
+    },
+    "920": {
+      "op": "SLT"
+    },
+    "921": {
+      "op": "ISZERO"
+    },
+    "922": {
+      "op": "PUSH2",
+      "value": "0x3A2"
+    },
+    "925": {
+      "op": "JUMPI"
+    },
+    "926": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "928": {
+      "op": "DUP1"
+    },
+    "929": {
+      "op": "REVERT"
+    },
+    "930": {
+      "op": "JUMPDEST"
+    },
+    "931": {
+      "op": "PUSH2",
+      "value": "0x3AB"
+    },
+    "934": {
+      "op": "DUP4"
+    },
+    "935": {
+      "op": "PUSH2",
+      "value": "0x2EA"
+    },
+    "938": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "939": {
+      "op": "JUMPDEST"
+    },
+    "940": {
+      "op": "SWAP5"
+    },
+    "941": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "943": {
+      "op": "SWAP4"
+    },
+    "944": {
+      "op": "SWAP1"
+    },
+    "945": {
+      "op": "SWAP4"
+    },
+    "946": {
+      "op": "ADD"
+    },
+    "947": {
+      "op": "CALLDATALOAD"
+    },
+    "948": {
+      "op": "SWAP4"
+    },
+    "949": {
+      "op": "POP"
+    },
+    "950": {
+      "op": "POP"
+    },
+    "951": {
+      "op": "POP"
+    },
+    "952": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "953": {
+      "op": "JUMPDEST"
+    },
+    "954": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "956": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "958": {
+      "op": "DUP3"
+    },
+    "959": {
+      "op": "ADD"
+    },
+    "960": {
+      "op": "PUSH2",
+      "value": "0x3D9"
+    },
+    "963": {
+      "op": "JUMPI"
+    },
+    "964": {
+      "op": "PUSH4",
+      "value": "0x4E487B71"
+    },
+    "969": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "971": {
+      "op": "SHL"
+    },
+    "972": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "974": {
+      "op": "MSTORE"
+    },
+    "975": {
+      "op": "PUSH1",
+      "value": "0x11"
+    },
+    "977": {
+      "op": "PUSH1",
+      "value": "0x4"
+    },
+    "979": {
+      "op": "MSTORE"
+    },
+    "980": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "982": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "984": {
+      "op": "REVERT"
+    },
+    "985": {
+      "op": "JUMPDEST"
+    },
+    "986": {
+      "op": "POP"
+    },
+    "987": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "989": {
+      "op": "ADD"
+    },
+    "990": {
+      "op": "SWAP1"
+    },
+    "991": {
+      "jump": "o",
+      "op": "JUMP"
+    }
+  },
+  "sha1": "108af724b03bc85960dd7e3cf0d48a73c9f19916",
+  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\n// error User__AlreadyExisted();\n// error User__NotExisted();\n\ncontract User {\n    enum UserType {\n        RECRUITER,\n        CANDIDATE\n    }\n\n    struct AppUser {\n        uint id;\n        UserType userType;\n        bool exist;\n    }\n\n    mapping(address => uint) internal s_userIds;\n    mapping(uint => AppUser) internal s_users;\n    uint internal s_userCounter = 0;\n\n    function addUser(address _userAddress, uint _type) public {\n        // (bool b, ) = isExisted(_userAddress);\n        // if (b) revert User__AlreadyExisted();\n        uint _id = s_userCounter;\n        s_userIds[_userAddress] = _id;\n        s_users[_id] = AppUser(_id, UserType(_type), true);\n        s_userCounter++;\n    }\n\n    function deleteUser(address _userAddress) public {\n        // (bool b, ) = isExisted(_userAddress);\n        // if (!b) revert User__NotExisted();\n\n        uint id = s_userIds[_userAddress];\n        delete s_users[id];\n        delete s_userIds[_userAddress];\n    }\n\n    function isExisted(\n        address _userAddress\n    ) public view returns (bool, AppUser memory) {\n        uint id = s_userIds[_userAddress];\n        AppUser memory user = s_users[id];\n        if (user.exist) {\n            return (true, s_users[id]);\n        } else {\n            return (false, AppUser(0, UserType(0), false));\n        }\n    }\n}\n",
+  "sourceMap": "121:1252:17:-:0;;;423:1;393:31;;121:1252;;;;;;;;;;;;;;;;",
+  "sourcePath": "contracts/User.sol",
+  "type": "contract"
+}
