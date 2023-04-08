@@ -12,17 +12,11 @@ abstract contract AccessControl {
         // bytes32 adminRole;
     }
 
-    event RoleGranted(
-        address indexed account,
-        bytes32 indexed role
-        // address indexed sender
-    );
+    event RoleGranted(address indexed account, bytes32 indexed role);
+    // address indexed sender
 
-    event RoleRevoked(
-        address indexed account,
-        bytes32 indexed role
-        // address indexed sender
-    );
+    event RoleRevoked(address indexed account, bytes32 indexed role);
+    // address indexed sender
 
     // Ứng với mỗi role có chứa address không?
     mapping(bytes32 => RoleData) private roles;
@@ -34,8 +28,8 @@ abstract contract AccessControl {
         return roles[_role].users[_account];
     }
 
-    modifier onlyRole(bytes32 _role) {
-        require(hasRole(msg.sender, _role), "Caller doesn't have permission");
+    modifier onlyRole(address _account, bytes32 _role) {
+        require(hasRole(_account, _role), "Caller doesn't have permission");
         _;
     }
 
@@ -45,25 +39,34 @@ abstract contract AccessControl {
     }
 
     // Gán role (update chỉ có admin/deployer mới đc gán)
-    function grantRole(address _account, bytes32 _role) public virtual {
-        require(!hasRole(msg.sender, _role), "Caller had this role to grant");
+    function grantRole(
+        address _account,
+        bytes32 _role
+    ) public onlyRole(msg.sender, ADMIN_ROLE) {
+        require(
+            !hasRole(_account, _role),
+            "Account have had this role to grant"
+        );
         _grantRole(_account, _role);
     }
 
     function _revokeRole(address _account, bytes32 _role) public {
-        roles[_role].members[_account] = false;
-        emit RoleRevoked(_role, _account);
+        roles[_role].users[_account] = false;
+        emit RoleRevoked(_account, _role);
     }
 
-    function revokeRole(address _account, bytes32 _role) public virtual {
+    function revokeRole(
+        address _account,
+        bytes32 _role
+    ) public onlyRole(msg.sender, ADMIN_ROLE) {
         require(
-            hasRole(msg.sender, _role),
-            "Caller have not had this role to revoke"
+            hasRole(_account, _role),
+            "Account have not had this role to revoke"
         );
         _revokeRole(_account, _role);
     }
 
-    // function _setupRole(bytes32 role, address account) internal {
-    //     _grantRole(role, account);
-    // }
+    function _setRole(address _account, bytes32 _role) internal {
+        _grantRole(_account, _role);
+    }
 }

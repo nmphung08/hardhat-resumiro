@@ -29,7 +29,7 @@ contract Candidate {
         string memory _email,
         string memory _phone,
         string memory _about
-    ) public {
+    ) public virtual {
         s_candidates[_id] = AppCandidate(
             _id,
             _avatar,
@@ -52,7 +52,7 @@ contract Candidate {
         string memory _email,
         string memory _phone,
         string memory _about
-    ) public {
+    ) public virtual {
         s_candidates[_id].avatar = _avatar;
         s_candidates[_id].background = _background;
         s_candidates[_id].addressWallet = _addressWallet;
@@ -62,7 +62,7 @@ contract Candidate {
         s_candidates[_id].about = _about;
     }
 
-    function deleteCandidate(uint _id) public {
+    function deleteCandidate(uint _id) public virtual {
         s_CandidateIds.removeElement(_id);
         delete s_candidates[_id];
     }

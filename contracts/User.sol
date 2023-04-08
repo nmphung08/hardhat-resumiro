@@ -2,9 +2,6 @@
 
 pragma solidity ^0.8.0;
 
-import "./abstract-contract/AccessControl.sol";
-import "./abstract-contract/Ownable.sol";
-
 // error User__AlreadyExisted();
 // error User__NotExisted();
 
@@ -20,11 +17,11 @@ contract User {
         bool exist;
     }
 
-    mapping(address => uint) internal s_userIds;
-    mapping(uint => AppUser) internal s_users;
+    mapping(address => uint) public s_userIds;
+    mapping(uint => AppUser) public s_users;
     uint internal s_userCounter = 0;
 
-    function addUser(address _userAddress, uint _type) public {
+    function addUser(address _userAddress, uint _type) public virtual {
         // (bool b, ) = isExisted(_userAddress);
         // if (b) revert User__AlreadyExisted();
         uint _id = s_userCounter;
@@ -33,7 +30,7 @@ contract User {
         s_userCounter++;
     }
 
-    function deleteUser(address _userAddress) public {
+    function deleteUser(address _userAddress) public virtual {
         // (bool b, ) = isExisted(_userAddress);
         // if (!b) revert User__NotExisted();
 
