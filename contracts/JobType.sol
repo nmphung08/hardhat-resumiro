@@ -14,18 +14,18 @@ contract JobType {
     uint[] internal s_jobtypeIds;
     uint internal s_jobTypeCounter = 0;
 
-    function addJobType(string memory _name) public {
+    function addJobType(string memory _name) public virtual {
         uint _id = s_jobTypeCounter;
         s_jobtypeIds.push(_id);
         s_jobtypes[_id] = AppJobType(_id, _name);
         s_jobTypeCounter++;
     }
 
-    function updateJobType(uint _id, string memory _name) public {
+    function updateJobType(uint _id, string memory _name) public virtual {
         s_jobtypes[_id].name = _name;
     }
 
-    function deleteJobType(uint _id) public {
+    function deleteJobType(uint _id) public virtual {
         s_jobtypeIds.removeElement(_id);
         delete s_jobtypes[_id];
     }

@@ -8,12 +8,12 @@ contract Resume_Recruiter {
     mapping(uint => uint[]) internal s_resumeToRecruiter;
     mapping(uint => uint[]) internal s_recruiterToResume;
 
-    function connectResumeRecruiter(uint _recruiter, uint _resume) public {
+    function connectResumeRecruiter(uint _recruiter, uint _resume) public virtual {
         s_resumeToRecruiter[_resume].push(_recruiter);
         s_recruiterToResume[_recruiter].push(_resume);
     }
 
-    function disconnectResumeRecruiter(uint _recruiter, uint _resume) public {
+    function disconnectResumeRecruiter(uint _recruiter, uint _resume) public virtual {
         s_resumeToRecruiter[_resume].removeElement(_recruiter);
         s_recruiterToResume[_recruiter].removeElement(_resume);
     }

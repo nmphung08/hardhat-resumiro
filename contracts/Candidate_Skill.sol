@@ -14,12 +14,18 @@ contract Candidate_SKill {
     mapping(uint => uint[]) internal s_candidateToSkill;
     mapping(uint => uint[]) internal s_skillToCandidate;
 
-    function connectCandidateSkill(uint _skill, uint _candidate) public {
+    function connectCandidateSkill(
+        uint _skill,
+        uint _candidate
+    ) public virtual {
         s_skillToCandidate[_skill].push(_candidate);
         s_candidateToSkill[_candidate].push(_skill);
     }
 
-    function disconnectCandidateSkill(uint _skill, uint _candidate) public {
+    function disconnectCandidateSkill(
+        uint _skill,
+        uint _candidate
+    ) public virtual {
         s_skillToCandidate[_skill].removeElement(_candidate);
         s_candidateToSkill[_candidate].removeElement(_skill);
     }

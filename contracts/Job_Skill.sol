@@ -8,12 +8,12 @@ contract Job_Skill {
     mapping(uint => uint[]) s_jobToSkill;
     mapping(uint => uint[]) s_skillToJob;
 
-    function connectJobSkill(uint _skill, uint _job) public {
+    function connectJobSkill(uint _skill, uint _job) public virtual {
         s_jobToSkill[_job].push(_skill);
         s_skillToJob[_skill].push(_job);
     }
 
-    function disconnectJobSkill(uint _skill, uint _job) public {
+    function disconnectJobSkill(uint _skill, uint _job) public virtual {
         s_jobToSkill[_job].removeElement(_skill);
         s_skillToJob[_skill].removeElement(_job);
     }

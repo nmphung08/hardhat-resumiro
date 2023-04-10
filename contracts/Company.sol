@@ -35,7 +35,7 @@ contract Company {
         uint _locationId,
         string memory _addr,
         string memory _introduction
-    ) public {
+    ) public virtual {
         uint _id = s_companyCounter;
         s_compIds.push(_id);
         s_locationToCompany[_locationId].push(_id);
@@ -66,7 +66,7 @@ contract Company {
         uint _locationId,
         string memory _addr,
         string memory _introduction
-    ) public {
+    ) public virtual {
         s_companies[_id].name = _name;
         s_companies[_id].logo = _logo;
         s_companies[_id].background = _background;

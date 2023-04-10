@@ -30,7 +30,7 @@ contract Job {
     mapping(uint => uint[]) internal s_typeToJob;
     uint internal s_jobCounter = 0;
 
-    function addJob(AppJob memory _job) public {
+    function addJob(AppJob memory _job) public virtual {
         uint _id = s_jobCounter;
         s_jobIds.push(_id);
         s_locationToJob[_job.locationId].push(_id);
@@ -65,7 +65,7 @@ contract Job {
         string memory _createAt,
         string memory _updateAt,
         uint _salary
-    ) public {
+    ) public virtual {
         s_jobs[_id].title = _title;
         s_jobs[_id].jobTypeId = _jobTypeId;
         s_jobs[_id].experience = _experience;
@@ -76,7 +76,7 @@ contract Job {
         s_jobs[_id].salary = _salary;
     }
 
-    function deleteJob(uint _id) public {
+    function deleteJob(uint _id) public virtual {
         AppJob memory job = s_jobs[_id];
         s_jobIds.removeElement(_id);
         s_locationToJob[job.locationId].removeElement(_id);

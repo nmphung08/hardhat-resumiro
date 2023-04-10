@@ -36,13 +36,13 @@ contract Resume {
         string memory _data,
         string memory _title,
         string memory _createAt
-    ) public {
+    ) public virtual {
         s_resumes[_id].data = _data;
         s_resumes[_id].title = _title;
         s_resumes[_id].createAt = _createAt;
     }
 
-    function deleteResume(uint _id) public {
+    function deleteResume(uint _id) public virtual {
         s_resumeIds.removeElement(_id);
         uint candidateId = s_resumes[_id].candidate;
         s_candidateToResume[candidateId].removeElement(_id);
@@ -53,7 +53,7 @@ contract Resume {
         return s_resumes[_id];
     }
 
-    function getReNewestsume() public view returns (AppResume memory) {
+    function getNewestResume() public view returns (AppResume memory) {
         return s_resumes[s_resumeIds.length - 1];
     }
 

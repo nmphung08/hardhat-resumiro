@@ -9,28 +9,28 @@ import "./User.sol";
 import "./Candidate.sol";
 // import "./Experience.sol";
 // import "./Certificate.sol";
-// import "./Candidate_Skill.sol";
+import "./Candidate_Skill.sol";
 
 // // Recruiter Relation
 import "./Recruiter.sol";
 
 // // Company Relation
-// import "./Company.sol";
+import "./Company.sol";
 // import "./Location.sol";
-// import "./Company_Recruiter.sol";
+import "./Company_Recruiter.sol";
 
 // // Resume Relation
-// import "./Resume.sol";
-// import "./Resume_Recruiter.sol";
+import "./Resume.sol";
+import "./Resume_Recruiter.sol";
 
 // // Job Relation
-// import "./Job.sol";
+import "./Job.sol";
 // import "./JobType.sol";
-// import "./Job_Candidate.sol";
-// import "./Job_Skill.sol";
+import "./Job_Candidate.sol";
+import "./Job_Skill.sol";
 
 // // Skill Relation
-// import "./Skill.sol";
+import "./Skill.sol";
 
 // // Field Relation
 // import "./Field.sol";
@@ -44,18 +44,18 @@ contract Resumiro is
     Candidate,
     // Experience,
     // Certificate,
-    // Candidate_SKill,
+    Candidate_SKill,
     Recruiter,
-    // Company,
+    Company,
     // Location,
-    // Company_Recruiter,
-    // Resume,
-    // Resume_Recruiter,
-    // Job,
+    Company_Recruiter,
+    Resume,
+    Resume_Recruiter,
+    Job,
     // JobType,
-    // Job_Candidate,
-    // Job_Skill,
-    // Skill,
+    Job_Candidate,
+    Job_Skill,
+    Skill,
     // Field,
     AccessControl,
     Ownable
@@ -363,10 +363,461 @@ contract Resumiro is
     /**
      * @custom:resume-contract
      * */
+    event AddResume(
+        string data,
+        uint candidate_id,
+        string title,
+        string create_at
+    );
+    event UpdateResume(uint id, string data, string title, string create_at);
+    event DeleteResume(
+        uint id,
+        string data,
+        uint candidate_id,
+        string title,
+        string create_at
+    );
+
+    function addResume(
+        string memory _data,
+        uint _candidate,
+        string memory _title,
+        string memory _createAt
+    ) public override onlyRole(msg.sender, CANDIDATE_ROLE) {
+        super.addResume(_data, _candidate, _title, _createAt);
+
+        AppResume memory newestResume = super.getNewestResume();
+
+        emit AddResume(
+            newestResume.data,
+            newestResume.candidate,
+            newestResume.title,
+            newestResume.createAt
+        );
+    }
+
+    function updateResume(
+        uint _id,
+        string memory _data,
+        string memory _title,
+        string memory _createAt
+    ) public override onlyRole(msg.sender, CANDIDATE_ROLE) {
+        super.updateResume(_id, _data, _title, _createAt);
+
+        AppResume memory updatedResume = super.getResume(_id);
+
+        emit UpdateResume(
+            updatedResume.id,
+            updatedResume.data,
+            updatedResume.title,
+            updatedResume.createAt
+        );
+    }
+
+    function deleteResume(
+        uint _id
+    ) public override onlyRole(msg.sender, CANDIDATE_ROLE) {
+        AppResume memory deletedResume = super.getResume(_id);
+
+        super.deleteResume(_id);
+
+        emit DeleteResume(
+            deletedResume.id,
+            deletedResume.data,
+            deletedResume.candidate,
+            deletedResume.title,
+            deletedResume.createAt
+        );
+    }
+
+    /**
+     * @custom:resume-recruiter-contract
+     * */
+
+    event ConnectResumeRecruiter(uint recruiter, uint resume);
+    event DisconnectResumeRecruiter(uint recruiter, uint resume);
+
+    function connectResumeRecruiter(
+        uint _recruiter,
+        uint _resume
+    ) public override onlyRole(msg.sender, CANDIDATE_ROLE) {
+        super.connectResumeRecruiter(_recruiter, _resume);
+        emit ConnectResumeRecruiter(_recruiter, _resume);
+    }
+
+    function disconnectResumeRecruiter(
+        uint _recruiter,
+        uint _resume
+    ) public override onlyRole(msg.sender, CANDIDATE_ROLE) {
+        super.disconnectResumeRecruiter(_recruiter, _resume);
+        emit DisconnectResumeRecruiter(_recruiter, _resume);
+    }
+
     /**
      *  @custom:job-contract
      * */
+    event AddJob(
+        uint id,
+        string title,
+        uint location_id,
+        uint job_type_id,
+        uint experience,
+        string requirements,
+        string benefits,
+        string create_at,
+        string update_at,
+        uint recruiter_id,
+        uint company_id,
+        uint salary,
+        uint field_id
+    );
+    event UpdateJob(
+        uint id,
+        string title,
+        uint job_type_id,
+        uint experience,
+        string requirements,
+        string benefits,
+        string create_at,
+        string update_at,
+        uint salary
+    );
+    event DeleteJob(
+        uint id,
+        string title,
+        uint job_type_id,
+        uint experience,
+        string requirements,
+        string benefits,
+        string create_at,
+        string update_at,
+        uint salary
+    );
+
+    function addJob(
+        AppJob memory _job
+    ) public override onlyRole(msg.sender, RECRUITER_ROLE) {
+        super.addJob(_job);
+
+        AppJob memory newestJob = getNewestJob();
+
+        emit AddJob(
+            newestJob.id,
+            newestJob.title,
+            newestJob.locationId,
+            newestJob.jobTypeId,
+            newestJob.experience,
+            newestJob.requirements,
+            newestJob.benefits,
+            newestJob.createAt,
+            newestJob.updateAt,
+            newestJob.recruiterId,
+            newestJob.companyId,
+            newestJob.salary,
+            newestJob.fieldId
+        );
+    }
+
+    function updateJob(
+        uint _id,
+        string memory _title,
+        uint _jobTypeId,
+        uint _experience,
+        string memory _requirements,
+        string memory _benefits,
+        string memory _createAt,
+        string memory _updateAt,
+        uint _salary
+    ) public override onlyRole(msg.sender, RECRUITER_ROLE) {
+        super.updateJob(
+            _id,
+            _title,
+            _jobTypeId,
+            _experience,
+            _requirements,
+            _benefits,
+            _createAt,
+            _updateAt,
+            _salary
+        );
+
+        AppJob memory updatedJob = super.getJob(_id);
+
+        emit UpdateJob(
+            updatedJob.id,
+            updatedJob.title,
+            updatedJob.jobTypeId,
+            updatedJob.experience,
+            updatedJob.requirements,
+            updatedJob.benefits,
+            updatedJob.createAt,
+            updatedJob.updateAt,
+            updatedJob.salary
+        );
+    }
+
+    function deleteJob(
+        uint _id
+    ) public override onlyRole(msg.sender, RECRUITER_ROLE) {
+        AppJob memory deletedJob = super.getJob(_id);
+
+        super.deleteJob(_id);
+
+        emit DeleteJob(
+            deletedJob.id,
+            deletedJob.title,
+            deletedJob.jobTypeId,
+            deletedJob.experience,
+            deletedJob.requirements,
+            deletedJob.benefits,
+            deletedJob.createAt,
+            deletedJob.updateAt,
+            deletedJob.salary
+        );
+    }
+
     /**
-     * @custom:skill-contract
+     * @custom:job-candidate-contract
      * */
+    event ConnectJobCandidate(uint candidate_id, uint job_id);
+    event DisconnectJobCandidate(uint candidate_id, uint job_id);
+
+    function connectJobCandidate(
+        uint _candidate,
+        uint _job
+    ) public override onlyRole(msg.sender, CANDIDATE_ROLE) {
+        super.connectJobCandidate(_candidate, _job);
+
+        emit ConnectJobCandidate(_candidate, _job);
+    }
+
+    function disconnectJobCandidate(
+        uint _candidate,
+        uint _job
+    ) public override onlyRole(msg.sender, CANDIDATE_ROLE) {
+        super.disconnectJobCandidate(_candidate, _job);
+
+        emit DisconnectJobCandidate(_candidate, _job);
+    }
+
+    /**
+     * @custom:job-skill-contract
+     * */
+    event ConnectJobSkill(uint skill_id, uint job_id);
+    event DisconnectJobSkill(uint skill_id, uint job_id);
+
+    function connectJobSkill(
+        uint _skill,
+        uint _job
+    ) public override onlyRole(msg.sender, RECRUITER_ROLE) {
+        super.connectJobSkill(_skill, _job);
+
+        emit ConnectJobCandidate(_skill, _job);
+    }
+
+    function disconnectJobSkill(
+        uint _skill,
+        uint _job
+    ) public override onlyRole(msg.sender, RECRUITER_ROLE) {
+        super.disconnectJobSkill(_skill, _job);
+
+        emit DisconnectJobSkill(_skill, _job);
+    }
+
+    /**
+     * @custom:candidate-skill-contract
+     * */
+    event ConnectCandidateSkill(uint skill_id, uint candidate_id);
+    event DisconnectCandidateSkill(uint skill_id, uint candidate_id);
+
+    function connectCandidateSkill(
+        uint _skill,
+        uint _candidate
+    ) public override onlyRole(msg.sender, CANDIDATE_ROLE) {
+        super.connectJobSkill(_skill, _candidate);
+
+        emit ConnectCandidateSkill(_skill, _candidate);
+    }
+
+    function disconnectCandidateSkill(
+        uint _skill,
+        uint _candidate
+    ) public override onlyRole(msg.sender, CANDIDATE_ROLE) {
+        super.disconnectCandidateSkill(_skill, _candidate);
+
+        emit DisconnectCandidateSkill(_skill, _candidate);
+    }
+
+    /**
+     * @custom:company-contract
+     * */
+    event AddCompany(
+        uint id,
+        uint owner_id,
+        string name,
+        string logo,
+        string background,
+        string about,
+        string scale,
+        string website,
+        uint location_id,
+        string addr,
+        string introduction
+    );
+    event DeleteCompany(
+        uint id,
+        uint owner_id,
+        string name,
+        string logo,
+        string background,
+        string about,
+        string scale,
+        string website,
+        uint location_id,
+        string addr,
+        string introduction
+    );
+    event UpdateCompany(
+        uint id,
+        uint owner_id,
+        string name,
+        string logo,
+        string background,
+        string about,
+        string scale,
+        string website,
+        uint location_id,
+        string addr,
+        string introduction
+    );
+
+    function addCompany(
+        uint _ownerId,
+        string memory _name,
+        string memory _logo,
+        string memory _background,
+        string memory _about,
+        string memory _scale,
+        string memory _website,
+        uint _locationId,
+        string memory _addr,
+        string memory _introduction
+    ) public override onlyRole(msg.sender, ADMIN_ROLE) {
+        super.addCompany(
+            _ownerId,
+            _name,
+            _logo,
+            _background,
+            _about,
+            _scale,
+            _website,
+            _locationId,
+            _addr,
+            _introduction
+        );
+
+        AppCompany memory newestCompany = super.getNewestCompany();
+
+        emit AddCompany(
+            newestCompany.id,
+            newestCompany.ownerId,
+            newestCompany.name,
+            newestCompany.logo,
+            newestCompany.background,
+            newestCompany.about,
+            newestCompany.scale,
+            newestCompany.website,
+            newestCompany.locationId,
+            newestCompany.addr,
+            newestCompany.introduction
+        );
+    }
+
+    function updateCompany(
+        uint _id,
+        string memory _name,
+        string memory _logo,
+        string memory _background,
+        string memory _about,
+        string memory _scale,
+        string memory _website,
+        uint _locationId,
+        string memory _addr,
+        string memory _introduction
+    ) public override onlyRole(msg.sender, ADMIN_ROLE) {
+        super.updateCompany(
+            _id,
+            _name,
+            _logo,
+            _background,
+            _about,
+            _scale,
+            _website,
+            _locationId,
+            _addr,
+            _introduction
+        );
+
+        AppCompany memory updatedCompany = super.getCompany(_id);
+
+        emit UpdateCompany(
+            updatedCompany.id,
+            updatedCompany.ownerId,
+            updatedCompany.name,
+            updatedCompany.logo,
+            updatedCompany.background,
+            updatedCompany.about,
+            updatedCompany.scale,
+            updatedCompany.website,
+            updatedCompany.locationId,
+            updatedCompany.addr,
+            updatedCompany.introduction
+        );
+    }
+
+    function deleteCompany(
+        uint _id
+    ) public override onlyRole(msg.sender, ADMIN_ROLE) {
+        AppCompany memory deletedCompany = super.getCompany(_id);
+
+        super.deleteCompany(_id);
+
+        emit DeleteCompany(
+            deletedCompany.id,
+            deletedCompany.ownerId,
+            deletedCompany.name,
+            deletedCompany.logo,
+            deletedCompany.background,
+            deletedCompany.about,
+            deletedCompany.scale,
+            deletedCompany.website,
+            deletedCompany.locationId,
+            deletedCompany.addr,
+            deletedCompany.introduction
+        );
+    }
+
+    /**
+     * @custom:company-recruiter-contract
+     * */
+    event ConnectCompanyRecruiter(uint recruiter_id, uint company_id);
+    event DisconnectCompanyRecruiter(uint recruiter_id, uint company_id);
+
+    function connectCompanyRecruiter(
+        uint _recruiterId,
+        uint _companyId
+    ) public override onlyRole(msg.sender, RECRUITER_ROLE) {
+        super.connectCompanyRecruiter(_recruiterId, _companyId);
+
+        emit ConnectCompanyRecruiter(_recruiterId, _companyId);
+    }
+
+    function disconnectCompanyRecruiter(
+        uint _recruiterId,
+        uint _companyId
+    ) public override onlyRole(msg.sender, RECRUITER_ROLE) {
+        super.disconnectCompanyRecruiter(_recruiterId, _companyId);
+
+        emit DisconnectCompanyRecruiter(_recruiterId, _companyId);
+    }
 }

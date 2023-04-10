@@ -11,7 +11,7 @@ contract Company_Recruiter {
     function connectCompanyRecruiter(
         uint _recruiterId,
         uint _companyId
-    ) public {
+    ) public virtual {
         s_recruiterToCompany[_recruiterId].push(_companyId);
         s_companyToRecruiter[_companyId].push(_recruiterId);
     }
@@ -19,7 +19,7 @@ contract Company_Recruiter {
     function disconnectCompanyRecruiter(
         uint _recruiterId,
         uint _companyId
-    ) public {
+    ) public virtual {
         s_recruiterToCompany[_recruiterId].removeElement(_companyId);
         s_companyToRecruiter[_companyId].removeElement(_recruiterId);
     }

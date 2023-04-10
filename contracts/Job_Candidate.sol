@@ -8,12 +8,12 @@ contract Job_Candidate {
     mapping(uint => uint[]) internal s_jobToCandidate;
     mapping(uint => uint[]) internal s_candidateToJob;
 
-    function connectJobCandidate(uint _candidate, uint _job) public {
+    function connectJobCandidate(uint _candidate, uint _job) public virtual {
         s_candidateToJob[_candidate].push(_job);
         s_jobToCandidate[_job].push(_candidate);
     }
 
-    function disconnectJobCandidate(uint _candidate, uint _job) public {
+    function disconnectJobCandidate(uint _candidate, uint _job) public virtual {
         s_candidateToJob[_candidate].removeElement(_job);
         s_jobToCandidate[_job].removeElement(_candidate);
     }
