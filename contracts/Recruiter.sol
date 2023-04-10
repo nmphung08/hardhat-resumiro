@@ -31,7 +31,7 @@ contract Recruiter {
         string memory _email,
         string memory _phone,
         string memory _position
-    ) public {
+    ) public virtual {
         s_recruiterIds.push(_id);
         s_recruiters[_id] = AppRecruiter(
             _id,
@@ -55,7 +55,7 @@ contract Recruiter {
         string memory _email,
         string memory _phone,
         string memory _position
-    ) public {
+    ) public virtual {
         s_recruiters[_id].avatar = _avatar;
         s_recruiters[_id].background = _background;
         s_recruiters[_id].addressWallet = _addressWallet;
@@ -65,7 +65,7 @@ contract Recruiter {
         s_recruiters[_id].position = _position;
     }
 
-    function deleteRecruiter(uint _id) public {
+    function deleteRecruiter(uint _id) public virtual {
         s_recruiterIds.removeElement(_id);
         delete s_recruiters[_id];
     }

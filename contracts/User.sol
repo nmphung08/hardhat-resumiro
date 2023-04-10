@@ -2,6 +2,10 @@
 
 pragma solidity ^0.8.0;
 
+import "./abstract-contract/AccessControl.sol";
+
+// import "./abstract-contract/Ownable.sol";
+
 // error User__AlreadyExisted();
 // error User__NotExisted();
 
@@ -49,5 +53,14 @@ contract User {
         } else {
             return (false, AppUser(0, UserType(0), false));
         }
+    }
+
+    function getUser(
+        address _userAddress
+    ) public view returns (AppUser memory) {
+        uint userId = s_userIds[_userAddress];
+        AppUser memory user = s_users[userId];
+
+        return user;
     }
 }

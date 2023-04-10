@@ -12,7 +12,7 @@ import "./Candidate.sol";
 // import "./Candidate_Skill.sol";
 
 // // Recruiter Relation
-// import "./Recruiter.sol";
+import "./Recruiter.sol";
 
 // // Company Relation
 // import "./Company.sol";
@@ -45,7 +45,7 @@ contract Resumiro is
     // Experience,
     // Certificate,
     // Candidate_SKill,
-    // Recruiter,
+    Recruiter,
     // Company,
     // Location,
     // Company_Recruiter,
@@ -70,8 +70,8 @@ contract Resumiro is
     /**
      * @custom:user-contract
      * */
-    event AddUser(address indexed userAddress, UserType userType);
-    event DeleteUser(address indexed userAddress, UserType userType);
+    event AddUser(uint id, address indexed userAddress, UserType userType);
+    event DeleteUser(uint id, address indexed userAddress, UserType userType);
 
     // Override addUser function
     function addUser(
@@ -79,11 +79,14 @@ contract Resumiro is
         uint _type
     ) public override onlyRole(msg.sender, ADMIN_ROLE) {
         (bool existed, ) = isExisted(_userAddress);
+
         require(!existed, "User: Address user is existed");
         super.addUser(_userAddress, _type);
 
+        AppUser memory newestUser = super.getUser(_userAddress);
         _setRole(_userAddress, CANDIDATE_ROLE);
-        emit AddUser(_userAddress, UserType(_type));
+
+        emit AddUser(newestUser.id, _userAddress, newestUser.userType);
     }
 
     // Override deleteUser function
@@ -101,7 +104,7 @@ contract Resumiro is
             revokeRole(_userAddress, RECRUITER_ROLE);
         }
 
-        emit DeleteUser(_userAddress, user.userType);
+        emit DeleteUser(user.id, _userAddress, user.userType);
     }
 
     /**
@@ -117,7 +120,16 @@ contract Resumiro is
         string phone,
         string about
     );
-    event DeleteCandidate(uint id);
+    event DeleteCandidate(
+        uint id,
+        string avatar,
+        string background,
+        string address_wallet,
+        string full_name,
+        string email,
+        string phone,
+        string about
+    );
     event UpdateCandidate(
         uint id,
         string avatar,
@@ -150,15 +162,17 @@ contract Resumiro is
             _about
         );
 
+        AppCandidate memory newestCandidate = super.getCandidate(_id);
+
         emit AddCandidate(
-            _id,
-            _avatar,
-            _background,
-            _addressWallet,
-            _fullName,
-            _email,
-            _phone,
-            _about
+            newestCandidate.id,
+            newestCandidate.avatar,
+            newestCandidate.background,
+            newestCandidate.addressWallet,
+            newestCandidate.fullName,
+            newestCandidate.email,
+            newestCandidate.phone,
+            newestCandidate.about
         );
     }
 
@@ -183,7 +197,125 @@ contract Resumiro is
             _about
         );
 
+        AppCandidate memory updatedCandidate = super.getCandidate(_id);
+
         emit UpdateCandidate(
+            updatedCandidate.id,
+            updatedCandidate.avatar,
+            updatedCandidate.background,
+            updatedCandidate.addressWallet,
+            updatedCandidate.fullName,
+            updatedCandidate.email,
+            updatedCandidate.phone,
+            updatedCandidate.about
+        );
+    }
+
+    function deleteCandidate(
+        uint _id
+    ) public override onlyRole(msg.sender, ADMIN_ROLE) {
+        AppCandidate memory deletedCandidate = super.getCandidate(_id);
+
+        super.deleteCandidate(_id);
+
+        emit DeleteCandidate(
+            deletedCandidate.id,
+            deletedCandidate.avatar,
+            deletedCandidate.background,
+            deletedCandidate.addressWallet,
+            deletedCandidate.fullName,
+            deletedCandidate.email,
+            deletedCandidate.phone,
+            deletedCandidate.about
+        );
+    }
+
+    /**
+     * @custom:recruiter-contract
+     * */
+
+    event AddRecruiter(
+        uint id,
+        uint owned,
+        string avatar,
+        string background,
+        string address_wallet,
+        string full_name,
+        string email,
+        string phone,
+        string position
+    );
+    event DeleteRecruiter(
+        uint id,
+        uint owned,
+        string avatar,
+        string background,
+        string address_wallet,
+        string full_name,
+        string email,
+        string phone,
+        string position
+    );
+    event UpdateRecruiter(
+        uint id,
+        string avatar,
+        string background,
+        string address_wallet,
+        string full_name,
+        string email,
+        string phone,
+        string position
+    );
+
+    function addRecruiter(
+        uint _id,
+        uint _owned,
+        string memory _avatar,
+        string memory _background,
+        string memory _addressWallet,
+        string memory _fullName,
+        string memory _email,
+        string memory _phone,
+        string memory _position
+    ) public override onlyRole(msg.sender, ADMIN_ROLE) {
+        super.addRecruiter(
+            _id,
+            _owned,
+            _avatar,
+            _background,
+            _addressWallet,
+            _fullName,
+            _email,
+            _phone,
+            _position
+        );
+
+        AppRecruiter memory newestRecruiter = getRecruiter(_id);
+
+        emit AddRecruiter(
+            newestRecruiter.id,
+            newestRecruiter.owned,
+            newestRecruiter.avatar,
+            newestRecruiter.background,
+            newestRecruiter.addressWallet,
+            newestRecruiter.fullName,
+            newestRecruiter.email,
+            newestRecruiter.phone,
+            newestRecruiter.position
+        );
+    }
+
+    function updateRecruiter(
+        uint _id,
+        string memory _avatar,
+        string memory _background,
+        string memory _addressWallet,
+        string memory _fullName,
+        string memory _email,
+        string memory _phone,
+        string memory _position
+    ) public override onlyRole(msg.sender, CANDIDATE_ROLE) {
+        super.updateRecruiter(
             _id,
             _avatar,
             _background,
@@ -191,22 +323,42 @@ contract Resumiro is
             _fullName,
             _email,
             _phone,
-            _about
+            _position
+        );
+
+        AppRecruiter memory updatedRecruiter = super.getRecruiter(_id);
+
+        emit UpdateRecruiter(
+            updatedRecruiter.id,
+            updatedRecruiter.avatar,
+            updatedRecruiter.background,
+            updatedRecruiter.addressWallet,
+            updatedRecruiter.fullName,
+            updatedRecruiter.email,
+            updatedRecruiter.phone,
+            updatedRecruiter.position
         );
     }
 
-    function deleteCandidate(
+    function deleteRecruiter(
         uint _id
     ) public override onlyRole(msg.sender, ADMIN_ROLE) {
-        super.deleteCandidate(_id);
+        AppRecruiter memory deletedRecruiter = super.getRecruiter(_id);
 
-        emit DeleteCandidate(_id);
+        super.deleteRecruiter(_id);
+
+        emit DeleteRecruiter(
+            deletedRecruiter.id,
+            deletedRecruiter.owned,
+            deletedRecruiter.avatar,
+            deletedRecruiter.background,
+            deletedRecruiter.addressWallet,
+            deletedRecruiter.fullName,
+            deletedRecruiter.email,
+            deletedRecruiter.phone,
+            deletedRecruiter.position
+        );
     }
-
-    /**
-     * @custom:recruiter-contract
-     * */
-    
 
     /**
      * @custom:resume-contract
