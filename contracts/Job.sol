@@ -1,142 +1,241 @@
 // SPDX-License-Identifier: MIT
-
-pragma solidity ^0.8.0;
-
-import "./library/UintArray.sol";
+pragma solidity ^0.8.18;
 
 contract Job {
     struct AppJob {
-        uint id;
         string title;
-        uint locationId;
-        uint jobTypeId;
-        uint experience;
-        string requirements;
-        string benefits;
-        string createAt;
-        string updateAt;
-        uint recruiterId;
+        string location;
+        string jobType;
+        uint createAt;
+        uint updateAt;
         uint companyId;
         uint salary;
-        uint fieldId;
+        string field;
+        bool exist;
     }
 
-    using UintArray for uint[];
-    uint[] internal s_jobIds;
-    mapping(uint => AppJob) internal s_jobs;
-    mapping(uint => uint[]) internal s_locationToJob;
-    mapping(uint => uint[]) internal s_recruiterToJob;
-    mapping(uint => uint[]) internal s_companyToJob;
-    mapping(uint => uint[]) internal s_typeToJob;
-    uint internal s_jobCounter = 0;
+    mapping(uint => AppJob) public jobs;
+    mapping(address => mapping(uint => bool)) public candidateApplyJob;
+    mapping(uint => address) public recruiterOwnJob;
 
-    function addJob(AppJob memory _job) public virtual {
-        uint _id = s_jobCounter;
-        s_jobIds.push(_id);
-        s_locationToJob[_job.locationId].push(_id);
-        s_recruiterToJob[_job.recruiterId].push(_id);
-        s_companyToJob[_job.companyId].push(_id);
-        s_typeToJob[_job.fieldId].push(_id);
-        s_jobs[_id] = AppJob(
-            _id,
-            _job.title,
-            _job.locationId,
-            _job.jobTypeId,
-            _job.experience,
-            _job.requirements,
-            _job.benefits,
-            _job.createAt,
-            _job.updateAt,
-            _job.recruiterId,
-            _job.companyId,
-            _job.salary,
-            _job.fieldId
+    event AddJob(
+        uint id,
+        string title,
+        string location,
+        string job_type,
+        uint create_at,
+        uint update_at,
+        uint companyId,
+        uint salary,
+        string field,
+        address owner_address
+    );
+    event UpdateJob(
+        uint id,
+        string title,
+        string location,
+        string job_type,
+        uint create_at,
+        uint update_at,
+        uint companyId,
+        uint salary,
+        string field,
+        address owner_address
+    );
+    event DeleteJob(
+        uint id,
+        string title,
+        string location,
+        string job_type,
+        uint create_at,
+        uint update_at,
+        uint companyId,
+        uint salary,
+        string field,
+        address owner_address
+    );
+    event ApplyJob(
+        address indexed candidate_address,
+        address indexed recruiter_address,
+        uint job_id,
+        bool isApplied
+    );
+    event DisapplyJob(
+        address indexed candidate_address,
+        address indexed recruiter_address,
+        uint job_id,
+        bool isApplied
+    );
+
+    // modifier onlyOwnJob(uint _id) {
+    //     require(
+    //         recruiterOwnJob[_id] == msg.sender,
+    //         "Recruiter: Caller not own this job"
+    //     );
+    //     _;
+    // }
+
+    function getJob(uint _id) public view returns (AppJob memory) {
+        return jobs[_id];
+    }
+
+    // only recruiter -> resumiro
+    // param _recruiterAddress must equal msg.sender -> resumiro
+    // recruiter must connected with company id -> resumiro
+    // job id must not existed
+    function addJob(
+        uint _id,
+        string memory _title,
+        string memory _location,
+        string memory _jobType,
+        uint _createAt,
+        uint _companyId,
+        uint _salary,
+        string memory _field,
+        address _recruiterAddress
+    ) public virtual {
+        require(!jobs[_id].exist, "Job: id already existed");
+
+        jobs[_id] = AppJob(
+            _title,
+            _location,
+            _jobType,
+            _createAt,
+            _createAt,
+            _companyId,
+            _salary,
+            _field,
+            true
         );
-        s_jobCounter++;
+
+        AppJob memory job = getJob(_id);
+        recruiterOwnJob[_id] = _recruiterAddress;
+
+        emit AddJob(
+            _id,
+            job.title,
+            job.location,
+            job.jobType,
+            job.createAt,
+            job.updateAt,
+            job.companyId,
+            job.salary,
+            job.field,
+            recruiterOwnJob[_id]
+        );
     }
 
+    // only recruiter -> resumiro
+    // only owner of job -> resumiro
+    // recruiter must connected with update company -> resumiro
+    // job id must existed
     function updateJob(
         uint _id,
         string memory _title,
-        uint _jobTypeId,
-        uint _experience,
-        string memory _requirements,
-        string memory _benefits,
-        string memory _createAt,
-        string memory _updateAt,
-        uint _salary
+        string memory _location,
+        string memory _jobType,
+        uint _updateAt,
+        uint _companyId,
+        uint _salary,
+        string memory _field
     ) public virtual {
-        s_jobs[_id].title = _title;
-        s_jobs[_id].jobTypeId = _jobTypeId;
-        s_jobs[_id].experience = _experience;
-        s_jobs[_id].requirements = _requirements;
-        s_jobs[_id].benefits = _benefits;
-        s_jobs[_id].createAt = _createAt;
-        s_jobs[_id].updateAt = _updateAt;
-        s_jobs[_id].salary = _salary;
+        require(jobs[_id].exist, "Job: id not existed");
+
+        jobs[_id].title = _title;
+        jobs[_id].location = _location;
+        jobs[_id].jobType = _jobType;
+        jobs[_id].updateAt = _updateAt;
+        jobs[_id].companyId = _companyId;
+        jobs[_id].salary = _salary;
+        jobs[_id].field = _field;
+
+        AppJob memory job = getJob(_id);
+
+        emit UpdateJob(
+            _id,
+            job.title,
+            job.location,
+            job.jobType,
+            job.createAt,
+            job.updateAt,
+            job.companyId,
+            job.salary,
+            job.field,
+            recruiterOwnJob[_id]
+        );
     }
 
+    // only recruiter -> resumiro
+    // only owner of job -> resumiro
+    // job id must existed
     function deleteJob(uint _id) public virtual {
-        AppJob memory job = s_jobs[_id];
-        s_jobIds.removeElement(_id);
-        s_locationToJob[job.locationId].removeElement(_id);
-        s_recruiterToJob[job.recruiterId].removeElement(_id);
-        s_companyToJob[job.companyId].removeElement(_id);
-        s_typeToJob[job.fieldId].removeElement(_id);
-        delete s_jobs[_id];
+        require(jobs[_id].exist, "Job: id not existed");
+
+        AppJob memory job = getJob(_id);
+        address ownerOfJob = recruiterOwnJob[_id];
+
+        delete jobs[_id];
+        delete recruiterOwnJob[_id];
+
+        emit DeleteJob(
+            _id,
+            job.title,
+            job.location,
+            job.jobType,
+            job.createAt,
+            job.updateAt,
+            job.companyId,
+            job.salary,
+            job.field,
+            ownerOfJob
+        );
     }
 
-    function getJob(uint _id) public view returns (AppJob memory) {
-        return s_jobs[_id];
+    // only candidate -> resumiro
+    // param _candidateAddress must equal msg.sender -> resumiro
+    // job must existed
+    // candidate have not applied this job yet
+    function connectJobCandidate(
+        address _candidateAddress,
+        uint _jobId
+    ) public virtual {
+        require(jobs[_jobId].exist, "Job-Applicant: id not existed");
+        require(
+            !candidateApplyJob[_candidateAddress][_jobId],
+            "Job-Applicant: Candidate already applied this job"
+        );
+
+        candidateApplyJob[_candidateAddress][_jobId] = true;
+
+        emit ApplyJob(
+            _candidateAddress,
+            recruiterOwnJob[_jobId],
+            _jobId,
+            candidateApplyJob[_candidateAddress][_jobId]
+        );
     }
 
-    function getNewestJob() public view returns (AppJob memory) {
-        return s_jobs[s_jobIds.length - 1];
-    }
+    // only candidate -> resumiro
+    // param _candidateAddress must equal msg.sender -> resumiro
+    // job must existed
+    // candidate have applied this job
+    function disconnectJobCandidate(
+        address _candidateAddress,
+        uint _jobId
+    ) public virtual {
+        require(jobs[_jobId].exist, "Job-Applicant: id not existed");
+        require(
+            candidateApplyJob[_candidateAddress][_jobId],
+            "Job-Applicant: Candidate not applied this job"
+        );
 
-    function getJobs(uint[] memory _ids) public view returns (AppJob[] memory) {
-        AppJob[] memory jobs = new AppJob[](_ids.length);
-        for (uint i = 0; i < _ids.length; i++) {
-            jobs[i] = s_jobs[_ids[i]];
-        }
-        return jobs;
-    }
+        candidateApplyJob[_candidateAddress][_jobId] = false;
 
-    function getAllJobs() public view returns (AppJob[] memory) {
-        AppJob[] memory jobs = new AppJob[](s_jobIds.length);
-        for (uint i = 0; i < s_jobIds.length; i++) {
-            jobs[i] = s_jobs[s_jobIds[i]];
-        }
-        return jobs;
-    }
-
-    function getJobsThruLocation(
-        uint _id
-    ) public view returns (AppJob[] memory) {
-        uint[] memory ids = s_locationToJob[_id];
-        return getJobs(ids);
-    }
-
-    function getJobsThruRecruiter(
-        uint _id
-    ) public view returns (AppJob[] memory) {
-        uint[] memory ids = s_recruiterToJob[_id];
-        return getJobs(ids);
-    }
-
-    function getJobsThruCompany(
-        uint _id
-    ) public view returns (AppJob[] memory) {
-        uint[] memory ids = s_companyToJob[_id];
-        return getJobs(ids);
-    }
-
-    function getJobsThruType(uint _id) public view returns (AppJob[] memory) {
-        uint[] memory ids = s_typeToJob[_id];
-        return getJobs(ids);
-    }
-
-    function getJobIds() public view returns (uint[] memory) {
-        return s_jobIds;
+        emit DisapplyJob(
+            _candidateAddress,
+            recruiterOwnJob[_jobId],
+            _jobId,
+            candidateApplyJob[_candidateAddress][_jobId]
+        );
     }
 }

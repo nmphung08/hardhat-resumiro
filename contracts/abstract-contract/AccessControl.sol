@@ -28,8 +28,8 @@ abstract contract AccessControl {
         return roles[_role].users[_account];
     }
 
-    modifier onlyRole(address _account, bytes32 _role) {
-        require(hasRole(_account, _role), "Caller doesn't have permission");
+    modifier onlyRole(bytes32 _role) {
+        require(hasRole(msg.sender, _role), "Role: Caller not have role");
         _;
     }
 
@@ -42,7 +42,7 @@ abstract contract AccessControl {
     function grantRole(
         address _account,
         bytes32 _role
-    ) public onlyRole(msg.sender, ADMIN_ROLE) {
+    ) public onlyRole(ADMIN_ROLE) {
         require(
             !hasRole(_account, _role),
             "Account have had this role to grant"
@@ -58,7 +58,7 @@ abstract contract AccessControl {
     function revokeRole(
         address _account,
         bytes32 _role
-    ) public onlyRole(msg.sender, ADMIN_ROLE) {
+    ) public onlyRole(ADMIN_ROLE) {
         require(
             hasRole(_account, _role),
             "Account have not had this role to revoke"

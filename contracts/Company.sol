@@ -1,121 +1,170 @@
 // SPDX-License-Identifier: MIT
-
-pragma solidity ^0.8.0;
-import "./library/UintArray.sol";
+pragma solidity ^0.8.18;
 
 contract Company {
     struct AppCompany {
-        uint id;
-        uint ownerId;
         string name;
-        string logo;
-        string background;
-        string about;
-        string scale;
         string website;
-        uint locationId;
+        string location;
         string addr;
-        string introduction;
+        bool exist;
     }
 
-    using UintArray for uint[];
-    uint[] internal s_compIds;
-    mapping(uint => AppCompany) internal s_companies;
-    mapping(uint => uint[]) internal s_locationToCompany;
-    uint internal s_companyCounter = 0;
+    mapping(uint => AppCompany) companies;
+    mapping(address => mapping(uint => bool)) recruitersInCompany;
 
+    event AddCompany(
+        uint id,
+        string name,
+        string website,
+        string location,
+        string address_company
+    );
+    event UpdateCompany(
+        uint id,
+        string name,
+        string website,
+        string location,
+        string address_company
+    );
+    event DeleteCompany(
+        uint id,
+        string name,
+        string website,
+        string location,
+        string address_company
+    );
+    event ConnectCompanyRecruiter(
+        address indexed recruiter_address,
+        uint company_id,
+        bool isConnect
+    );
+    event DisconnectCompanyRecruiter(
+        address indexed recruiter_address,
+        uint company_id,
+        bool isConnect
+    );
+
+    function getCompany(uint _id) public view returns (AppCompany memory) {
+        return companies[_id];
+    }
+
+    // only admin -> resumiro
+    // company must not existed
     function addCompany(
-        uint _ownerId,
+        uint _id,
         string memory _name,
-        string memory _logo,
-        string memory _background,
-        string memory _about,
-        string memory _scale,
         string memory _website,
-        uint _locationId,
-        string memory _addr,
-        string memory _introduction
+        string memory _location,
+        string memory _addr
     ) public virtual {
-        uint _id = s_companyCounter;
-        s_compIds.push(_id);
-        s_locationToCompany[_locationId].push(_id);
-        s_companies[_id] = AppCompany(
+        require(!companies[_id].exist, "Company: id already existed");
+
+        companies[_id] = AppCompany(_name, _website, _location, _addr, true);
+
+        AppCompany memory company = getCompany(_id);
+
+        emit AddCompany(
             _id,
-            _ownerId,
-            _name,
-            _logo,
-            _background,
-            _about,
-            _scale,
-            _website,
-            _locationId,
-            _addr,
-            _introduction
+            company.name,
+            company.website,
+            company.location,
+            company.addr
         );
-        s_companyCounter++;
     }
 
+    // only admin -> resumiro
+    // company must existed
     function updateCompany(
         uint _id,
         string memory _name,
-        string memory _logo,
-        string memory _background,
-        string memory _about,
-        string memory _scale,
         string memory _website,
-        uint _locationId,
-        string memory _addr,
-        string memory _introduction
+        string memory _location,
+        string memory _addr
     ) public virtual {
-        s_companies[_id].name = _name;
-        s_companies[_id].logo = _logo;
-        s_companies[_id].background = _background;
-        s_companies[_id].background = _background;
-        s_companies[_id].about = _about;
-        s_companies[_id].scale = _scale;
-        s_companies[_id].website = _website;
-        s_companies[_id].locationId = _locationId;
-        s_companies[_id].addr = _addr;
-        s_companies[_id].introduction = _introduction;
+        require(companies[_id].exist, "Company: ID not exist");
+
+        companies[_id].name = _name;
+        companies[_id].website = _website;
+        companies[_id].location = _location;
+        companies[_id].addr = _addr;
+
+        AppCompany memory company = getCompany(_id);
+
+        emit UpdateCompany(
+            _id,
+            company.name,
+            company.website,
+            company.location,
+            company.addr
+        );
     }
 
-    function deleteCompany(uint _id) public {
-        s_compIds.removeElement(_id);
-        uint locationId = s_companies[_id].locationId;
-        s_locationToCompany[locationId].removeElement(_id);
-        delete s_companies[_id];
+    // only admin -> resumiro
+    // company must existed
+    function deleteCompany(uint _id) public virtual {
+        require(companies[_id].exist, "Company: ID not exist");
+        AppCompany memory company = getCompany(_id);
+
+        delete companies[_id];
+
+        emit DeleteCompany(
+            _id,
+            company.name,
+            company.website,
+            company.location,
+            company.addr
+        );
     }
 
-    function getCompany(uint _id) public view returns (AppCompany memory) {
-        return s_companies[_id];
+    function isExistedCompanyRecruiter(
+        address _recruiterAddress,
+        uint _companyId
+    ) public view returns (bool) {
+        return recruitersInCompany[_recruiterAddress][_companyId];
     }
 
-    function getNewestCompany() public view returns (AppCompany memory) {
-        return s_companies[s_compIds.length - 1];
+    // only recruiter -> resumiro
+    // param _recruiterAddress must equal msg.sender -> resmiro
+    // company must existed
+    // recruiter must not in company
+    function connectCompanyRecruiter(
+        address _recruiterAddress,
+        uint _companyId
+    ) public virtual {
+        require(companies[_companyId].exist, "Company-Recruiter: ID not exist");
+        require(
+            !isExistedCompanyRecruiter(_recruiterAddress, _companyId),
+            "Company-Recruiter: Recruiter already connected with Company"
+        );
+
+        recruitersInCompany[_recruiterAddress][_companyId] = true;
+        emit ConnectCompanyRecruiter(
+            _recruiterAddress,
+            _companyId,
+            recruitersInCompany[_recruiterAddress][_companyId]
+        );
     }
 
-    function getCompanies(
-        uint[] memory _ids
-    ) public view returns (AppCompany[] memory) {
-        AppCompany[] memory companies = new AppCompany[](_ids.length);
-        for (uint i = 0; i < _ids.length; i++) {
-            companies[i] = s_companies[_ids[i]];
-        }
-        return companies;
-    }
+    // only recruiter -> resumiro
+    // param _recruiterAddress must equal msg.sender -> resmiro
+    // company must existed
+    // recruiter must not in company
+    function disconnectCompanyRecruiter(
+        address _recruiterAddress,
+        uint _companyId
+    ) public virtual {
+        require(companies[_companyId].exist, "Company-Recruiter: ID not exist");
+        require(
+            isExistedCompanyRecruiter(_recruiterAddress, _companyId),
+            "Company-Recruiter: Recruiter not connect with Company"
+        );
 
-    function getAllCompanies() public view returns (AppCompany[] memory) {
-        AppCompany[] memory companies = new AppCompany[](s_compIds.length);
-        for (uint i = 0; i < s_compIds.length; i++) {
-            companies[i] = s_companies[s_compIds[i]];
-        }
-        return companies;
-    }
-
-    function getCompaniesThruLocation(
-        uint _id
-    ) public view returns (AppCompany[] memory) {
-        uint[] memory ids = s_locationToCompany[_id];
-        return getCompanies(ids);
+        recruitersInCompany[msg.sender][_companyId] = false;
+        emit DisconnectCompanyRecruiter(
+            msg.sender,
+            _companyId,
+            recruitersInCompany[_recruiterAddress][_companyId]
+        );
     }
 }
