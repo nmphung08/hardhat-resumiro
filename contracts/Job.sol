@@ -110,6 +110,7 @@ contract Job {
 
         AppJob memory job = getJob(_id);
         recruiterOwnJob[_id] = _recruiterAddress;
+        address owner = recruiterOwnJob[_id];
 
         emit AddJob(
             _id,
@@ -121,7 +122,7 @@ contract Job {
             job.companyId,
             job.salary,
             job.field,
-            recruiterOwnJob[_id]
+            owner
         );
     }
 
@@ -150,6 +151,7 @@ contract Job {
         jobs[_id].field = _field;
 
         AppJob memory job = getJob(_id);
+        address owner = recruiterOwnJob[_id];
 
         emit UpdateJob(
             _id,
@@ -161,7 +163,7 @@ contract Job {
             job.companyId,
             job.salary,
             job.field,
-            recruiterOwnJob[_id]
+            owner
         );
     }
 
@@ -206,13 +208,10 @@ contract Job {
         );
 
         candidateApplyJob[_candidateAddress][_jobId] = true;
+        address owner = recruiterOwnJob[_jobId];
+        bool isApplied = candidateApplyJob[_candidateAddress][_jobId];
 
-        emit ApplyJob(
-            _candidateAddress,
-            recruiterOwnJob[_jobId],
-            _jobId,
-            candidateApplyJob[_candidateAddress][_jobId]
-        );
+        emit ApplyJob(_candidateAddress, owner, _jobId, isApplied);
     }
 
     // only candidate -> resumiro
@@ -230,12 +229,9 @@ contract Job {
         );
 
         candidateApplyJob[_candidateAddress][_jobId] = false;
+        address owner = recruiterOwnJob[_jobId];
+        bool isApplied = candidateApplyJob[_candidateAddress][_jobId];
 
-        emit DisapplyJob(
-            _candidateAddress,
-            recruiterOwnJob[_jobId],
-            _jobId,
-            candidateApplyJob[_candidateAddress][_jobId]
-        );
+        emit DisapplyJob(_candidateAddress, owner, _jobId, isApplied);
     }
 }

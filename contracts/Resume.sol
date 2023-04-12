@@ -64,13 +64,14 @@ contract Resume {
         candidateOwnResume[_id] = _candidateAddress;
 
         AppResume memory resume = getResume(_id);
+        address owner = candidateOwnResume[_id];
 
         emit AddResume(
             _id,
             resume.data,
             resume.createAt,
             resume.updateAt,
-            candidateOwnResume[_id]
+            owner
         );
     }
 
@@ -88,13 +89,14 @@ contract Resume {
         resumes[_id].updateAt = _updateAt;
 
         AppResume memory resume = getResume(_id);
+        address owner = candidateOwnResume[_id];
 
         emit UpdateResume(
             _id,
             resume.data,
             resume.createAt,
             resume.updateAt,
-            candidateOwnResume[_id]
+            owner
         );
     }
 

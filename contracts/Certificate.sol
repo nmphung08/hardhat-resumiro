@@ -44,12 +44,9 @@ contract Certificate {
         certs[_id] = AppCertificate(_name, _verifiedAt, true);
         candidateOwnCert[_id] = _candidateAddress;
 
-        emit AddCertificate(
-            _id,
-            certs[_id].name,
-            certs[_id].verifiedAt,
-            candidateOwnCert[_id]
-        );
+        AppCertificate memory cert = certs[_id];
+
+        emit AddCertificate(_id, cert.name, cert.verifiedAt, _candidateAddress);
     }
 
     // only candidate -> resumiro
@@ -64,12 +61,15 @@ contract Certificate {
 
         certs[_id].name = _name;
         certs[_id].verifiedAt = _verifiedAt;
+        AppCertificate memory cert = certs[_id];
+
+        address candidateAddress = candidateOwnCert[_id];
 
         emit UpdateCertificate(
             _id,
-            certs[_id].name,
-            certs[_id].verifiedAt,
-            candidateOwnCert[_id]
+            cert.name,
+            cert.verifiedAt,
+            candidateAddress
         );
     }
 

@@ -139,11 +139,9 @@ contract Company {
         );
 
         recruitersInCompany[_recruiterAddress][_companyId] = true;
-        emit ConnectCompanyRecruiter(
-            _recruiterAddress,
-            _companyId,
-            recruitersInCompany[_recruiterAddress][_companyId]
-        );
+        bool isIn = recruitersInCompany[_recruiterAddress][_companyId];
+
+        emit ConnectCompanyRecruiter(_recruiterAddress, _companyId, isIn);
     }
 
     // only recruiter -> resumiro
@@ -161,10 +159,8 @@ contract Company {
         );
 
         recruitersInCompany[msg.sender][_companyId] = false;
-        emit DisconnectCompanyRecruiter(
-            msg.sender,
-            _companyId,
-            recruitersInCompany[_recruiterAddress][_companyId]
-        );
+        bool isIn = recruitersInCompany[_recruiterAddress][_companyId];
+
+        emit DisconnectCompanyRecruiter(msg.sender, _companyId, isIn);
     }
 }
