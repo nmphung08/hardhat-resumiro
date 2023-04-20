@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
+import "../interfaces/IUser.sol";
+
 contract Certificate {
     struct AppCertificate {
         string name;
@@ -11,6 +13,11 @@ contract Certificate {
     //=============================ATTRIBUTES==========================================
     mapping(uint => AppCertificate) certs;
     mapping(uint => address) candidateOwnCert;
+    IUser user;
+
+    constructor(address _userContract) {
+        user = IUser(_userContract);
+    }
 
     //=============================EVENTS==========================================
     event AddCertificate(
@@ -37,6 +44,8 @@ contract Certificate {
     error AlreadyExisted(uint id);
     error NotOwned(uint id, address candidate_address);
 
+    error NotCandidate(address user_address);
+
     //=============================METHODs==========================================
     //==================CERTIFICATES=======================
     function isOwnerOfCertificate(
@@ -46,9 +55,10 @@ contract Certificate {
         return candidateOwnCert[_id] == _candidateAddress;
     }
 
-    // only candidate -> later
-    // param _candidateAddress must equal msg.sender -> later
-    // id must not existed
+    // only candidate -> later⏳
+    // param _candidateAddress must equal msg.sender -> later⏳
+    // id must not existed -> done✅
+    // just add for candidate -> done✅
     function addCertificate(
         uint _id,
         string memory _name,
@@ -57,6 +67,12 @@ contract Certificate {
     ) public virtual {
         if (certs[_id].exist) {
             revert AlreadyExisted({id: _id});
+        }
+        if (
+            !(user.isExisted(_candidateAddress) &&
+                user.hasType(_candidateAddress, 0))
+        ) {
+            revert NotCandidate({user_address: _candidateAddress});
         }
 
         certs[_id] = AppCertificate(_name, _verifiedAt, true);
@@ -67,9 +83,9 @@ contract Certificate {
         emit AddCertificate(_id, cert.name, cert.verifiedAt, _candidateAddress);
     }
 
-    // only candidate -> later
-    // candidate must own certificate
-    // id must not existed
+    // only candidate -> later⏳
+    // candidate must own certificate -> later⏳
+    // id must not existed -> done✅
     function updateCertificate(
         uint _id,
         string memory _name,
@@ -97,9 +113,9 @@ contract Certificate {
         );
     }
 
-    // only candidate -> later
-    // candidate must own certificate
-    // id must not existed
+    // only candidate -> later⏳
+    // candidate must own certificate -> later⏳
+    // id must not existed -> done✅
     function deleteCertificate(uint _id) public virtual {
         if (!certs[_id].exist) {
             revert NotExisted({id: _id});
@@ -121,5 +137,10 @@ contract Certificate {
             certificate.verifiedAt,
             ownerAddress
         );
+    }
+
+    //======================USER CONTRACT==========================
+    function setUserInterface(address _contract) public {
+        user = IUser(_contract);
     }
 }
