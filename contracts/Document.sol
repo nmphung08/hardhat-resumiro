@@ -2,6 +2,7 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 import ".//library/StringArray.sol";
+import "../interfaces/IUser.sol";
 
 contract Documents {
     
@@ -24,6 +25,12 @@ contract Documents {
     uint rejected;
     uint total;
   }
+
+      IUser user;
+
+    constructor(address _userContract) {
+        user = IUser(_userContract);
+    }
 
   event DocumentAdded (address user);
   event DocumentVerified (address user);
