@@ -1,0 +1,336 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_userContract",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "AlreadyExisted",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user_address",
+				"type": "address"
+			}
+		],
+		"name": "NotCandidate",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			}
+		],
+		"name": "NotExisted",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "candidate_address",
+				"type": "address"
+			}
+		],
+		"name": "NotOwned",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "user_address",
+				"type": "address"
+			}
+		],
+		"name": "NotVerifier",
+		"type": "error"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "verified_at",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner_address",
+				"type": "address"
+			}
+		],
+		"name": "AddCertificate",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "verified_at",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner_address",
+				"type": "address"
+			}
+		],
+		"name": "DeleteCertificate",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "verified_at",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner_address",
+				"type": "address"
+			}
+		],
+		"name": "UpdateCertificate",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_verifiedAt",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_candidateAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_verifierAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_certificateAddress",
+				"type": "string"
+			}
+		],
+		"name": "addCertificate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "deleteCertificate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "getDocument",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "requester",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "verifier",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "verifiedAt",
+				"type": "uint256"
+			},
+			{
+				"internalType": "enum Certificate.DocStatus",
+				"name": "status",
+				"type": "uint8"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_candidateAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "isOwnerOfCertificate",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_contract",
+				"type": "address"
+			}
+		],
+		"name": "setUserInterface",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_verifiedAt",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_candidateAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_verifierAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_certificateAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "enum Certificate.DocStatus",
+				"name": "_status",
+				"type": "uint8"
+			}
+		],
+		"name": "updateCertificate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]

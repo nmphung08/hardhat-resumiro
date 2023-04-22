@@ -1,0 +1,456 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_userContract",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "company_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "AlreadyExistedCompany",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "company_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "NotExistedCompany",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "NotRecruiter",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "company_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "recruiter_address",
+                "type": "address"
+            }
+        ],
+        "name": "RecruiterAlreadyInCompany",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "company_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "recruiter_address",
+                "type": "address"
+            }
+        ],
+        "name": "RecruiterNotInCompany",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "website",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "location",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "address_company",
+                "type": "string"
+            }
+        ],
+        "name": "AddCompany",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "recruiter_address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "company_id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "isConnect",
+                "type": "bool"
+            }
+        ],
+        "name": "ConnectCompanyRecruiter",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "website",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "location",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "address_company",
+                "type": "string"
+            }
+        ],
+        "name": "DeleteCompany",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "recruiter_address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "company_id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "isConnect",
+                "type": "bool"
+            }
+        ],
+        "name": "DisconnectCompanyRecruiter",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "website",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "location",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "address_company",
+                "type": "string"
+            }
+        ],
+        "name": "UpdateCompany",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_website",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_location",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_addr",
+                "type": "string"
+            }
+        ],
+        "name": "addCompany",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_recruiterAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_companyId",
+                "type": "uint256"
+            }
+        ],
+        "name": "connectCompanyRecruiter",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "deleteCompany",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_recruiterAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_companyId",
+                "type": "uint256"
+            }
+        ],
+        "name": "disconnectCompanyRecruiter",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "getCompany",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "website",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "location",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "addr",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "exist",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct Company.AppCompany",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "isExistedCompany",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_recruiterAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_companyId",
+                "type": "uint256"
+            }
+        ],
+        "name": "isExistedCompanyRecruiter",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_contract",
+                "type": "address"
+            }
+        ],
+        "name": "setUserInterface",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_name",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_website",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_location",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_addr",
+                "type": "string"
+            }
+        ],
+        "name": "updateCompany",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]

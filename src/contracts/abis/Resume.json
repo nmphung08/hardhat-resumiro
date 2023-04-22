@@ -1,0 +1,528 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "recruiter_address",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "AlreadyApprovedRecruiter",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "AlreadyApprovedResume",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "recruiter_address",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "NotApprovedRecruiter",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "NotCandidate",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "NotExistedResume",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "candidate_address",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "NotOwnedResume",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "NotRecruiter",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "data",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "create_at",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "update_at",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "owner_address",
+                "type": "address"
+            }
+        ],
+        "name": "AddResume",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "candidate_address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "recruiter_address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "resume_id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "isApproved",
+                "type": "bool"
+            }
+        ],
+        "name": "Approval",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "data",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "create_at",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "update_at",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "owner_address",
+                "type": "address"
+            }
+        ],
+        "name": "DeleteResume",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "data",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "create_at",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "update_at",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "owner_address",
+                "type": "address"
+            }
+        ],
+        "name": "UpdateResume",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_data",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_createAt",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "_candidateAddress",
+                "type": "address"
+            }
+        ],
+        "name": "addResume",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "candidateOwnResume",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_recruiterAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_resumeId",
+                "type": "uint256"
+            }
+        ],
+        "name": "connectResumeRecruiter",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "deleteResume",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_recruiterAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_resumeId",
+                "type": "uint256"
+            }
+        ],
+        "name": "disconnectResumeRecruiter",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "getResume",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "string",
+                        "name": "data",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "createAt",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "updateAt",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "exist",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct Resume.AppResume",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_recruiterAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_resumeId",
+                "type": "uint256"
+            }
+        ],
+        "name": "isExistedResumeRecruiter",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_candidateAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "isOwnerOfResume",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "resumeApprovals",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "resumes",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "data",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "createAt",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "updateAt",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "exist",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_contract",
+                "type": "address"
+            }
+        ],
+        "name": "setUserInterface",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_data",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_updateAt",
+                "type": "uint256"
+            }
+        ],
+        "name": "updateResume",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "user",
+        "outputs": [
+            {
+                "internalType": "contract IUser",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

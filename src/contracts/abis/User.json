@@ -1,0 +1,178 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            },
+            {
+                "internalType": "enum User.UserType",
+                "name": "user_type",
+                "type": "uint8"
+            }
+        ],
+        "name": "AlreadyExistedUser",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "NotExistedUser",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "enum User.UserType",
+                "name": "user_type",
+                "type": "uint8"
+            },
+            {
+                "indexed": false,
+                "internalType": "bool",
+                "name": "exist",
+                "type": "bool"
+            }
+        ],
+        "name": "AddUser",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "enum User.UserType",
+                "name": "user_type",
+                "type": "uint8"
+            }
+        ],
+        "name": "DeleteUser",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_userAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_type",
+                "type": "uint256"
+            }
+        ],
+        "name": "addUser",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_userAddress",
+                "type": "address"
+            }
+        ],
+        "name": "deleteUser",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_userAddress",
+                "type": "address"
+            }
+        ],
+        "name": "getUser",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "enum User.UserType",
+                        "name": "userType",
+                        "type": "uint8"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "exist",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct User.AppUser",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_user",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_type",
+                "type": "uint256"
+            }
+        ],
+        "name": "hasType",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_userAddress",
+                "type": "address"
+            }
+        ],
+        "name": "isExisted",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

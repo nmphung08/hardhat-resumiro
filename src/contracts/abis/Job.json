@@ -1,0 +1,358 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_userContract",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_companyContract",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "experience_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "AlreadyConnectedExperienceUser",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "experience_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "AlreadyExistedExperience",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "experience_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "NotConnectedExperienceUser",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "experience_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "company_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "NotExistedCompany",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "experience_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "NotExistedExperience",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "NotExistedUser",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "position",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "start",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "finish",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "company_id",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "AddExperience",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "position",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "start",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "finish",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "company_id",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "DeleteExperience",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "position",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "start",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "finish",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "company_id",
+                "type": "uint256"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "UpdateExperience",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_user",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_position",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_start",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_finish",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_companyId",
+                "type": "uint256"
+            }
+        ],
+        "name": "addExperience",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_user",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "deleteExperience",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_contract",
+                "type": "address"
+            }
+        ],
+        "name": "setCompanyInterface",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_contract",
+                "type": "address"
+            }
+        ],
+        "name": "setUserInterface",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_user",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_position",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_start",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_finish",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_companyId",
+                "type": "uint256"
+            }
+        ],
+        "name": "updateExperience",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]

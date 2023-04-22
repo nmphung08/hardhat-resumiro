@@ -1,0 +1,342 @@
+[
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_userContract",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_jobContract",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            }
+        ],
+        "name": "AlreadyExistedSkill",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "user_address",
+                "type": "address"
+            }
+        ],
+        "name": "NotCandidate",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "skill_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "candidate_address",
+                "type": "address"
+            }
+        ],
+        "name": "NotConnectedSkillCandidate",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "skill_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "job_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "NotConnectedSkillJob",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "job_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "NotExistedJob",
+        "type": "error"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "NotExistedSkill",
+        "type": "error"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            }
+        ],
+        "name": "AddSkill",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "candidate_address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256[]",
+                "name": "skill_ids",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "ConnectCandidateSkill",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256[]",
+                "name": "skill_ids",
+                "type": "uint256[]"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "job_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "ConnectJobSkill",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "name",
+                "type": "string"
+            }
+        ],
+        "name": "DeleteSkill",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "candidate_address",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256[]",
+                "name": "skills_ids",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "DisconnectCandidateSkill",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256[]",
+                "name": "skills_ids",
+                "type": "uint256[]"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "job_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "DisconnectJobSkill",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_name",
+                "type": "string"
+            }
+        ],
+        "name": "addSkill",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_candidate",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "_skills",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "connectCandidateSkill",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "_skills",
+                "type": "uint256[]"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_job",
+                "type": "uint256"
+            }
+        ],
+        "name": "connectJobSkill",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "deleteSkill",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_candidate",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256[]",
+                "name": "_skills",
+                "type": "uint256[]"
+            }
+        ],
+        "name": "disconnectCandidateSkill",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "_skills",
+                "type": "uint256[]"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_job",
+                "type": "uint256"
+            }
+        ],
+        "name": "disconnectJobSkill",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_contract",
+                "type": "address"
+            }
+        ],
+        "name": "setJobInterface",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_contract",
+                "type": "address"
+            }
+        ],
+        "name": "setUserInterface",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]
