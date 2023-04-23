@@ -71,6 +71,22 @@
 		"type": "error"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "verifier_address",
+				"type": "address"
+			}
+		],
+		"name": "NotVerifierOfCertificate",
+		"type": "error"
+	},
+	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -217,9 +233,126 @@
 	{
 		"inputs": [
 			{
+				"internalType": "address",
+				"name": "_verifierAddress",
+				"type": "address"
+			},
+			{
 				"internalType": "uint256",
-				"name": "_id",
+				"name": "lindex",
 				"type": "uint256"
+			}
+		],
+		"name": "getCertificateVerifier",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "candidate",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "verifiedAt",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "certificateAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "enum Certificate.DocStatus",
+				"name": "status",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_candidateAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "lindex",
+				"type": "uint256"
+			}
+		],
+		"name": "getCertificatecandidate",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "verifier",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "verifiedAt",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "certificateAddress",
+				"type": "string"
+			},
+			{
+				"internalType": "enum Certificate.DocStatus",
+				"name": "status",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_addressUser",
+				"type": "address"
+			}
+		],
+		"name": "getCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_certificateAddress",
+				"type": "string"
 			}
 		],
 		"name": "getDocument",
@@ -281,6 +414,30 @@
 		"inputs": [
 			{
 				"internalType": "address",
+				"name": "_verifierAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "isVerifierOfCertificate",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
 				"name": "_contract",
 				"type": "address"
 			}
@@ -298,19 +455,9 @@
 				"type": "uint256"
 			},
 			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			},
-			{
 				"internalType": "uint256",
 				"name": "_verifiedAt",
 				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "_candidateAddress",
-				"type": "address"
 			},
 			{
 				"internalType": "address",

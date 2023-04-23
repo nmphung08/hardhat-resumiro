@@ -16,7 +16,8 @@ type contextProps = {
     signer?: ethers.providers.JsonRpcSigner,
     wallet?: Wallet,
     handleConnectWallet?: any,
-    handleAddUser?: any
+    handleAddUser?: any,
+    isConnected?: any
 }
 
 export const Web3Context = React.createContext<contextProps>({});
@@ -32,7 +33,7 @@ export const Web3Provider = ({ children }: Props) => {
             if (!window.ethereum) alert("Please install metamask!")
 
             console.log('...connecting wallet');
-            const provider = new ethers.providers.Web3Provider(window.ethereum, undefined);
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
             await provider.send("eth_requestAccounts", []);
             const signer = provider.getSigner();
             // const accounts = window.ethereum.request({ method: "eth_requestAccounts" });
@@ -40,6 +41,11 @@ export const Web3Provider = ({ children }: Props) => {
             const address = await signer.getAddress();
             const amount = Number(ethers.utils.formatEther(await signer.getBalance()));
             // const balance = (await signer.getBalance()).toNumber;
+
+            localStorage.setItem('isWalletConnected', "true");
+            localStorage.setItem('metamaskAddress', address);
+            localStorage.setItem('metamaskAmount', amount.toString());
+            
 
             setProvider(provider);
             setWallet({ address, amount });
@@ -52,10 +58,40 @@ export const Web3Provider = ({ children }: Props) => {
         }
     }
 
+    const isConnected = async () => {
+        try {
+            if (!window.ethereum) alert("Please install metamask!")
+
+            console.log('...connecting wallet');
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            await provider.send("eth_requestAccounts", []);
+            const signer = provider.getSigner();
+            // const accounts = window.ethereum.request({ method: "eth_requestAccounts" });
+
+            let address = "";
+            let addressStorage = localStorage?.getItem("metamaskAddress");
+            if (addressStorage !== null) {
+                address = addressStorage;
+            }
+            const amount = Number(ethers.utils.formatEther(await signer.getBalance()));
+            // const balance = (await signer.getBalance()).toNumber;
+
+            setProvider(provider);
+            setWallet({ address, amount });
+            
+            console.log('connect wallet done');
+        } catch (error) {
+            console.log(error);
+            console.log('connect wallet done');
+
+            throw new Error("No ethereum Object");
+        }
+    }
+
     //======================USER=========================
 
     return (
-        <Web3Context.Provider value={{ provider, wallet, handleConnectWallet }}>
+        <Web3Context.Provider value={{ provider, wallet, handleConnectWallet, isConnected }}>
             {children}
         </Web3Context.Provider>
     )

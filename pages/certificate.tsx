@@ -1,18 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Web3Context } from "@/src/context/Web3Context";
 import CertificateContract from "@/src/contracts/Certificate";
+import UserContract, { UserProps } from "@/src/contracts/User";
 import { useState } from "react";
 import styles from "./form.module.css";
-import { shortenAddress } from '@/src/utils/shortenAddress';
+import { ethers } from "ethers";
 
-type Props = {};
+declare var window: any;
 
-const Certificate = (props: Props) => {
-  const { provider, wallet } = React.useContext(Web3Context);
+const Certificate = () => {
+  const { provider, wallet, isConnected } = React.useContext(Web3Context);
   const [name, setName] = useState("");
+  const [verifiers, setVerifiers] = useState([]);
   const [description, setDescription] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
+  const [address, setAddress] = useState("");
+  // const [wallet, setWallet] = useState({address: "", amount: 0});
+
+  const connectWallet = async() => {
+    let address : any;
+    
+    if ("true" === localStorage?.getItem("isWalletConnected")) {
+        address = localStorage?.getItem('metamaskAddress')
+        if (address !== null) {
+            setAddress(address);
+            isConnected();
+        }
+    }
+}
+
+  useEffect(() => {
+    connectWallet();
+  }, [])
+
+  useEffect(() => {
+    if (provider) {
+      ((async () => {
+          const userContract = new UserContract(provider);
+          const result = await userContract.getVerifiers();
+          setVerifiers(result);
+          console.log(result);
+      }))()
+  }
+  }, [wallet])
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -26,23 +57,22 @@ const Certificate = (props: Props) => {
     try {
         console.log("...handling user contract");
 
-        if (!provider) {
+        if (!provider || !wallet) {
             console.log("Out");
             return;
         }
 
         const certificateContract = new CertificateContract(provider);
-        const test = wallet?.address;
-        let candidateAddress = "0x0000000000000000000000000000000000000000";
-        if (wallet) {
-            candidateAddress = shortenAddress(wallet.address);
-        }
+        const candidateAddress = wallet.address;
         let doc = {
-            id: 1,
-            name: "Ngoc",
-            verifiedAt: 2003,
-            candidateAddress
+            id: 0,
+            name,
+            verifiedAt: (new Date()).getTime(),
+            candidateAddress,
+            verifierAddress: selectedUser,
+            certAddress: "bafybeibdv3wg7iy7rpb7duykdotznprtwb7v2z5pyrtywyvytcrg7zbunq"
         }
+        console.log(doc)
         let result = await certificateContract.addCertificate(doc);
 
         if (result.status == 1) {
@@ -55,7 +85,7 @@ const Certificate = (props: Props) => {
         console.log("handle user contract done");
     } catch (error) {
         console.log(error);
-        console.log("handle user contract done");
+        console.log("handle user contract error");
 
         throw new Error("No ethereum Object");
     }
@@ -114,9 +144,9 @@ const Certificate = (props: Props) => {
             Choose File:
           </label>
           <input
-            type="file"
+            type="text"
             id="selectedFile"
-            onChange={handleFileInputChange}
+            onChange={(e) => setSelectedFile(e.target.value)}
           />
         </div>
         <div className={styles.formGroup}>
@@ -133,9 +163,10 @@ const Certificate = (props: Props) => {
             onChange={handleUserSelectChange}
           >
             <option value="">-- Select User --</option>
-            <option value="user1">User 1</option>
+            {/* <option value="0xcf6f5811a1bcA80B632735301A615C863AEdf7fb">Test 2</option>
             <option value="user2">User 2</option>
-            <option value="user3">User 3</option>
+            <option value="user3">User 3</option> */}
+            {verifiers.map((element) => (<option value={element}>{element}</option>))}
           </select>
         </div>
         <div className={styles.buttons}>

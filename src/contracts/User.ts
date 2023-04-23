@@ -19,4 +19,10 @@ export default class User extends BaseInterface {
 
         return result;
     }
+
+    async getVerifiers() {
+        const getTx = await this._contract.getVerifiers();
+
+        return getTx;
+    }
 }

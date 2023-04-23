@@ -1,12 +1,53 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Web3Context } from '@/src/context/Web3Context';
 import { shortenAddress } from '@/src/utils/shortenAddress';
+import { ethers } from 'ethers';
+import { IsConnectedWallet } from "@/src/utils/IsConnectedWallet";
 
 type Props = {}
+declare var window: any;
 
 const Header = (props: Props) => {
-    const { wallet, handleConnectWallet } = React.useContext(Web3Context);
+    const { wallet, handleConnectWallet, provider } = React.useContext(Web3Context);
+
+    const [isConnected,setIsConnected] = useState(false);
+    const [address, setAddress] = useState(typeof window !== 'undefined' ? localStorage?.getItem('metamaskAddress') ?? "" : "");
+    const [amount, setAmount] = useState(typeof window !== 'undefined' ? localStorage?.getItem('metamaskAmount') ?? 0 : 0);
+
+    const connectWallet = async() => {
+        let address : any;
+        
+        if ("true" === localStorage?.getItem("isWalletConnected")) {
+            
+            setIsConnected(true);
+            address = localStorage?.getItem('metamaskAddress')
+            if (address !== null) {
+                setAddress(address);
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                await provider.send("eth_requestAccounts", []);
+                const signer = provider.getSigner();
+                const amount = Number(ethers.utils.formatEther(await signer.getBalance()));
+                setAmount(amount);
+            }
+        }
+    }
+
+    useEffect(() => {  
+
+        if (wallet) {
+            setIsConnected(true);
+            setAddress(wallet.address);
+            setAmount(wallet.amount);
+        }
+        
+        connectWallet();
+    }, [wallet])
+
+    const handleLogOut = () => {
+        localStorage?.setItem("isWalletConnected", "false");
+        localStorage?.removeItem("metamaskAddress");
+    }
 
     return (
         <nav className='p-1 border-b-2 flex flex-row justify-between items-center'>
@@ -28,7 +69,7 @@ const Header = (props: Props) => {
                     Admin
                 </Link>
 
-                {!wallet ?
+                {!isConnected ?
                     <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full"
                         onClick={handleConnectWallet}
@@ -37,9 +78,10 @@ const Header = (props: Props) => {
                     </button> :
                     <button
                         className="bg-blue-700 text-white font-bold py-1 px-4 rounded-full items-center"
+                        onClick={handleLogOut}
                     >
-                        <div>{shortenAddress(wallet.address)}</div>
-                        <div>{wallet.amount} ETH</div>
+                        <div>{shortenAddress(address)}</div>
+                        <div>{amount} ETH</div>
                     </button>
                 }
             </div>

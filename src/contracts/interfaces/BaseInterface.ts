@@ -16,7 +16,7 @@ export default class BaseInterface {
         this._provider = provider;
         this._contractAddress = contractAddress;
         this._abi = abi;
-        this._option = { gasLimit: 300000 };
+        this._option = { gasLimit: 6000000 };
         this._contract = new ethers.Contract(contractAddress, abi, provider.getSigner());
     }
 
