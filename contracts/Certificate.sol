@@ -52,6 +52,7 @@ contract Certificate {
     error NotExisted(uint id);
     error AlreadyExisted(uint id);
     error NotOwned(uint id, address candidate_address);
+    error NotVerifierOfCertificate(uint id, address verifier_address);
 
     error NotCandidate(address user_address);
 
@@ -64,6 +65,13 @@ contract Certificate {
         uint _id
     ) public view returns (bool) {
         return certs[_id].candidate == _candidateAddress;
+    }
+
+    function isVerifierOfCertificate(
+        address _verifierAddress,
+        uint _id
+    ) public view returns (bool) {
+        return certs[_id].verifier == _verifierAddress;
     }
 
     // only candidate -> later⏳
@@ -111,9 +119,7 @@ contract Certificate {
     // id must not existed -> done✅
     function updateCertificate(
         uint _id,
-        string memory _name,
         uint _verifiedAt,
-        address _candidateAddress,
         address _verifierAddress,
         string memory _certificateAddress,
         DocStatus _status
@@ -122,15 +128,11 @@ contract Certificate {
             revert NotExisted({id: _id});
         }
 
-        if (isOwnerOfCertificate(msg.sender, _id)) {
-            revert NotOwned({id: _id, candidate_address: msg.sender});
+        if (!isVerifierOfCertificate(_verifierAddress, _id)) {
+            revert NotVerifierOfCertificate({id: _id, verifier_address: _verifierAddress});
         }
 
-        certs[_id].name = _name;
         certs[_id].verifiedAt = _verifiedAt;
-        certs[_id].candidate = _candidateAddress;
-        certs[_id].verifier = _verifierAddress;
-        certs[_id].certificateAddress = _certificateAddress;
         certs[_id].status = _status;
         AppCertificate memory cert = certs[_id];
 
@@ -138,6 +140,7 @@ contract Certificate {
             if (StringArray.equal(_certificateAddress, appCerts[i].certificateAddress)) {
                 delete appCerts[i];
                 appCerts.push(cert);
+                break;
             }
         }
 
@@ -159,7 +162,7 @@ contract Certificate {
             revert NotExisted({id: _id});
         }
 
-        if (isOwnerOfCertificate(msg.sender, _id)) {
+        if (!isOwnerOfCertificate(msg.sender, _id)) {
             revert NotOwned({id: _id, candidate_address: msg.sender});
         }
 
@@ -168,7 +171,9 @@ contract Certificate {
 
         for (uint i = 0; i < appCerts.length; i++) {
             if (StringArray.equal(certificate.certificateAddress, appCerts[i].certificateAddress)) {
-                delete appCerts[i];
+                appCerts[i] = appCerts[appCerts.length - 1];
+                appCerts.pop();
+                break;
             }
         }
 
