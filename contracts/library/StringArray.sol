@@ -18,24 +18,6 @@ library StringArray {
         }
     }
 
-    function isElementExisted(string[] storage _arr, string memory _e) internal view returns (bool) {
-        for (uint i = 0; i < _arr.length; i++) {
-            if (keccak256(bytes(_arr[i])) == keccak256(bytes(_e))) {
-                return true;
-            }
-            return false;
-        }
-    }
-
-    function isElementExistedMemory(string[] memory _arr, string memory _e) internal pure returns (bool) {
-        for (uint i = 0; i < _arr.length; i++) {
-            if (keccak256(bytes(_arr[i])) == keccak256(bytes(_e))) {
-                return true;
-            }
-            return false;
-        }
-    }
-
     function compare(string memory _a, string memory _b) public pure returns (int) {
       bytes memory a = bytes(_a);
       bytes memory b = bytes(_b);
