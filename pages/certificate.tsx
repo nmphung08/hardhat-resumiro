@@ -18,16 +18,16 @@ const Certificate = () => {
   const [address, setAddress] = useState("");
   // const [wallet, setWallet] = useState({address: "", amount: 0});
 
-  const connectWallet = async() => {
-    let address : any;
+const connectWallet = async() => {
+  let address : any;
     
-    if ("true" === localStorage?.getItem("isWalletConnected")) {
-        address = localStorage?.getItem('metamaskAddress')
-        if (address !== null) {
-            setAddress(address);
-            isConnected();
-        }
-    }
+  if ("true" === localStorage?.getItem("isWalletConnected")) {
+      address = localStorage?.getItem('metamaskAddress')
+      if (address !== null) {
+          setAddress(address);
+          isConnected();
+      }
+  }
 }
 
   useEffect(() => {
@@ -40,7 +40,6 @@ const Certificate = () => {
           const userContract = new UserContract(provider);
           const result = await userContract.getVerifiers();
           setVerifiers(result);
-          console.log(result);
       }))()
   }
   }, [wallet])
@@ -163,10 +162,7 @@ const Certificate = () => {
             onChange={handleUserSelectChange}
           >
             <option value="">-- Select User --</option>
-            {/* <option value="0xcf6f5811a1bcA80B632735301A615C863AEdf7fb">Test 2</option>
-            <option value="user2">User 2</option>
-            <option value="user3">User 3</option> */}
-            {verifiers.map((element) => (<option value={element}>{element}</option>))}
+            {verifiers.map((element, index) => (<option key={index} value={element}>{element}</option>))}
           </select>
         </div>
         <div className={styles.buttons}>

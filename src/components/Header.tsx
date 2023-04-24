@@ -14,6 +14,7 @@ const Header = (props: Props) => {
     const [isConnected,setIsConnected] = useState(false);
     const [address, setAddress] = useState(typeof window !== 'undefined' ? localStorage?.getItem('metamaskAddress') ?? "" : "");
     const [amount, setAmount] = useState(typeof window !== 'undefined' ? localStorage?.getItem('metamaskAmount') ?? 0 : 0);
+    const [isFetch, setIsFetch] = useState(false);
 
     const connectWallet = async() => {
         let address : any;
@@ -42,11 +43,12 @@ const Header = (props: Props) => {
         }
         
         connectWallet();
-    }, [wallet])
+    }, [wallet, isFetch])
 
     const handleLogOut = () => {
         localStorage?.setItem("isWalletConnected", "false");
         localStorage?.removeItem("metamaskAddress");
+        setIsFetch(!isFetch);
     }
 
     return (

@@ -87,4 +87,21 @@ export default class Certificate extends BaseInterface {
 
         return result;
     }
+
+    async getCount(_addressUser: string) {
+        const result = await this._contract.getCount(_addressUser);
+
+        return result;
+    }
+    
+    async updateCertificate(_id: number,
+        _verifiedAt: number,
+        _verifierAddress: string,
+        _certificateAddress: string,
+        _status: number) {
+        const updateTx = await this._contract.updateCertificate(_id, _verifiedAt, _verifierAddress, _certificateAddress, _status, this._option);
+        const result = await this._handleTransactionRespone(updateTx);
+
+        return result;
+    }
 }

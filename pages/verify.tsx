@@ -1,13 +1,81 @@
-import { useState } from 'react';
+import { Web3Context } from '@/src/context/Web3Context';
+import { useContext, useEffect, useState } from 'react';
+import UserContract from "../src/contracts/User"
+import CertificateContract from "../src/contracts/Certificate"
 
 export default function Table() {
   // Define a sample data for the table
-  const [data, setData] = useState([
-    { id: 1, name: 'Item 1', description: 'Description 1', status: 'Pending', transaction: 'Transaction 1' },
-    { id: 2, name: 'Item 2', description: 'Description 2', status: 'Verified', transaction: 'Transaction 2' },
-    { id: 3, name: 'Item 3', description: 'Description 3', status: 'Rejected', transaction: 'Transaction 3' },
-    { id: 4, name: 'Item 4', description: 'Description 4', status: 'Pending', transaction: 'Transaction 4' },
-  ]);
+  const { provider, wallet, isConnected } = useContext(Web3Context);
+  const [userType, setUserType] = useState(0);
+
+  const [data, setData] = useState<{name: string, user: string, verifiedAt: number, certificateAddress: string, status: number} []>([]);;
+
+  const connectWallet = async() => {
+    let address : any;
+      
+    if ("true" === localStorage?.getItem("isWalletConnected")) {
+        address = localStorage?.getItem('metamaskAddress')
+        if (address !== null) {
+            isConnected();
+        }
+    }
+  }
+
+  useEffect(() => {
+    connectWallet();
+  }, [])
+
+  useEffect(() => {
+    (async() => {
+      if (provider && wallet) {
+        const userContract = new UserContract(provider);
+        const certificateContract = new CertificateContract(provider);
+
+        userContract.getUser(wallet.address).then((user) => {
+          setUserType(user.userType);
+          certificateContract.getCount(wallet.address).then((count) => {
+
+            let index = 0;
+            for (let i = 0; i < count.toString(); i++) {
+              if (user.userType === 2) {
+                certificateContract.getCertificateVerifier(wallet.address, index).then((res) => {
+                  const {name, candidate, verifiedAt, certificateAddress, status} = res;
+                  index = res.index;
+                  setData((data) => [...data, {name, user: candidate, verifiedAt: verifiedAt.toString(), certificateAddress, status: status.toString()}]);
+                })
+              } else if (user.userType === 0) {
+                certificateContract.getCertificatecandidate(wallet.address, index).then((res) => {
+                  const {name, verifier, verifiedAt, certificateAddress, status} = res;
+                  index = res.index;
+                  setData((data) => [...data, {name, user: verifier, verifiedAt: verifiedAt.toString(), certificateAddress, status: status.toString()}]);
+                })
+              }
+            }
+          }).catch((err) => {
+            console.log(err);
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
+    })()
+  }, [wallet])
+
+  const verifyCert = async(e: any) => {
+    const status = e.target.value;
+    const certificateAddress = e.target.closest("tr").dataset.key;
+    
+    if (provider && wallet) {
+      const certificateContract = new CertificateContract(provider);
+      certificateContract.updateCertificate(0, (new Date()).getTime(), wallet.address, certificateAddress, status)
+      .then((result) => {
+        console.log(result);
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+  }
 
   // Render the table
   return (
@@ -17,18 +85,24 @@ export default function Table() {
         <thead>
           <tr className="bg-gray-200">
             <th className="py-2 px-4 text-left">Name</th>
-            <th className="py-2 px-4 text-left">Description</th>
+            <th className="py-2 px-4 text-left">User</th>
             <th className="py-2 px-4 text-left">Status</th>
             <th className="py-2 px-4 text-left">Transaction</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
-            <tr key={item.id} className="border">
+          {data.map((item, index) => (
+            <tr data-key={item.certificateAddress} key={index} className="border">
               <td className="py-2 px-4">{item.name}</td>
-              <td className="py-2 px-4">{item.description}</td>
-              <td className="py-2 px-4">{item.status}</td>
-              <td className="py-2 px-4">{item.transaction}</td>
+              <td className="py-2 px-4">{item.user}</td>
+              <td className="py-2 px-4">
+                <select defaultValue={item.status} disabled={userType !== 2} onChange={(e) => verifyCert(e)}>
+                  <option value={0}>Pending</option>
+                  <option value={1}>Reject</option>
+                  <option value={2}>Verify</option>
+                </select>
+              </td>
+              <td className="py-2 px-4">{item.verifiedAt}</td>
             </tr>
           ))}
         </tbody>

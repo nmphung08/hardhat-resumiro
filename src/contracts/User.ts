@@ -25,4 +25,10 @@ export default class User extends BaseInterface {
 
         return getTx;
     }
+
+    async getUser(_address: string) {
+        const getTx = await this._contract.getUser(_address);
+
+        return getTx;
+    }
 }
