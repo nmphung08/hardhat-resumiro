@@ -1,0 +1,118 @@
+{
+  "abi": [],
+  "allSourcePaths": {
+    "0": "contracts/abstract-contract/Ownable.sol"
+  },
+  "ast": {
+    "absolutePath": "contracts/abstract-contract/Ownable.sol",
+    "exportedSymbols": {
+      "Name": [
+        6
+      ]
+    },
+    "id": 7,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:0"
+      },
+      {
+        "abstract": true,
+        "baseContracts": [],
+        "canonicalName": "Name",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 6,
+        "linearizedBaseContracts": [
+          6
+        ],
+        "name": "Name",
+        "nameLocation": "75:4:0",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 4,
+              "nodeType": "Block",
+              "src": "100:16:0",
+              "statements": []
+            },
+            "id": 5,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 2,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "97:2:0"
+            },
+            "returnParameters": {
+              "id": 3,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "100:0:0"
+            },
+            "scope": 6,
+            "src": "86:30:0",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 7,
+        "src": "57:61:0",
+        "usedErrors": []
+      }
+    ],
+    "src": "32:86:0"
+  },
+  "bytecode": "",
+  "bytecodeSha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+  "compiler": {
+    "evm_version": "istanbul",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "version": "0.8.18+commit.87f61d96"
+  },
+  "contractName": "Name",
+  "coverageMap": {
+    "branches": {},
+    "statements": {}
+  },
+  "dependencies": [],
+  "deployedBytecode": "",
+  "deployedSourceMap": "",
+  "language": "Solidity",
+  "natspec": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "offset": [
+    57,
+    118
+  ],
+  "opcodes": "",
+  "pcMap": {},
+  "sha1": "f46a341fe1880485b37823e0e6a2d2a5ec3d3a86",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\nabstract contract Name {\n    constructor() {\n        \n    }\n}",
+  "sourceMap": "",
+  "sourcePath": "contracts/abstract-contract/Ownable.sol",
+  "type": "contract"
+}

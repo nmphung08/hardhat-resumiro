@@ -5,6 +5,7 @@ module.exports.default = async function updateCandidateById(
 ) {
     const { parseCandidate } = require("../../parse/parseCandidate")
     const prev = await parseCandidate(candidateId, contract)
+    
     let successTemplate = {
         message: "Successfully update candidate",
         status: "ok",
