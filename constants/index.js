@@ -1,6 +1,21 @@
-const abi = require("./abi.json")
+const userAbi = require("./userAbi.json")
+const companyAbi = require("./companyAbi.json")
+const experienceAbi = require("./experienceAbi.json")
+const jobAbi = require("./jobAbi.json")
+const resumeAbi = require("./resumeAbi.json")
+const skillAbi = require("./skillAbi.json")
+const resumiroAbi = require("./resumiroAbi.json")
 const contractAddress = require("./contractAddress.json")
 
-module.exports = { abi, contractAddress }
+module.exports = {
+    userAbi,
+    companyAbi,
+    experienceAbi,
+    jobAbi,
+    resumeAbi,
+    skillAbi,
+    resumiroAbi,
+    contractAddress,
+}
 
-// .json must be created with initial value: {}
+// contractAddress.json must be created with initial value: {}
