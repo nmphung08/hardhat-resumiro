@@ -9,7 +9,8 @@ import "./library/UintArray.sol";
 
 contract Resume is IResume {
     //=============================ATTRIBUTES==========================================
-    uint[] allResumes;
+    uint[] resumeIds;
+    uint resumeCounter = 1;
     mapping(uint => AppResume) public resumes;
     mapping(address => mapping(uint => bool)) public resumeApprovals;
     mapping(uint => address) public candidateOwnResume;
@@ -23,24 +24,24 @@ contract Resume is IResume {
     event AddResume(
         uint id,
         string data,
-        uint create_at,
-        uint update_at,
-        address indexed owner_address
+        address indexed owner,
+        string title,
+        uint create_at
     );
     event DeleteResume(
         uint id,
         string data,
-        uint create_at,
-        uint update_at,
-        address indexed owner_address
+        address indexed owner,
+        string title,
+        uint create_at
     );
-    event UpdateResume(
-        uint id,
-        string data,
-        uint create_at,
-        uint update_at,
-        address indexed owner_address
-    );
+    // event UpdateResume(
+    //     uint id,
+    //     string data,
+    //     address indexed owner,
+    //     string title,
+    //     uint create_at
+    // );
     event Approval(
         address candidate_address,
         address recruiter_address,
@@ -75,10 +76,10 @@ contract Resume is IResume {
     }
 
     function _getAllResumes() internal view returns (AppResume[] memory) {
-        AppResume[] memory arrResume = new AppResume[](allResumes.length);
+        AppResume[] memory arrResume = new AppResume[](resumeIds.length);
 
         for (uint i = 0; i < arrResume.length; i++) {
-            arrResume[i] = resumes[allResumes[i]];
+            arrResume[i] = resumes[resumeIds[i]];
         }
 
         return arrResume;
@@ -87,11 +88,11 @@ contract Resume is IResume {
     function _getAllResumesOf(
         address _candidateAddress
     ) internal view returns (AppResume[] memory) {
-        AppResume[] memory arrResume = new AppResume[](allResumes.length);
+        AppResume[] memory arrResume = new AppResume[](resumeIds.length);
 
         for (uint i = 0; i < arrResume.length; i++) {
-            if (candidateOwnResume[allResumes[i]] == _candidateAddress) {
-                arrResume[i] = resumes[allResumes[i]];
+            if (candidateOwnResume[resumeIds[i]] == _candidateAddress) {
+                arrResume[i] = resumes[resumeIds[i]];
             }
         }
 
@@ -103,11 +104,13 @@ contract Resume is IResume {
     // resume must not existed -> done✅
     // just add for candidate -> done✅
     function _addResume(
-        uint _id,
         string memory _data,
-        uint _createAt,
-        address _candidateAddress
+        address _candidateAddress,
+        string memory _title,
+        uint _createAt
     ) internal {
+        uint _id = resumeCounter;
+        resumeCounter++;
         if (resumes[_id].exist) {
             revert Resume__AlreadyExisted({id: _id});
         }
@@ -119,60 +122,54 @@ contract Resume is IResume {
         }
 
         resumes[_id] = AppResume(
-            allResumes.length,
+            resumeIds.length,
             _id,
             _data,
+            _candidateAddress,
+            _title,
             _createAt,
-            _createAt,
-            true,
-            _candidateAddress
+            true
         );
 
         candidateOwnResume[_id] = _candidateAddress;
-        allResumes.push(_id);
+        resumeIds.push(_id);
 
         AppResume memory resume = _getResume(_id);
         address owner = candidateOwnResume[_id];
 
-        emit AddResume(
-            _id,
-            resume.data,
-            resume.createAt,
-            resume.updateAt,
-            owner
-        );
+        emit AddResume(_id, resume.data, owner, resume.title, resume.createAt);
     }
 
     // only candidate -> later⏳
     // resume must existed -> done✅
     // caller must own resume -> later⏳
     // caller must be candidate in user contract -> later⏳
-    function _updateResume(
-        uint _id,
-        string memory _data,
-        uint256 _updateAt
-    ) internal {
-        if (!resumes[_id].exist) {
-            revert Resume__NotExisted({id: _id});
-        }
-        // if (isOwnerOfResume(msg.sender, _id)) {
-        //     revert Candidate_Resume__NotOwned({id: _id, candidate_address: msg.sender});
-        // }
+    // function _updateResume(
+    //     uint _id,
+    //     string memory _data,
+    //     uint256 _updateAt
+    // ) internal {
+    //     if (!resumes[_id].exist) {
+    //         revert Resume__NotExisted({id: _id});
+    //     }
+    //     // if (isOwnerOfResume(msg.sender, _id)) {
+    //     //     revert Candidate_Resume__NotOwned({id: _id, candidate_address: msg.sender});
+    //     // }
 
-        resumes[_id].data = _data;
-        resumes[_id].updateAt = _updateAt;
+    //     resumes[_id].data = _data;
+    //     resumes[_id].updateAt = _updateAt;
 
-        AppResume memory resume = _getResume(_id);
-        address owner = candidateOwnResume[_id];
+    //     AppResume memory resume = _getResume(_id);
+    //     address owner = candidateOwnResume[_id];
 
-        emit UpdateResume(
-            _id,
-            resume.data,
-            resume.createAt,
-            resume.updateAt,
-            owner
-        );
-    }
+    //     emit UpdateResume(
+    //         _id,
+    //         resume.data,
+    //         resume.createAt,
+    //         resume.updateAt,
+    //         owner
+    //     );
+    // }
 
     // only candidate -> later⏳
     // resume must existed -> done✅
@@ -190,18 +187,18 @@ contract Resume is IResume {
         AppResume memory resume = _getResume(_id);
         address ownerAddress = candidateOwnResume[_id];
 
-        uint lastIndex = allResumes.length - 1;
-        resumes[allResumes[lastIndex]].index = resumes[_id].index;
-        UintArray.remove(allResumes, resumes[_id].index);
+        uint lastIndex = resumeIds.length - 1;
+        resumes[resumeIds[lastIndex]].index = resumes[_id].index;
+        UintArray.remove(resumeIds, resumes[_id].index);
 
         delete resumes[_id];
 
         emit DeleteResume(
             _id,
             resume.data,
-            resume.createAt,
-            resume.updateAt,
-            ownerAddress
+            ownerAddress,
+            resume.title,
+            resume.createAt
         );
     }
 
@@ -216,11 +213,11 @@ contract Resume is IResume {
     function _getAllApprovedResumesOf(
         address _recruiterAddress
     ) internal view returns (AppResume[] memory) {
-        AppResume[] memory arrResume = new AppResume[](allResumes.length);
+        AppResume[] memory arrResume = new AppResume[](resumeIds.length);
 
-        for (uint i = 0; i < allResumes.length; i++) {
-            if (resumeApprovals[_recruiterAddress][allResumes[i]]) {
-                arrResume[i] = resumes[allResumes[i]];
+        for (uint i = 0; i < resumeIds.length; i++) {
+            if (resumeApprovals[_recruiterAddress][resumeIds[i]]) {
+                arrResume[i] = resumes[resumeIds[i]];
             }
         }
 
@@ -263,8 +260,9 @@ contract Resume is IResume {
         //     });
         // }
         if (
-            !(user.isExisted(_recruiterAddress) &&
-                user.hasType(_recruiterAddress, 1))
+            !((user.isExisted(_recruiterAddress) &&
+                user.hasType(_recruiterAddress, 1)) ||
+                user.hasType(_recruiterAddress, 2))
         ) {
             revert Recruiter__NotExisted({user_address: _recruiterAddress});
         }
@@ -305,8 +303,9 @@ contract Resume is IResume {
         //     });
         // }
         if (
-            !(user.isExisted(_recruiterAddress) &&
-                user.hasType(_recruiterAddress, 1))
+            !((user.isExisted(_recruiterAddress) &&
+                user.hasType(_recruiterAddress, 1)) ||
+                user.hasType(_recruiterAddress, 2))
         ) {
             revert Recruiter__NotExisted({user_address: _recruiterAddress});
         }
@@ -351,21 +350,22 @@ contract Resume is IResume {
     }
 
     function addResume(
-        uint _id,
         string memory _data,
-        uint _createAt,
-        address _candidateAddress
+        address _candidateAddress,
+        string memory _title,
+        uint _createAt
     ) external {
-        _addResume(_id, _data, _createAt, _candidateAddress);
+        _addResume(_data, _candidateAddress, _title, _createAt);
     }
 
-    function updateResume(
-        uint _id,
-        string memory _data,
-        uint256 _updateAt
-    ) external {
-        _updateResume(_id, _data, _updateAt);
-    }
+    // function updateResume(
+    //     uint _id,
+    //     string memory _data,
+    //     string memory _title,
+    //     uint256 _updateAt
+    // ) external {
+    //     _updateResume(_id, _data, _updateAt);
+    // }
 
     function deleteResume(uint _id) external {
         _deleteResume(_id);

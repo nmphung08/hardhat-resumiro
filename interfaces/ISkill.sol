@@ -11,7 +11,7 @@ interface ISkill {
         bool exist;
     }
 
-    function addSkill(uint _id, string memory _name) external;
+    function addSkill(string memory _name) external;
 
     function deleteSkill(uint _id) external;
 

@@ -14,15 +14,15 @@ const { network, ethers } = require("hardhat")
  */
 /* ==================================== */
 
-const PATH =
-    "D:/pp/tot-nghiep/projects/hardhat-resumiro-clone/hardhat-resumiro/constants/"
-const USER_ABI_PATH = `${PATH}userAbi.json`
-const COMPANY_ABI_PATH = `${PATH}companyAbi.json`
-const EXPERIENCE_ABI_PATH = `${PATH}experienceAbi.json`
-const JOB_ABI_PATH = `${PATH}jobAbi.json`
-const RESUME_ABI_PATH = `${PATH}resumeAbi.json`
-const SKILL_ABI_PATH = `${PATH}skillAbi.json`
-const RESUMIRO_ABI_PATH = `${PATH}resumiroAbi.json`
+const PATH = process.env.CONSTANTS_PATH || "constants/"
+const USER_ABI_PATH = `${PATH}User.json`
+const COMPANY_ABI_PATH = `${PATH}Company.json`
+const CERTIFICATE_ABI_PATH = `${PATH}Certificate.json`
+const EXPERIENCE_ABI_PATH = `${PATH}Experience.json`
+const JOB_ABI_PATH = `${PATH}Job.json`
+const RESUME_ABI_PATH = `${PATH}Resume.json`
+const SKILL_ABI_PATH = `${PATH}Skill.json`
+const RESUMIRO_ABI_PATH = `${PATH}Resumiro.json`
 const ADDRESS_PATH = `${PATH}contractAddress.json`
 module.exports = async function () {
     if (process.env.UPDATE_CONSTANTS) {
@@ -37,7 +37,9 @@ module.exports = async function () {
 }
 
 async function updateConstants() {
-    let currentAddresses = JSON.parse(fs.readFileSync(ADDRESS_PATH, "utf8"))
+    let currentAddresses = fs.existsSync(ADDRESS_PATH)
+        ? JSON.parse(fs.readFileSync(ADDRESS_PATH, "utf8"))
+        : {}
     let chainId = network.config.chainId.toString()
 
     let user = await ethers.getContract("User")
@@ -53,6 +55,18 @@ async function updateConstants() {
         company.interface.format(ethers.utils.FormatTypes.json)
     )
     updateContractAddress(currentAddresses, chainId, "Company", company.address)
+
+    let certificate = await ethers.getContract("Certificate")
+    fs.writeFileSync(
+        CERTIFICATE_ABI_PATH,
+        certificate.interface.format(ethers.utils.FormatTypes.json)
+    )
+    updateContractAddress(
+        currentAddresses,
+        chainId,
+        "Certificate",
+        certificate.address
+    )
 
     let experience = await ethers.getContract("Experience")
     fs.writeFileSync(

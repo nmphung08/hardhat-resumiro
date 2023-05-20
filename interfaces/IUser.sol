@@ -4,7 +4,8 @@ pragma solidity ^0.8.18;
 interface IUser {
     enum UserType {
         CANDIDATE,
-        RECRUITER
+        RECRUITER,
+        ADMIN
     }
 
     struct AppUser {

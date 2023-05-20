@@ -29,11 +29,15 @@ module.exports = {
         },
         hardhat: {
             allowUnlimitedContractSize: true,
+            initialBaseFeePerGas: 0,
             chainId: 31337,
         },
         localhost: {
             allowUnlimitedContractSize: true,
             chainId: 31337,
+            initialBaseFeePerGas: 0,
+            // gas: 2100000,
+            // gasPrice: 8000000000,
         },
     },
 

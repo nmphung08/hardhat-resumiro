@@ -1,10 +1,10 @@
-const userAbi = require("./userAbi.json")
-const companyAbi = require("./companyAbi.json")
-const experienceAbi = require("./experienceAbi.json")
-const jobAbi = require("./jobAbi.json")
-const resumeAbi = require("./resumeAbi.json")
-const skillAbi = require("./skillAbi.json")
-const resumiroAbi = require("./resumiroAbi.json")
+const userAbi = require("./User.json")
+const companyAbi = require("./Company.json")
+const experienceAbi = require("./experience.json")
+const jobAbi = require("./job.json")
+const resumeAbi = require("./resume.json")
+const skillAbi = require("./skill.json")
+const resumiroAbi = require("./resumiro.json")
 const contractAddress = require("./contractAddress.json")
 
 module.exports = {

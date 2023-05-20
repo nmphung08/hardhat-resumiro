@@ -7,12 +7,12 @@ import "./library/UintArray.sol";
 
 contract Company is ICompany {
     //=============================ATTRIBUTES==========================================
-    uint[] allCopanyIds;
+    uint[] companyIds;
+    uint companyCounter = 1;
     mapping(uint => AppCompany) companies;
     mapping(address => mapping(uint => bool)) recruitersInCompany;
     mapping(uint => mapping(address => bool)) companiesConnectedRecruiter;
     IUser user;
-    uint companyCounter = 0;
 
     constructor(address _userContract) {
         user = IUser(_userContract);
@@ -70,10 +70,10 @@ contract Company is ICompany {
     }
 
     function _getAllCompanies() internal view returns (AppCompany[] memory) {
-        AppCompany[] memory arrCompany = new AppCompany[](allCopanyIds.length);
+        AppCompany[] memory arrCompany = new AppCompany[](companyIds.length);
 
-        for (uint i = 0; i < allCopanyIds.length; i++) {
-            arrCompany[i] = companies[allCopanyIds[i]];
+        for (uint i = 0; i < companyIds.length; i++) {
+            arrCompany[i] = companies[companyIds[i]];
         }
 
         return arrCompany;
@@ -82,18 +82,19 @@ contract Company is ICompany {
     // only admin -> later⏳
     // company must not existed -> done✅
     function _addCompany(
-        uint _id,
         string memory _name,
         string memory _website,
         string memory _location,
         string memory _addr
     ) internal {
+        uint _id = companyCounter;
+        companyCounter++;
         if (companies[_id].exist) {
             revert Company__AlreadyExisted({company_id: _id});
         }
 
         companies[_id] = AppCompany(
-            allCopanyIds.length,
+            companyIds.length,
             _id,
             _name,
             _website,
@@ -101,7 +102,7 @@ contract Company is ICompany {
             _addr,
             true
         );
-        allCopanyIds.push(_id);
+        companyIds.push(_id);
 
         AppCompany memory company = _getCompany(_id);
 
@@ -152,9 +153,9 @@ contract Company is ICompany {
 
         AppCompany memory company = _getCompany(_id);
 
-        uint lastIndex = allCopanyIds.length - 1;
-        companies[allCopanyIds[lastIndex]].index = companies[_id].index;
-        UintArray.remove(allCopanyIds, companies[_id].index);
+        uint lastIndex = companyIds.length - 1;
+        companies[companyIds[lastIndex]].index = companies[_id].index;
+        UintArray.remove(companyIds, companies[_id].index);
 
         delete companies[_id];
 
@@ -189,7 +190,7 @@ contract Company is ICompany {
         }
         if (
             !(user.isExisted(_recruiterAddress) &&
-                user.hasType(_recruiterAddress, 1))
+                user.hasType(_recruiterAddress, 1) || user.hasType(_recruiterAddress, 2))
         ) {
             revert Recruiter__NotExisted({user_address: _recruiterAddress});
         }
@@ -221,7 +222,7 @@ contract Company is ICompany {
         }
         if (
             !(user.isExisted(_recruiterAddress) &&
-                user.hasType(_recruiterAddress, 1))
+                user.hasType(_recruiterAddress, 1) || user.hasType(_recruiterAddress, 2))
         ) {
             revert Recruiter__NotExisted({user_address: _recruiterAddress});
         }
@@ -242,13 +243,11 @@ contract Company is ICompany {
     function _getAllCompaniesConnectedRecruiter(
         address _recruiterAddress
     ) internal view returns (AppCompany[] memory) {
-        AppCompany[] memory arrCompanies = new AppCompany[](
-            allCopanyIds.length
-        );
+        AppCompany[] memory arrCompanies = new AppCompany[](companyIds.length);
 
-        for (uint i = 0; i < allCopanyIds.length; i++) {
-            if (recruitersInCompany[_recruiterAddress][allCopanyIds[i]]) {
-                arrCompanies[i] = companies[allCopanyIds[i]];
+        for (uint i = 0; i < companyIds.length; i++) {
+            if (recruitersInCompany[_recruiterAddress][companyIds[i]]) {
+                arrCompanies[i] = companies[companyIds[i]];
             }
         }
 
@@ -297,14 +296,17 @@ contract Company is ICompany {
         return _getAllCompanies();
     }
 
+    function getLatestCompanyId() external view returns (uint) {
+        return companyCounter - 1;
+    }
+
     function addCompany(
-        uint _id,
         string memory _name,
         string memory _website,
         string memory _location,
         string memory _addr
     ) external {
-        _addCompany(_id, _name, _website, _location, _addr);
+        _addCompany(_name, _website, _location, _addr);
     }
 
     function updateCompany(

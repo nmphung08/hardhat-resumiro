@@ -25,8 +25,9 @@ interface ICompany {
 
     function getAllCompanies() external view returns (AppCompany[] memory);
 
+    function getLatestCompanyId() external view returns (uint);
+
     function addCompany(
-        uint _id,
         string memory _name,
         string memory _website,
         string memory _location,

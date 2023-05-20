@@ -7,9 +7,9 @@ import "../interfaces/IUser.sol";
 import "./library/UintArray.sol";
 
 contract Experience is IExperience {
-    
     //=============================ATTRIBUTES==========================================
-    uint[] allExperiences;
+    uint[] experienceIds;
+    uint experienceCounter = 1;
     mapping(uint => AppExperience) experiences;
     mapping(address => mapping(uint => bool)) experienceOfUser;
     ICompany company;
@@ -24,24 +24,24 @@ contract Experience is IExperience {
     event AddExperience(
         uint id,
         string position,
-        uint start,
-        uint finish,
+        string start,
+        string finish,
         uint company_id,
         address indexed user_address
     );
     event UpdateExperience(
         uint id,
         string position,
-        uint start,
-        uint finish,
+        string start,
+        string finish,
         uint company_id,
         address indexed user_address
     );
     event DeleteExperience(
         uint id,
         string position,
-        uint start,
-        uint finish,
+        string start,
+        string finish,
         uint company_id,
         address indexed user_address
     );
@@ -71,13 +71,14 @@ contract Experience is IExperience {
     // just for user -> done✅
     // experience have not been connected with user yet -> done✅
     function _addExperience(
-        address _user,
-        uint _id,
         string memory _position,
-        uint _start,
-        uint _finish,
-        uint _companyId
+        string memory _start,
+        string memory _finish,
+        uint _companyId,
+        address _user
     ) internal {
+        uint _id = experienceCounter;
+        experienceCounter++;
         if (experiences[_id].exist) {
             revert Experience__AlreadyExisted({
                 experience_id: _id,
@@ -101,7 +102,7 @@ contract Experience is IExperience {
         }
 
         experiences[_id] = AppExperience(
-            allExperiences.length,
+            experienceIds.length,
             _id,
             _position,
             _start,
@@ -111,7 +112,7 @@ contract Experience is IExperience {
             _user
         );
         experienceOfUser[_user][_id] = true;
-        allExperiences.push(_id);
+        experienceIds.push(_id);
 
         AppExperience memory exp = experiences[_id];
 
@@ -130,12 +131,12 @@ contract Experience is IExperience {
     // company must existed -> done✅
     // just for user -> done✅
     function _updateExperience(
-        address _user,
         uint _id,
         string memory _position,
-        uint _start,
-        uint _finish,
-        uint _companyId
+        string memory _start,
+        string memory _finish,
+        uint _companyId,
+        address _user
     ) internal {
         if (!experiences[_id].exist) {
             revert Experience__NotExisted({
@@ -175,7 +176,7 @@ contract Experience is IExperience {
     // experience id must existed -> done✅
     // just for user -> done✅
     // experience have been connected with user yet -> done✅
-    function _deleteExperience(address _user, uint _id) internal {
+    function _deleteExperience(uint _id, address _user) internal {
         if (!experiences[_id].exist) {
             revert Experience__NotExisted({
                 experience_id: _id,
@@ -194,9 +195,9 @@ contract Experience is IExperience {
 
         AppExperience memory exp = experiences[_id];
 
-        uint lastIndex = allExperiences.length - 1;
-        experiences[allExperiences[lastIndex]].index = experiences[_id].index;
-        UintArray.remove(allExperiences, experiences[_id].index);
+        uint lastIndex = experienceIds.length - 1;
+        experiences[experienceIds[lastIndex]].index = experiences[_id].index;
+        UintArray.remove(experienceIds, experiences[_id].index);
 
         delete experiences[_id];
         delete experienceOfUser[_user][_id];
@@ -223,11 +224,11 @@ contract Experience is IExperience {
         returns (AppExperience[] memory)
     {
         AppExperience[] memory arrExp = new AppExperience[](
-            allExperiences.length
+            experienceIds.length
         );
 
         for (uint i = 0; i < arrExp.length; i++) {
-            arrExp[i] = experiences[allExperiences[i]];
+            arrExp[i] = experiences[experienceIds[i]];
         }
 
         return arrExp;
@@ -237,12 +238,12 @@ contract Experience is IExperience {
         address _userAddress
     ) internal view returns (AppExperience[] memory) {
         AppExperience[] memory arrExp = new AppExperience[](
-            allExperiences.length
+            experienceIds.length
         );
 
         for (uint i = 0; i < arrExp.length; i++) {
-            if (experienceOfUser[_userAddress][allExperiences[i]]) {
-                arrExp[i] = experiences[allExperiences[i]];
+            if (experienceOfUser[_userAddress][experienceIds[i]]) {
+                arrExp[i] = experiences[experienceIds[i]];
             }
         }
 
@@ -251,29 +252,28 @@ contract Experience is IExperience {
 
     //======================FOR INTERFACE==========================
     function addExperience(
-        address _user,
-        uint _id,
         string memory _position,
-        uint _start,
-        uint _finish,
-        uint _companyId
+        string memory _start,
+        string memory _finish,
+        uint _companyId,
+        address _user
     ) external {
-        _addExperience(_user, _id, _position, _start, _finish, _companyId);
+        _addExperience(_position, _start, _finish, _companyId, _user);
     }
 
     function updateExperience(
-        address _user,
         uint _id,
         string memory _position,
-        uint _start,
-        uint _finish,
-        uint _companyId
+        string memory _start,
+        string memory _finish,
+        uint _companyId,
+        address _user
     ) external {
-        _updateExperience(_user, _id, _position, _start, _finish, _companyId);
+        _updateExperience(_id, _position, _start, _finish, _companyId, _user);
     }
 
-    function deleteExperience(address _user, uint _id) external {
-        _deleteExperience(_user, _id);
+    function deleteExperience(uint _id, address _user) external {
+        _deleteExperience(_id, _user);
     }
 
     function getExperience(

@@ -6,6 +6,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
 
     const user = await ethers.getContract("User")
     const company = await ethers.getContract("Company")
+    const certificate = await ethers.getContract("Certificate")
     const experience = await ethers.getContract("Experience")
     const job = await ethers.getContract("Job")
     const resume = await ethers.getContract("Resume")
@@ -17,6 +18,7 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
         args: [
             user.address,
             company.address,
+            certificate.address,
             experience.address,
             job.address,
             resume.address,

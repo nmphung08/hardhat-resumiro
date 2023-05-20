@@ -8,7 +8,8 @@ import "../interfaces/ISkill.sol";
 
 contract Skill is ISkill {
     //=============================ATTRIBUTES==========================================
-    uint[] allSkills;
+    uint[] skillIds;
+    uint skillCounter = 1;
     mapping(uint => AppSkill) skills;
     mapping(address => mapping(uint => bool)) skillsOfCandidate;
     mapping(uint => mapping(uint => bool)) skillsOfJob;
@@ -48,12 +49,11 @@ contract Skill is ISkill {
     //====================SKILLS============================
 
     // skill id must not existed -> done✅
-    function _addSkill(uint _id, string memory _name) internal {
-        if (skills[_id].exist) {
-            revert AlreadyExistedSkill({id: _id, name: _name});
-        }
-        skills[_id] = AppSkill(allSkills.length, _id, _name, true);
-        allSkills.push(_id);
+    function _addSkill(string memory _name) internal {
+        uint _id = skillCounter;
+        skillCounter++;
+        skills[_id] = AppSkill(skillIds.length, _id, _name, true);
+        skillIds.push(_id);
 
         emit AddSkill(_id, _name);
     }
@@ -66,8 +66,8 @@ contract Skill is ISkill {
 
         AppSkill memory skill = skills[_id];
 
-        skills[allSkills[allSkills.length - 1]].index = skills[_id].index;
-        UintArray.remove(allSkills, skills[_id].index);
+        skills[skillIds[skillIds.length - 1]].index = skills[_id].index;
+        UintArray.remove(skillIds, skills[_id].index);
 
         delete skills[_id];
 
@@ -75,10 +75,10 @@ contract Skill is ISkill {
     }
 
     function _getAllSkill() internal view returns (AppSkill[] memory) {
-        AppSkill[] memory arrSkill = new AppSkill[](allSkills.length);
+        AppSkill[] memory arrSkill = new AppSkill[](skillIds.length);
 
-        for (uint i = 0; i < allSkills.length; i++) {
-            arrSkill[i] = skills[allSkills[i]];
+        for (uint i = 0; i < skillIds.length; i++) {
+            arrSkill[i] = skills[skillIds[i]];
         }
 
         return arrSkill;
@@ -148,10 +148,10 @@ contract Skill is ISkill {
     function _getAllSkillsOfCandidate(
         address _candidate
     ) internal view returns (AppSkill[] memory) {
-        AppSkill[] memory arrSkill = new AppSkill[](allSkills.length);
+        AppSkill[] memory arrSkill = new AppSkill[](skillIds.length);
 
-        for (uint i = 0; i < allSkills.length; i++) {
-            if (skillsOfCandidate[_candidate][allSkills[i]]) {
+        for (uint i = 0; i < skillIds.length; i++) {
+            if (skillsOfCandidate[_candidate][skillIds[i]]) {
                 arrSkill[i] = skills[i];
             }
         }
@@ -165,12 +165,12 @@ contract Skill is ISkill {
     // job must existed
     // continue connected skill -> done✅
     function _connectJobSkill(uint[] memory _skills, uint _job) internal {
+        _disconnectAllJobSkill(_job);
         for (uint i = 0; i < _skills.length; i++) {
             if (!skills[_skills[i]].exist) {
                 revert NotExistedSkill({id: _skills[i]});
             }
         }
-
         if (!job.isExistedJob(_job)) {
             revert NotExistedJob({job_id: _job});
         }
@@ -184,6 +184,14 @@ contract Skill is ISkill {
         }
 
         emit ConnectJobSkill(_skills, _job);
+    }
+
+    function _disconnectAllJobSkill(uint _job) internal {
+        for (uint i = 0; i < skillIds.length; i++) {
+            if (skillsOfJob[_job][skillIds[i]]) {
+                skillsOfJob[_job][skillIds[i]] = false;
+            }
+        }
     }
 
     // only recruiter -> later⏳
@@ -217,10 +225,10 @@ contract Skill is ISkill {
     function _getAllSkillsOfJob(
         uint _jobId
     ) internal view returns (AppSkill[] memory) {
-        AppSkill[] memory arrSkill = new AppSkill[](allSkills.length);
+        AppSkill[] memory arrSkill = new AppSkill[](skillIds.length);
 
-        for (uint i = 0; i < allSkills.length; i++) {
-            if (skillsOfJob[_jobId][allSkills[i]]) {
+        for (uint i = 0; i < skillIds.length; i++) {
+            if (skillsOfJob[_jobId][skillIds[i]]) {
                 arrSkill[i] = skills[i];
             }
         }
@@ -229,8 +237,8 @@ contract Skill is ISkill {
     }
 
     //======================FOR INTERFACE==========================
-    function addSkill(uint _id, string memory _name) external {
-        _addSkill(_id, _name);
+    function addSkill(string memory _name) external {
+        _addSkill(_name);
     }
 
     function deleteSkill(uint _id) external {

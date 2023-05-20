@@ -5,15 +5,14 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     const { deployer } = await getNamedAccounts()
 
     const user = await ethers.getContract("User")
-    const job = await ethers.getContract("Job")
     log("==================================")
-    const skill = await deploy("Skill", {
+    const certificate = await deploy("Certificate", {
         from: deployer,
         log: true,
-        args: [user.address, job.address],
+        args: [user.address],
         confirmations: 1,
     })
-    log(`Deployed Skill at: ${skill.address}`)
+    log(`Deployed Certificate at: ${certificate.address}`)
 }
 
-module.exports.tags = ["all", "skill"]
+module.exports.tags = ["all", "certificate"]

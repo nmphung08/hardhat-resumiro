@@ -8,10 +8,11 @@ interface IResume {
         uint index;
         uint id;
         string data;
-        uint createAt;
-        uint updateAt;
-        bool exist;
         address owner;
+        string title;
+        uint createAt;
+        // uint updateAt;
+        bool exist;
     }
 
     function isOwnerOfResume(
@@ -28,17 +29,17 @@ interface IResume {
     ) external view returns (AppResume[] memory);
 
     function addResume(
-        uint _id,
         string memory _data,
-        uint _createAt,
-        address _candidateAddress
+        address _candidateAddress,
+        string memory _title,
+        uint _createAt
     ) external;
 
-    function updateResume(
-        uint _id,
-        string memory _data,
-        uint256 _updateAt
-    ) external;
+    // function updateResume(
+    //     uint _id,
+    //     string memory _data,
+    //     uint256 _updateAt
+    // ) external;
 
     function deleteResume(uint _id) external;
 
