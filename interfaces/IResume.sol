@@ -5,14 +5,12 @@ import "../interfaces/IUser.sol";
 
 interface IResume {
     struct AppResume {
-        uint index;
         uint id;
         string data;
         address owner;
         string title;
         uint createAt;
         // uint updateAt;
-        bool exist;
     }
 
     function isOwnerOfResume(

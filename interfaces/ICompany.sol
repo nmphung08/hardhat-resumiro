@@ -5,13 +5,11 @@ import "../interfaces/IUser.sol";
 
 interface ICompany {
     struct AppCompany {
-        uint256 index;
         uint id;
         string name;
         string website;
         string location;
         string addr;
-        bool exist;
     }
 
     function isExistedCompanyRecruiter(

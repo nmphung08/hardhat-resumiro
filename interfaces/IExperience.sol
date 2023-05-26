@@ -3,13 +3,11 @@ pragma solidity ^0.8.18;
 
 interface IExperience {
     struct AppExperience {
-        uint index;
         uint id;
         string position;
         string start;
         string finish;
         uint companyId;
-        bool exist;
         address owner;
     }
 

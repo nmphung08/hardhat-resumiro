@@ -9,11 +9,18 @@ interface IUser {
     }
 
     struct AppUser {
-        uint index;
-        UserType userType;
-        bool exist;
         address accountAddress;
+        UserType userType;
     }
+
+    function hasRole(
+        address _account,
+        bytes32 _role
+    ) external view returns (bool);
+
+    function grantRole(address _account, bytes32 _role) external;
+
+    function revokeRole(address _account, bytes32 _role) external;
 
     function isExisted(address _userAddress) external view returns (bool);
 

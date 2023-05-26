@@ -5,7 +5,6 @@ import "../interfaces/IUser.sol";
 
 interface IJob {
     struct AppJob {
-        uint index;
         uint id;
         string title;
         string location;
@@ -18,7 +17,6 @@ interface IJob {
         uint companyId;
         uint salary;
         string field;
-        bool exist;
         address owner;
     }
 

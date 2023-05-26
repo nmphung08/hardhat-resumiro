@@ -191,7 +191,6 @@ contract Resumiro {
     /**
      * @custom:certificate-contract
      * */
-
     function isOwnerOfCertificate(
         address _candidateAddress,
         uint _id
@@ -199,40 +198,105 @@ contract Resumiro {
         return certificate.isOwnerOfCertificate(_candidateAddress, _id);
     }
 
-    function getCertificate(
+    function isVerifierOfCertificate(
+        address _verifierAddress,
         uint _id
-    ) external view returns (ICertificate.AppCertificate memory) {
-        return certificate.getCertificate(_id);
+    ) external view returns (bool) {
+        return certificate.isVerifierOfCertificate(_verifierAddress, _id);
     }
 
-    // only candidate -> later⏳
-    // param _candidateAddress must equal msg.sender -> later⏳
-    // id must not existed -> done✅
-    // just add for candidate -> done✅
     function addCertificate(
-        string memory _name,
-        uint _verifiedAt,
-        address _candidateAddress
-    ) external {
-        certificate.addCertificate(_name, _verifiedAt, _candidateAddress);
-    }
-
-    // only candidate -> later⏳
-    // candidate must own certificate -> later⏳
-    // id must not existed -> later⏳
-    function updateCertificate(
         uint _id,
         string memory _name,
-        uint _verifiedAt
+        uint _verifiedAt,
+        address _candidateAddress,
+        address _verifierAddress,
+        string memory _certificateAddress
     ) external {
-        certificate.updateCertificate(_id, _name, _verifiedAt);
+        certificate.addCertificate(
+            _id,
+            _name,
+            _verifiedAt,
+            _candidateAddress,
+            _verifierAddress,
+            _certificateAddress
+        );
     }
 
-    // only candidate -> later⏳
-    // candidate must own certificate -> later⏳
-    // id must not existed -> done✅
+    function updateCertificate(
+        uint _id,
+        uint _verifiedAt,
+        address _verifierAddress,
+        string memory _certificateAddress,
+        ICertificate.DocStatus _status
+    ) external {
+        certificate.updateCertificate(
+            _id,
+            _verifiedAt,
+            _verifierAddress,
+            _certificateAddress,
+            _status
+        );
+    }
+
     function deleteCertificate(uint _id) external {
         certificate.deleteCertificate(_id);
+    }
+
+    function getDocument(
+        string memory _certificateAddress
+    )
+        external
+        view
+        returns (
+            string memory name,
+            address requester,
+            address verifier,
+            uint verifiedAt,
+            ICertificate.DocStatus status
+        )
+    {
+        return certificate.getDocument(_certificateAddress);
+    }
+
+    function getCount(address _addressUser) external view returns (uint) {
+        return certificate.getCount(_addressUser);
+    }
+
+    function getCertificateVerifier(
+        address _verifierAddress,
+        uint lindex
+    )
+        external
+        view
+        returns (
+            string memory name,
+            address candidate,
+            uint verifiedAt,
+            string memory certificateAddress,
+            ICertificate.DocStatus status,
+            uint index
+        )
+    {
+        return certificate.getCertificateVerifier(_verifierAddress, lindex);
+    }
+
+    function getCertificatecandidate(
+        address _candidateAddress,
+        uint lindex
+    )
+        external
+        view
+        returns (
+            string memory name,
+            address verifier,
+            uint verifiedAt,
+            string memory certificateAddress,
+            ICertificate.DocStatus status,
+            uint index
+        )
+    {
+        return certificate.getCertificatecandidate(_candidateAddress, lindex);
     }
 
     /**

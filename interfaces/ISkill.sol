@@ -5,10 +5,8 @@ import "../interfaces/IUser.sol";
 
 interface ISkill {
     struct AppSkill {
-        uint index;
         uint id;
         string name;
-        bool exist;
     }
 
     function addSkill(string memory _name) external;
