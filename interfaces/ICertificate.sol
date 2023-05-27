@@ -29,7 +29,7 @@ interface ICertificate {
     ) external view returns (bool);
 
     function addCertificate(
-        uint _id,
+        // uint _id,
         string memory _name,
         uint _verifiedAt,
         address _candidateAddress,

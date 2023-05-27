@@ -7,6 +7,7 @@ import "./library/StringArray.sol";
 
 contract Certificate is ICertificate {
     //=============================ATTRIBUTES==========================================
+    uint certCounter = 1;
     mapping(address => uint) certCount;
     mapping(uint => AppCertificate) certs;
     AppCertificate[] appCerts;
@@ -86,13 +87,16 @@ contract Certificate is ICertificate {
     // id must not existed -> done✅
     // just add for candidate -> done✅
     function addCertificate(
-        uint _id,
+        // uint _id,
         string memory _name,
         uint _verifiedAt,
         address _candidateAddress,
         address _verifierAddress,
         string memory _certificateAddress
     ) external {
+        uint _id = certCounter;
+        certCounter++;
+
         if (certs[_id].exist) {
             revert Cert__AlreadyExisted({id: _id});
         }
