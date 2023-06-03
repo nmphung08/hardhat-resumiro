@@ -32,21 +32,24 @@ contract Company is ICompany {
         string name,
         string website,
         string location,
-        string address_company
+        string address_company,
+        address indexed creater
     );
     event UpdateCompany(
         uint id,
         string name,
         string website,
         string location,
-        string address_company
+        string address_company,
+        address indexed creater
     );
     event DeleteCompany(
         uint id,
         string name,
         string website,
         string location,
-        string address_company
+        string address_company,
+        address indexed creater
     );
     event ConnectCompanyRecruiter(
         address indexed recruiter_address,
@@ -64,6 +67,7 @@ contract Company is ICompany {
 
     error Company__NotExisted(uint company_id);
     error Company__AlreadyExisted(uint company_id);
+    error NotCreater(address account, uint company_id);
 
     error RecruiterCompany__AlreadyIn(
         uint company_id,
@@ -78,6 +82,14 @@ contract Company is ICompany {
     modifier onlyRole(bytes32 _role) {
         if (!user.hasRole(tx.origin, _role)) {
             revert User__NoRole({account: tx.origin});
+        }
+        _;
+    }
+
+    modifier onlyCreater(uint _id) {
+        AppCompany memory company = _getCompany(_id);
+        if (company.creater != tx.origin) {
+            revert NotCreater({account: tx.origin, company_id: _id});
         }
         _;
     }
@@ -111,7 +123,14 @@ contract Company is ICompany {
             revert Company__AlreadyExisted({company_id: _id});
         }
 
-        companies[_id] = AppCompany(_id, _name, _website, _location, _addr);
+        companies[_id] = AppCompany(
+            _id,
+            _name,
+            _website,
+            _location,
+            _addr,
+            tx.origin
+        );
         companyIds.add(_id);
 
         AppCompany memory company = _getCompany(_id);
@@ -121,7 +140,8 @@ contract Company is ICompany {
             company.name,
             company.website,
             company.location,
-            company.addr
+            company.addr,
+            tx.origin
         );
     }
 
@@ -133,7 +153,7 @@ contract Company is ICompany {
         string memory _website,
         string memory _location,
         string memory _addr
-    ) internal onlyRole(ADMIN_ROLE) {
+    ) internal onlyRole(ADMIN_ROLE) onlyCreater(_id) {
         if (!companyIds.contains(_id)) {
             revert Company__NotExisted({company_id: _id});
         }
@@ -150,13 +170,16 @@ contract Company is ICompany {
             company.name,
             company.website,
             company.location,
-            company.addr
+            company.addr,
+            tx.origin
         );
     }
 
     // only admin -> later⏳ -> done✅
     // company must existed -> done✅
-    function _deleteCompany(uint _id) internal onlyRole(ADMIN_ROLE) {
+    function _deleteCompany(
+        uint _id
+    ) internal onlyRole(ADMIN_ROLE) onlyCreater(_id) {
         if (!companyIds.contains(_id)) {
             revert Company__NotExisted({company_id: _id});
         }
@@ -171,7 +194,8 @@ contract Company is ICompany {
             company.name,
             company.website,
             company.location,
-            company.addr
+            company.addr,
+            tx.origin
         );
     }
 

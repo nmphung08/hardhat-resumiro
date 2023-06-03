@@ -206,7 +206,7 @@ contract Resumiro {
     }
 
     function addCertificate(
-        uint _id,
+        // uint _id,
         string memory _name,
         uint _verifiedAt,
         address _candidateAddress,
@@ -214,7 +214,7 @@ contract Resumiro {
         string memory _certificateAddress
     ) external {
         certificate.addCertificate(
-            _id,
+            // _id,
             _name,
             _verifiedAt,
             _candidateAddress,
