@@ -10,9 +10,10 @@ contract Company is ICompany {
     using EnumerableSet for EnumerableSet.UintSet;
     using EnumerableSet for EnumerableSet.AddressSet;
 
-    bytes32 public constant ADMIN_ROLE = 0x00;
+    // bytes32 public constant ADMIN_ROLE = 0x00;
     bytes32 public constant CANDIDATE_ROLE = keccak256("CANDIDATE_ROLE");
     bytes32 public constant RECRUITER_ROLE = keccak256("RECRUITER_ROLE");
+    bytes32 public constant ADMIN_RECRUITER_ROLE = keccak256("ADMIN_RECRUITER_ROLE");
 
     //=============================ATTRIBUTES==========================================
     EnumerableSet.UintSet companyIds;
@@ -32,21 +33,24 @@ contract Company is ICompany {
         string name,
         string website,
         string location,
-        string address_company
+        string address_company,
+        address indexed creator
     );
     event UpdateCompany(
         uint id,
         string name,
         string website,
         string location,
-        string address_company
+        string address_company,
+        address indexed creator
     );
     event DeleteCompany(
         uint id,
         string name,
         string website,
         string location,
-        string address_company
+        string address_company,
+        address indexed creator
     );
     event ConnectCompanyRecruiter(
         address indexed recruiter_address,
@@ -64,6 +68,7 @@ contract Company is ICompany {
 
     error Company__NotExisted(uint company_id);
     error Company__AlreadyExisted(uint company_id);
+    error Company__NotCreator(uint company_id, address caller);
 
     error RecruiterCompany__AlreadyIn(
         uint company_id,
@@ -82,6 +87,20 @@ contract Company is ICompany {
         _;
     }
 
+    modifier onlyCreator(uint _id) {
+        if (_isCreator(_id, tx.origin)) {
+            revert Company__NotCreator({
+                company_id: _id,
+                caller: tx.origin
+            });
+        }
+        _;
+    }
+
+    function _isCreator(uint _id, address caller) internal view returns (bool) {
+        return companies[_id].creator != caller;
+    }
+
     function _getCompany(uint _id) internal view returns (AppCompany memory) {
         return companies[_id];
     }
@@ -96,14 +115,14 @@ contract Company is ICompany {
         return arrCompany;
     }
 
-    // only admin -> later⏳ -> done✅
+    // only admin-recruiter -> later⏳ -> done✅
     // company must not existed -> done✅
     function _addCompany(
         string memory _name,
         string memory _website,
         string memory _location,
         string memory _addr
-    ) internal onlyRole(ADMIN_ROLE) {
+    ) internal onlyRole(ADMIN_RECRUITER_ROLE) {
         uint _id = companyCounter;
         companyCounter++;
 
@@ -111,7 +130,7 @@ contract Company is ICompany {
             revert Company__AlreadyExisted({company_id: _id});
         }
 
-        companies[_id] = AppCompany(_id, _name, _website, _location, _addr);
+        companies[_id] = AppCompany(_id, _name, _website, _location, _addr, tx.origin);
         companyIds.add(_id);
 
         AppCompany memory company = _getCompany(_id);
@@ -121,11 +140,12 @@ contract Company is ICompany {
             company.name,
             company.website,
             company.location,
-            company.addr
+            company.addr,
+            tx.origin
         );
     }
 
-    // only admin -> later⏳ -> done✅
+    // only admin-recruiter -> later⏳ -> done✅
     // company must existed -> done✅
     function _updateCompany(
         uint _id,
@@ -133,7 +153,7 @@ contract Company is ICompany {
         string memory _website,
         string memory _location,
         string memory _addr
-    ) internal onlyRole(ADMIN_ROLE) {
+    ) internal onlyRole(ADMIN_RECRUITER_ROLE) onlyCreator(_id) {
         if (!companyIds.contains(_id)) {
             revert Company__NotExisted({company_id: _id});
         }
@@ -150,13 +170,14 @@ contract Company is ICompany {
             company.name,
             company.website,
             company.location,
-            company.addr
+            company.addr,
+            tx.origin
         );
     }
 
-    // only admin -> later⏳ -> done✅
+    // only admin-recruiter -> later⏳ -> done✅
     // company must existed -> done✅
-    function _deleteCompany(uint _id) internal onlyRole(ADMIN_ROLE) {
+    function _deleteCompany(uint _id) internal onlyRole(ADMIN_RECRUITER_ROLE) onlyCreator(_id) {
         if (!companyIds.contains(_id)) {
             revert Company__NotExisted({company_id: _id});
         }
@@ -171,7 +192,8 @@ contract Company is ICompany {
             company.name,
             company.website,
             company.location,
-            company.addr
+            company.addr,
+            tx.origin
         );
     }
 
@@ -184,7 +206,7 @@ contract Company is ICompany {
 
     //========================COMPANY-RECRUITER=================================
     // only recruiter -> later⏳ -> done✅
-    // param _recruiterAddress must equal msg.sender -> later⏳
+    // param _recruiterAddress must equal msg.sender -> later⏳ -> done✅
     // company must existed -> done✅
     // just for recruiter in user contract -> done✅
     // recruiter must not in company -> done✅
@@ -269,18 +291,17 @@ contract Company is ICompany {
         return companyArr;
     }
 
+    // new ⭐ -> change AppUser[] to address[]
     function _getAllRecruitersConnectedCompany(
         uint _companyId
-    ) internal view returns (IUser.AppUser[] memory) {
-        IUser.AppUser[] memory userArr = user.getAllRecruiters();
-        IUser.AppUser[] memory recruiterArr = new IUser.AppUser[](
-            userArr.length
-        );
+    ) internal view returns (address[] memory) {
+        address[] memory userArr = user.getAllRecruiters();
+        address[] memory recruiterArr = new address[](userArr.length);
 
         for (uint i = 0; i < userArr.length; i++) {
             if (
-                user.isExisted(userArr[i].accountAddress) &&
-                recruitersInCompany[userArr[i].accountAddress].contains(
+                user.isExisted(userArr[i]) &&
+                recruitersInCompany[userArr[i]].contains(
                     _companyId
                 )
             ) {
@@ -292,6 +313,10 @@ contract Company is ICompany {
     }
 
     //========================FOR INTERFACE=================================
+    function isCreator(uint _id, address caller) external view returns (bool) {
+        return _isCreator(_id, caller);
+    }
+
     function isExistedCompanyRecruiter(
         address _recruiterAddress,
         uint _companyId
@@ -360,7 +385,7 @@ contract Company is ICompany {
 
     function getAllRecruitersConnectedCompany(
         uint _companyId
-    ) external view returns (IUser.AppUser[] memory) {
+    ) external view returns (address[] memory) {
         return _getAllRecruitersConnectedCompany(_companyId);
     }
 

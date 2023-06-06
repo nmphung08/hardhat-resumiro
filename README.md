@@ -11,3 +11,14 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.js
 ```
+
+# ROLE ENUM IN SYSTEM
+0. Candidate
+1. Recruiter
+2. Verifier
+3. Admin recruiter
+
+# STATUS EXP ENUM IN SYSTEM
+0. Pending
+1. Verified
+2. Rejected

@@ -13,6 +13,7 @@ contract Experience is IExperience {
     bytes32 public constant ADMIN_ROLE = 0x00;
     bytes32 public constant CANDIDATE_ROLE = keccak256("CANDIDATE_ROLE");
     bytes32 public constant RECRUITER_ROLE = keccak256("RECRUITER_ROLE");
+    bytes32 public constant ADMIN_RECRUITER_ROLE = keccak256("ADMIN_RECRUITER_ROLE");
 
     //=============================ATTRIBUTES==========================================
     EnumerableSet.UintSet experienceIds;
@@ -35,6 +36,7 @@ contract Experience is IExperience {
         string start,
         string finish,
         uint company_id,
+        ExpStatus status,
         address indexed user_address
     );
     event UpdateExperience(
@@ -45,12 +47,18 @@ contract Experience is IExperience {
         uint company_id,
         address indexed user_address
     );
+    event ChangeExpStatus (
+        uint id,
+        ExpStatus status,
+        address indexed admin_recruiter
+    );
     event DeleteExperience(
         uint id,
         string position,
         string start,
         string finish,
         uint company_id,
+        ExpStatus status,
         address indexed user_address
     );
 
@@ -59,9 +67,11 @@ contract Experience is IExperience {
 
     error Experience__AlreadyExisted(uint experience_id, address user_address);
     error Experience__NotExisted(uint experience_id, address user_address);
+    error Experience__Rejected(uint experience_id);
 
     error Company__NotExisted(uint experience_id, uint company_id);
     error User__NotExisted(address user_address);
+    error Company__NotCreator(uint company_id, address caller);
 
     error Experience_User__AlreadyConnected(
         uint experience_id,
@@ -140,6 +150,8 @@ contract Experience is IExperience {
             _start,
             _finish,
             _companyId,
+            ExpStatus.Pending,
+            0, // 0 is not verified yet
             _user
         );
         experienceOfUser[_user].add(_id);
@@ -153,6 +165,7 @@ contract Experience is IExperience {
             exp.start,
             exp.finish,
             exp.companyId,
+            exp.status,
             _user
         );
     }
@@ -205,6 +218,43 @@ contract Experience is IExperience {
         );
     }
 
+    // only admin-recruiter -> done✅
+    // exp id must existed -> done✅
+    // admin-recruiter is creator of company
+    // cannot change status with rejected -> done✅
+    // new ⭐
+    function _changeExpStatus(uint _id, uint _status, uint _verifiedAt) internal onlyRole(ADMIN_RECRUITER_ROLE) {
+        if (!experienceIds.contains(_id)) {
+            revert Experience__NotExisted({experience_id: _id, user_address: address(0)});
+        }
+
+        if (company.isCreator(experiences[_id].companyId, tx.origin)) {
+            revert Company__NotCreator({
+                company_id: _id,
+                caller: tx.origin
+            });
+        }
+
+        if (experiences[_id].status == ExpStatus.Rejected) {
+            revert Experience__Rejected({
+                experience_id: _id
+            });
+        }
+
+        experiences[_id].status = ExpStatus(_status);
+        if (experiences[_id].status == ExpStatus.Verified) {
+            experiences[_id].verifiedAt = _verifiedAt;
+        }
+        
+        AppExperience memory exp = experiences[_id];
+
+        emit ChangeExpStatus(
+            _id,
+            exp.status,
+            tx.origin
+        );
+    }
+
     // only user -> later⏳ -> done✅
     // param _user must equal msg.sender -> later⏳ -> done✅
     // experience id must existed -> done✅
@@ -243,6 +293,7 @@ contract Experience is IExperience {
             exp.start,
             exp.finish,
             exp.companyId,
+            exp.status,
             _user
         );
     }
@@ -303,6 +354,10 @@ contract Experience is IExperience {
         address _user
     ) external {
         _updateExperience(_id, _position, _start, _finish, _companyId, _user);
+    }
+
+    function changeExpStatus(uint _id, uint _status, uint _verifiedAt) external {
+        _changeExpStatus(_id, _status, _verifiedAt);
     }
 
     function deleteExperience(uint _id, address _user) external {
