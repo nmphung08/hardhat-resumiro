@@ -66,6 +66,7 @@ abstract contract AccessControl {
     }
 
     function _setRole(address _account, bytes32 _role) internal {
-        _grantRole(_account, _role);
+        roles[_role].users[_account] = true;
+        emit RoleGranted(_account, _role);
     }
 }
