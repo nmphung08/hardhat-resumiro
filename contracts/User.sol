@@ -145,15 +145,19 @@ contract User is IUser, AccessControl {
 
         if (_hasRole(_userAddress, CANDIDATE_ROLE)) {
             _revokeRole(_userAddress, CANDIDATE_ROLE);
+            candidateAddresses.remove(_userAddress);
         } 
         else if (_hasRole(_userAddress, RECRUITER_ROLE)) {
             _revokeRole(_userAddress, RECRUITER_ROLE);
+            recruiterAddresses.remove(_userAddress);
         }
         else if (_hasRole(_userAddress, VERIFIER_ROLE)) {
             _revokeRole(_userAddress, VERIFIER_ROLE);
+            verifierAddresses.remove(_userAddress);
         }
         else if (_hasRole(_userAddress, ADMIN_RECRUITER_ROLE)) {
             _revokeRole(_userAddress, ADMIN_RECRUITER_ROLE);
+            adminRecruiterAddresses.remove(_userAddress);
         }
 
         emit DeleteUser(_userAddress, deletedUser.userType);
