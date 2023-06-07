@@ -228,7 +228,7 @@ contract Experience is IExperience {
             revert Experience__NotExisted({experience_id: _id, user_address: address(0)});
         }
 
-        if (company.isCreator(experiences[_id].companyId, tx.origin)) {
+        if (!company.isCreator(experiences[_id].companyId, tx.origin)) {
             revert Company__NotCreator({
                 company_id: _id,
                 caller: tx.origin
