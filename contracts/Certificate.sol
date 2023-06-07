@@ -55,6 +55,7 @@ contract Certificate is ICertificate {
     error Cert__NotExisted(uint id);
     error Cert__AlreadyExisted(uint id);
     error Cert__Rejected(uint id);
+    error Cert__NotPending(uint id);
 
     error Cert_Candidate__NotOwned(uint id, address candidate_address);
     error Cert_Verifier__NotVerifierOfCertificate(
@@ -103,7 +104,7 @@ contract Certificate is ICertificate {
         address _verifierAddress,
         string memory _certificateAddress
     ) internal onlyRole(CANDIDATE_ROLE) {
-        if (_candidateAddress == tx.origin) {
+        if (_candidateAddress != tx.origin) {
             revert("param and call not match");
         }
 
@@ -150,6 +151,7 @@ contract Certificate is ICertificate {
 
     // only candidate -> later⏳ -> done✅
     // candidate must own certificate -> later⏳ -> done✅
+    // cannot update rejected or verified cert -> done✅
     // id must existed -> done✅
     // new ⭐ -> change params and event
     function _updateCertificate(
@@ -168,6 +170,9 @@ contract Certificate is ICertificate {
         }
         if (!certIds.contains(_id)) {
             revert Cert__NotExisted({id: _id});
+        }
+        if (certs[_id].status != DocStatus.Pending) {
+            revert Cert__NotPending({id: _id});
         }
 
         // if (!_isVerifierOfCertificate(_verifierAddress, _id)) {
@@ -276,6 +281,7 @@ contract Certificate is ICertificate {
     // new ⭐ -> change return
     function _getCertificate(
         string memory _certificateAddress
+        // uint _id
     )
         internal
         view
@@ -284,11 +290,13 @@ contract Certificate is ICertificate {
         )
     {
         for (uint i = 0; i < certIds.length(); i++) {
-            if (StringArray.equal(certs[i].certificateAddress, _certificateAddress)) {
-                cert = certs[i];
+            if (StringArray.equal(certs[certIds.at(i)].certificateAddress, _certificateAddress)) {
+                cert = certs[certIds.at(i)];
                 break;
             }
         }
+
+        // cert = certs[_id];
     }
 
     //   function getDocument(uint _id) public view
@@ -319,7 +327,7 @@ contract Certificate is ICertificate {
             revert("param and origin not match");
         }
         for (uint i = 0; i < certIds.length(); i++) {
-            if (certs[i].verifier == _verifierAddress) {
+            if (certs[certIds.at(i)].verifier == _verifierAddress) {
                 certArr[i] = certs[certIds.at(i)];
             }
         }
@@ -343,7 +351,7 @@ contract Certificate is ICertificate {
             revert("param and origin not match");
         }
         for (uint i = 0; i < certIds.length(); i++) {
-            if (certs[i].candidate == _candidateAddress) {
+            if (certs[certIds.at(i)].candidate == _candidateAddress) {
                 certArr[i] = certs[certIds.at(i)];
             }
         }
@@ -392,6 +400,7 @@ contract Certificate is ICertificate {
 
     function getCertificate(
         string memory _certificateAddress
+        // uint _id
     )
         external
         view

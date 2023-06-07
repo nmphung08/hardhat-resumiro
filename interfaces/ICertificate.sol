@@ -47,6 +47,7 @@ interface ICertificate {
 
     function getCertificate(
         string memory _certificateAddress
+        // uint _id
     ) external view returns (AppCertificate memory);
 
     function getCertificateVerifier(

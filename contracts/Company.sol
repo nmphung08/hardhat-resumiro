@@ -205,18 +205,18 @@ contract Company is ICompany {
     }
 
     //========================COMPANY-RECRUITER=================================
-    // only recruiter -> later⏳ -> done✅
-    // param _recruiterAddress must equal msg.sender -> later⏳ -> done✅
+    // only admin-recruiter -> later⏳ -> done✅ -> new ⭐
+    // param _recruiterAddress must equal msg.sender -> later⏳ -> cancel ❌
     // company must existed -> done✅
     // just for recruiter in user contract -> done✅
     // recruiter must not in company -> done✅
     function _connectCompanyRecruiter(
         address _recruiterAddress,
         uint _companyId
-    ) internal onlyRole(RECRUITER_ROLE) {
-        if (tx.origin != _recruiterAddress) {
-            revert("param and call not match");
-        }
+    ) internal onlyRole(ADMIN_RECRUITER_ROLE) onlyCreator(_companyId) {
+        // if (tx.origin != _recruiterAddress) {
+        //     revert("param and call not match");
+        // }
         if (!companyIds.contains(_companyId)) {
             revert Company__NotExisted({company_id: _companyId});
         }
@@ -240,18 +240,20 @@ contract Company is ICompany {
         emit ConnectCompanyRecruiter(_recruiterAddress, _companyId, isIn);
     }
 
-    // only recruiter -> later⏳ -> done✅
-    // param _recruiterAddress must equal msg.sender -> later⏳ -> done✅
+    // only admin-recruiter -> later⏳ -> done✅ -> new ⭐
+    // param _recruiterAddress must equal msg.sender -> later⏳ -> cancel ❌
+    // admin-recruiter must be creator of company -> done✅ -> new ⭐
     // company must existed -> done✅
     // just for recruiter in user contract -> done✅
     // recruiter must not in company -> done✅
     function _disconnectCompanyRecruiter(
         address _recruiterAddress,
         uint _companyId
-    ) internal onlyRole(RECRUITER_ROLE) {
-        if (tx.origin != _recruiterAddress) {
-            revert("param and call not match");
-        }
+    ) internal onlyRole(ADMIN_RECRUITER_ROLE) onlyCreator(_companyId) {
+        // if (tx.origin != _recruiterAddress) {
+        //     revert("param and call not match");
+        // }
+
 
         if (!companyIds.contains(_companyId)) {
             revert Company__NotExisted({company_id: _companyId});
@@ -284,8 +286,8 @@ contract Company is ICompany {
             recruitersInCompany[_recruiterAddress].length()
         );
 
-        for (uint i = 0; i < companyIds.length(); i++) {
-            companyArr[i] = companies[companyIds.at(i)];
+        for (uint i = 0; i < recruitersInCompany[_recruiterAddress].length(); i++) {
+            companyArr[i] = companies[recruitersInCompany[_recruiterAddress].at(i)];
         }
 
         return companyArr;

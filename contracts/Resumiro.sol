@@ -149,15 +149,15 @@ contract Resumiro {
         string memory _name,
         string memory _website,
         string memory _location,
-        string memory _addr,
-        address _adminAddress
+        string memory _addr
+        // address _adminAddress
     ) external {
         company.addCompany(_name, _website, _location, _addr);
 
-        company.connectCompanyRecruiter(
-            _adminAddress,
-            company.getLatestCompanyId()
-        );
+        // company.connectCompanyRecruiter(
+        //     _adminAddress,
+        //     company.getLatestCompanyId()
+        // );
     }
 
     function updateCompany(
@@ -245,6 +245,7 @@ contract Resumiro {
 
     function getCertificate(
         string memory _certificateAddress
+        // uint _id
     )
         external
         view
@@ -252,7 +253,7 @@ contract Resumiro {
             ICertificate.AppCertificate memory
         )
     {
-        certificate.getCertificate(_certificateAddress);
+        return certificate.getCertificate(_certificateAddress);
     }
 
     function getCertificateVerifier(
