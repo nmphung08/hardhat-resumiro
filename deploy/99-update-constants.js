@@ -101,17 +101,24 @@ async function updateConstants() {
     )
     updateContractAddress(currentAddresses, chainId, "Skill", skill.address)
 
-    let resumiro = await ethers.getContract("Resumiro")
-    fs.writeFileSync(
-        RESUMIRO_ABI_PATH,
-        resumiro.interface.format(ethers.utils.FormatTypes.json)
-    )
-    updateContractAddress(
-        currentAddresses,
-        chainId,
-        "Resumiro",
-        resumiro.address
-    )
+    let resumiro
+    try {
+        resumiro = await ethers.getContract("Resumiro")
+    } catch (error) {
+        resumiro = false
+    }
+    if (resumiro) {
+        fs.writeFileSync(
+            RESUMIRO_ABI_PATH,
+            resumiro.interface.format(ethers.utils.FormatTypes.json)
+        )
+        updateContractAddress(
+            currentAddresses,
+            chainId,
+            "Resumiro",
+            resumiro.address
+        )
+    }
 
     fs.writeFileSync(ADDRESS_PATH, JSON.stringify(currentAddresses))
 }
@@ -137,4 +144,4 @@ function updateContractAddress(
     }
 }
 
-module.exports.tags = ["all", "constants"]
+module.exports.tags = ["all", "constants", "mains"]

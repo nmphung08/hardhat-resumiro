@@ -4,7 +4,6 @@ pragma solidity ^0.8.18;
 import "../interfaces/IExperience.sol";
 import "../interfaces/ICompany.sol";
 import "../interfaces/IUser.sol";
-import "./library/UintArray.sol";
 import "./library/EnumrableSet.sol";
 
 contract Experience is IExperience {
@@ -36,6 +35,7 @@ contract Experience is IExperience {
         string position,
         string start,
         string finish,
+        string source,
         uint company_id,
         ExpStatus status,
         address indexed user_address
@@ -51,13 +51,14 @@ contract Experience is IExperience {
     event ChangeExpStatus(
         uint id,
         ExpStatus status,
-        address indexed admin_recruiter
+        address indexed admin_company
     );
     event DeleteExperience(
         uint id,
         string position,
         string start,
         string finish,
+        string source,
         uint company_id,
         ExpStatus status,
         address indexed user_address
@@ -83,7 +84,7 @@ contract Experience is IExperience {
         uint experience_id,
         address user_address
     );
-    error Exp_User__ForSelf(address user_address, address origin_address);
+    error Exp_User__NotForSelf(address user_address, address origin_address);
 
     //=============================METHODS==========================================
     modifier onlyRole(bytes32 _role) {
@@ -95,7 +96,7 @@ contract Experience is IExperience {
 
     modifier onlySelf(address account) {
         if (account != tx.origin) {
-            revert Exp_User__ForSelf({
+            revert Exp_User__NotForSelf({
                 user_address: account,
                 origin_address: tx.origin
             });
@@ -130,13 +131,19 @@ contract Experience is IExperience {
     // company must existed -> done✅
     // just for user -> done✅
     // experience have not been connected with user yet -> done✅
+    // add source -> done✅
     function _addExperience(
         string memory _position,
         string memory _start,
         string memory _finish,
+        string memory _source,
         uint _companyId,
         address _user
-    ) internal onlyCandidateOrRecruiter onlySelf(_user) {
+    )
+        internal
+        /* onlyCandidateOrRecruiter */ onlyRole(CANDIDATE_ROLE)
+        onlySelf(_user)
+    {
         uint _id = experienceCounter;
         experienceCounter++;
 
@@ -167,6 +174,7 @@ contract Experience is IExperience {
             _position,
             _start,
             _finish,
+            _source,
             _companyId,
             ExpStatus.Pending,
             0, // 0 is not verified yet
@@ -182,6 +190,7 @@ contract Experience is IExperience {
             exp.position,
             exp.start,
             exp.finish,
+            exp.source,
             exp.companyId,
             exp.status,
             _user
@@ -198,16 +207,22 @@ contract Experience is IExperience {
         string memory _position,
         string memory _start,
         string memory _finish,
-        uint _companyId,
-        address _user
-    ) internal onlyCandidateOrRecruiter onlySelf(_user) onlyOwner(_id) {
+        uint _companyId
+    )
+        internal
+        // address _user
+        /* onlyCandidateOrRecruiter */ /* onlySelf(_user) */ onlyRole(
+            CANDIDATE_ROLE
+        )
+        onlyOwner(_id)
+    {
         if (experiences[_id].status != ExpStatus.Pending) {
             revert Experience__NotPending({experience_id: _id});
         }
         if (!experienceIds.contains(_id)) {
             revert Experience__NotExisted({
                 experience_id: _id,
-                user_address: _user
+                user_address: tx.origin
             });
         }
         if (!company.isExistedCompany(_companyId)) {
@@ -216,8 +231,8 @@ contract Experience is IExperience {
                 company_id: _companyId
             });
         }
-        if (!user.isExisted(_user)) {
-            revert User__NotExisted({user_address: _user});
+        if (!user.isExisted(tx.origin)) {
+            revert User__NotExisted({user_address: tx.origin});
         }
 
         experiences[_id].position = _position;
@@ -233,7 +248,7 @@ contract Experience is IExperience {
             exp.start,
             exp.finish,
             exp.companyId,
-            _user
+            exp.owner
         );
     }
 
@@ -267,10 +282,10 @@ contract Experience is IExperience {
         if (experiences[_id].status == ExpStatus.Verified) {
             experiences[_id].verifiedAt = _verifiedAt;
             // new ⭐
-            company.connectCompanyUser(
-                experiences[_id].owner,
-                experiences[_id].companyId
-            );
+            // company.connectCompanyUser(
+            //     experiences[_id].owner,
+            //     experiences[_id].companyId
+            // );
         }
 
         AppExperience memory exp = experiences[_id];
@@ -284,37 +299,43 @@ contract Experience is IExperience {
     // just for user -> done✅
     // experience have been connected with user yet -> done✅
     function _deleteExperience(
-        uint _id,
-        address _user
-    ) internal onlyCandidateOrRecruiter onlySelf(_user) onlyOwner(_id) {
-        if (tx.origin != _user) {
-            revert("param and call not match");
-        }
+        uint _id
+    )
+        internal
+        // address _user
+        /* onlyCandidateOrRecruiter */ /* onlySelf(_user) */
+        onlyRole(CANDIDATE_ROLE)
+        onlyOwner(_id)
+    {
+        // if (tx.origin != _user) {
+        //     revert("param and call not match");
+        // }
 
         if (!experienceIds.contains(_id)) {
             revert Experience__NotExisted({
                 experience_id: _id,
-                user_address: _user
+                user_address: tx.origin
             });
         }
-        if (!user.isExisted(_user)) {
-            revert User__NotExisted({user_address: _user});
+        if (!user.isExisted(tx.origin)) {
+            revert User__NotExisted({user_address: tx.origin});
         }
 
         AppExperience memory exp = experiences[_id];
 
         experienceIds.remove(_id);
         delete experiences[_id];
-        experienceOfUser[_user].remove(_id);
+        experienceOfUser[tx.origin].remove(_id);
 
-        emit AddExperience(
+        emit DeleteExperience(
             _id,
             exp.position,
             exp.start,
             exp.finish,
+            exp.source,
             exp.companyId,
             exp.status,
-            _user
+            exp.owner
         );
     }
 
@@ -359,10 +380,11 @@ contract Experience is IExperience {
         string memory _position,
         string memory _start,
         string memory _finish,
+        string memory _source,
         uint _companyId,
         address _user
     ) external {
-        _addExperience(_position, _start, _finish, _companyId, _user);
+        _addExperience(_position, _start, _finish, _source, _companyId, _user);
     }
 
     function updateExperience(
@@ -370,10 +392,10 @@ contract Experience is IExperience {
         string memory _position,
         string memory _start,
         string memory _finish,
-        uint _companyId,
-        address _user
+        uint _companyId /* ,
+        address _user */
     ) external {
-        _updateExperience(_id, _position, _start, _finish, _companyId, _user);
+        _updateExperience(_id, _position, _start, _finish, _companyId);
     }
 
     function changeExpStatus(
@@ -384,8 +406,8 @@ contract Experience is IExperience {
         _changeExpStatus(_id, _status, _verifiedAt);
     }
 
-    function deleteExperience(uint _id, address _user) external {
-        _deleteExperience(_id, _user);
+    function deleteExperience(uint _id /* , address _user */) external {
+        _deleteExperience(_id);
     }
 
     function getExperience(

@@ -2,19 +2,30 @@
 pragma solidity ^0.8.18;
 
 interface IExperience {
+    // new ⭐ -> add status and verified_at
     struct AppExperience {
         uint id;
         string position;
         string start;
         string finish;
+        string source;
         uint companyId;
+        ExpStatus status; // new 
+        uint verifiedAt; // new
         address owner;
+    }
+
+    enum ExpStatus {
+        Pending,
+        Verified,
+        Rejected
     }
 
     function addExperience(
         string memory _position,
         string memory _start,
         string memory _finish,
+        string memory _source,
         uint _companyId,
         address _user
     ) external;
@@ -24,11 +35,13 @@ interface IExperience {
         string memory _position,
         string memory _start,
         string memory _finish,
-        uint _companyId,
-        address _user
+        uint _companyId
+        // address _user
     ) external;
 
-    function deleteExperience(uint _id, address _user) external;
+    function changeExpStatus(uint _id, uint _status, uint _verifiedAt) external;
+
+    function deleteExperience(uint _id/* , address _user */) external;
 
     function getExperience(
         uint _id

@@ -7,10 +7,12 @@ require("dotenv").config()
 
 module.exports = {
     solidity: {
-        compilers: [{ version: "0.8.8" }, { version: "0.8.18" }],
+        // compilers: [{ version: "0.8.8" }, { version: "0.8.18" }],
+        version: "0.8.18",
         settings: {
             optimizer: {
                 enabled: true,
+                runs: 1,
             },
         },
     },
@@ -38,6 +40,22 @@ module.exports = {
             initialBaseFeePerGas: 0,
             // gas: 2100000,
             // gasPrice: 8000000000,
+        },
+        mumbai: {
+            allowUnlimitedContractSize: true,
+            initialBaseFeePerGas: 0,
+            gasLimit: 3e7,
+            url: "https://rpc-mumbai.maticvigil.com",
+            accounts: [process.env.PRIVATE_KEY],
+            chainId: 80001,
+        },
+        zkEVM: {
+            allowUnlimitedContractSize: true,
+            initialBaseFeePerGas: 0,
+            gasLimit: 3e7,
+            url: `https://rpc.public.zkevm-test.net`,
+            accounts: [process.env.PRIVATE_KEY],
+            chainId: 1442,
         },
     },
 

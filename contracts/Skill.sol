@@ -56,7 +56,7 @@ contract Skill is ISkill {
         uint skill_id,
         address candidate_address
     );
-    error Skill_Candidate__ForSelf(
+    error Skill_Candidate__NotForSelf(
         address candidate_address,
         address origin_address
     );
@@ -75,7 +75,7 @@ contract Skill is ISkill {
 
     modifier onlyRecruiterAndAdminCom() {
         if (
-            !(user.hasRole(tx.origin, RECRUITER_ROLE) &&
+            !(user.hasRole(tx.origin, RECRUITER_ROLE) ||
                 user.hasRole(tx.origin, ADMIN_COMPANY_ROLE))
         ) {
             revert User__NotPermit({account: tx.origin});
@@ -85,7 +85,7 @@ contract Skill is ISkill {
 
     modifier onlySelf(address _account) {
         if (_account != tx.origin) {
-            revert Skill_Candidate__ForSelf({
+            revert Skill_Candidate__NotForSelf({
                 candidate_address: _account,
                 origin_address: tx.origin
             });

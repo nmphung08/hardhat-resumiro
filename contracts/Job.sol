@@ -4,7 +4,6 @@ pragma solidity ^0.8.18;
 import "../interfaces/ICompany.sol";
 import "../interfaces/IUser.sol";
 import "../interfaces/IJob.sol";
-import "./library/UintArray.sol";
 import "./library/EnumrableSet.sol";
 
 contract Job is IJob {
@@ -57,7 +56,7 @@ contract Job is IJob {
     error Recruiter_Company__NotIn(address recruiter_address, uint company_id);
 
     error Recruiter_Job__NotOwned(address recruiter_address, uint job_id);
-    error Recruiter_Job__ForSelf(
+    error Recruiter_Job__NotForSelf(
         address recruiter_address,
         address origin_address
     );
@@ -78,7 +77,7 @@ contract Job is IJob {
 
     modifier onlyRecruiterAndAdminCom() {
         if (
-            !(user.hasRole(tx.origin, RECRUITER_ROLE) &&
+            !(user.hasRole(tx.origin, RECRUITER_ROLE) ||
                 user.hasRole(tx.origin, ADMIN_COMPANY_ROLE))
         ) {
             revert User__NotPermit({account: tx.origin});
@@ -88,7 +87,7 @@ contract Job is IJob {
 
     modifier onlySelf(address account) {
         if (account != tx.origin) {
-            revert Recruiter_Job__ForSelf({
+            revert Recruiter_Job__NotForSelf({
                 recruiter_address: account,
                 origin_address: tx.origin
             });
@@ -218,13 +217,13 @@ contract Job is IJob {
         jobs[_job.id].requirements = _job.requirements;
         jobs[_job.id].benefits = _job.benefits;
         jobs[_job.id].updateAt = _job.updateAt;
-        jobs[_job.id].companyId = _job.companyId;
+        // jobs[_job.id].companyId = _job.companyId;
         jobs[_job.id].salary = _job.salary;
         jobs[_job.id].field = _job.field;
 
-        // AppJob memory job = _getJob(_job.id);
+        AppJob memory job = _getJob(_job.id);
         // address owner = recruiterOwnJob[_job.id];
-        emit UpdateJob(_job);
+        emit UpdateJob(job);
     }
 
     // only recruiter -> later⏳ -> done✅

@@ -15,4 +15,4 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     log(`Deployed Resume at: ${resume.address}`)
 }
 
-module.exports.tags = ["all", "resume"]
+module.exports.tags = ["all", "resume", "mains"]

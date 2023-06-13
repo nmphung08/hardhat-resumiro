@@ -13,7 +13,9 @@ async function main() {
         resumiro,
     } = await getContracts()
 
-    console.log(await resumiro.getAllSkillsOfCandidate("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"))
+    console.log("All companies: ", await resumiro.getAllCompanies())
+    console.log("All jobs: ", await resumiro.getAllJobs())
+    console.log("All Users: ", await resumiro.getAllUser())
 }
 
 main()

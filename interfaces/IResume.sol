@@ -7,6 +7,7 @@ interface IResume {
     struct AppResume {
         uint id;
         string data;
+        bool isPublic;
         address owner;
         string title;
         uint createAt;
@@ -41,6 +42,8 @@ interface IResume {
 
     function deleteResume(uint _id) external;
 
+    function togglePublic(uint _id) external;
+
     function isExistedResumeRecruiter(
         address _recruiterAddress,
         uint _resumeId
@@ -52,7 +55,7 @@ interface IResume {
 
     function getAllApprovedRecruitersOf(
         uint _resumeId
-    ) external view returns (IUser.AppUser[] memory);
+    ) external view returns (address[] memory);
 
     function connectResumeRecruiter(
         address _recruiterAddress,

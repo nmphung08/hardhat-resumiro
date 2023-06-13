@@ -3,7 +3,6 @@ pragma solidity ^0.8.18;
 
 import "../interfaces/IUser.sol";
 import "../interfaces/IResume.sol";
-import "./library/UintArray.sol";
 import "./library/EnumrableSet.sol";
 
 contract Resume is IResume {
@@ -40,6 +39,9 @@ contract Resume is IResume {
         string title,
         uint create_at
     );
+
+    event TogglePublic(uint indexed id, bool isPublic);
+
     // event UpdateResume(
     //     uint id,
     //     string data,
@@ -61,7 +63,7 @@ contract Resume is IResume {
     error Resume__AlreadyExisted(uint id);
 
     error Candidate_Resume__NotOwned(address candidate_address, uint id);
-    error Candidate_Resume__ForSelf(
+    error Candidate_Resume__NotForSelf(
         address candidate_address,
         address origin_address
     );
@@ -92,7 +94,7 @@ contract Resume is IResume {
 
     modifier onlySelf(address _account) {
         if (_account != tx.origin) {
-            revert Candidate_Resume__ForSelf({
+            revert Candidate_Resume__NotForSelf({
                 candidate_address: _account,
                 origin_address: tx.origin
             });
@@ -161,6 +163,7 @@ contract Resume is IResume {
         resumes[_id] = AppResume(
             _id,
             _data,
+            false,
             _candidateAddress,
             _title,
             _createAt
@@ -237,6 +240,20 @@ contract Resume is IResume {
             resume.title,
             resume.createAt
         );
+    }
+
+    function _togglePublic(
+        uint _id
+    ) internal onlyRole(CANDIDATE_ROLE) onlyOwner(_id) {
+        if (!resumeIds.contains(_id)) {
+            revert Resume__NotExisted({id: _id});
+        }
+
+        bool _isPublic = resumes[_id].isPublic;
+
+        resumes[_id].isPublic = !_isPublic;
+
+        emit TogglePublic(_id, !_isPublic);
     }
 
     //======================RESUME-RECRUITER==========================
@@ -392,6 +409,10 @@ contract Resume is IResume {
 
     function deleteResume(uint _id) external {
         _deleteResume(_id);
+    }
+
+    function togglePublic(uint _id) external {
+        _togglePublic(_id);
     }
 
     function isExistedResumeRecruiter(

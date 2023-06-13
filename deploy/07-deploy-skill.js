@@ -31,4 +31,4 @@ module.exports = async function ({ getNamedAccounts, deployments }) {
     log("Added!")
 }
 
-module.exports.tags = ["all", "skill"]
+module.exports.tags = ["all", "skill", "mains"]

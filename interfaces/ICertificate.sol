@@ -4,15 +4,14 @@ pragma solidity ^0.8.18;
 interface ICertificate {
     struct AppCertificate {
         string name;
-        uint verifiedAt;
-        bool exist;
+        uint expiredAt;
         string certificateAddress;
         address candidate;
-        address verifier;
-        DocStatus status;
+        uint companyId;
+        CertStatus status;
     }
 
-    enum DocStatus {
+    enum CertStatus {
         Pending,
         Verified,
         Rejected
@@ -23,72 +22,44 @@ interface ICertificate {
         uint _id
     ) external view returns (bool);
 
-    function isVerifierOfCertificate(
-        address _verifierAddress,
-        uint _id
-    ) external view returns (bool);
+    // function isVerifierOfCertificate(
+    //     address _verifierAddress,
+    //     uint _id
+    // ) external view returns (bool);
 
     function addCertificate(
-        // uint _id,
         string memory _name,
-        uint _verifiedAt,
+        uint _expireAt,
+        string memory _certificateAddress,
         address _candidateAddress,
-        address _verifierAddress,
-        string memory _certificateAddress
+        uint _companyId
     ) external;
 
     function updateCertificate(
         uint _id,
-        uint _verifiedAt,
-        address _verifierAddress,
-        string memory _certificateAddress,
-        DocStatus _status
+        string memory _name,
+        uint _expiredAt
+        // string memory _certificateAddress,
+        // uint _companyId
+    ) external;
+
+    function changeCertificateStatus(
+        uint _id,
+        uint _status
+        // uint _expiredAt
     ) external;
 
     function deleteCertificate(uint _id) external;
 
-    function getDocument(
+    function getCertificate(
         string memory _certificateAddress
-    )
-        external
-        view
-        returns (
-            string memory name,
-            address requester,
-            address verifier,
-            uint verifiedAt,
-            DocStatus status
-        );
+    ) external view returns (AppCertificate memory);
 
-    function getCount(address _addressUser) external view returns (uint);
+    // function getCertificateVerifier(
+    //     address _verifierAddress
+    // ) external view returns (AppCertificate[] memory);
 
-    function getCertificateVerifier(
-        address _verifierAddress,
-        uint lindex
-    )
-        external
-        view
-        returns (
-            string memory name,
-            address candidate,
-            uint verifiedAt,
-            string memory certificateAddress,
-            DocStatus status,
-            uint index
-        );
-
-    function getCertificatecandidate(
-        address _candidateAddress,
-        uint lindex
-    )
-        external
-        view
-        returns (
-            string memory name,
-            address verifier,
-            uint verifiedAt,
-            string memory certificateAddress,
-            DocStatus status,
-            uint index
-        );
+    function getCertificateCandidate(
+        address _candidateAddress
+    ) external view returns (AppCertificate[] memory);
 }

@@ -21,6 +21,7 @@ contract Resumiro {
     IJob job;
     IResume resume;
     ISkill skill;
+    address owner;
 
     constructor(
         address _userAddress,
@@ -38,33 +39,59 @@ contract Resumiro {
         job = IJob(_jobAddress);
         resume = IResume(_resumeAddress);
         skill = ISkill(_skillAddress);
+        owner = tx.origin;
     }
 
-    function setUserContract(address _userAddress) external {
+    modifier onlyAdmin() {
+        if (tx.origin != owner) {
+            revert("ONLY FOR ADMIN!");
+        }
+        _;
+    }
+
+    function setUserContract(address _userAddress) external onlyAdmin {
         user = IUser(_userAddress);
     }
 
-    function setCompanyContract(address _companyAddress) external {
+    function setCompanyContract(address _companyAddress) external onlyAdmin {
         company = ICompany(_companyAddress);
     }
 
-    function setCertificateContract(address _certAddress) external {
+    function setCertificateContract(address _certAddress) external onlyAdmin {
         certificate = ICertificate(_certAddress);
     }
 
-    function setExperienceContract(address _expAddress) external {
+    function setExperienceContract(address _expAddress) external onlyAdmin {
         experience = IExperience(_expAddress);
     }
 
-    function setJobContract(address _jobAddress) external {
+    function setJobContract(address _jobAddress) external onlyAdmin {
         job = IJob(_jobAddress);
     }
 
-    function setResumeContract(address _resumeAddress) external {
+    function setResumeContract(address _resumeAddress) external onlyAdmin {
         resume = IResume(_resumeAddress);
     }
 
-    function setSkillContract(address _skillAddress) external {
+    function setSkillContract(address _skillAddress) external onlyAdmin {
+        skill = ISkill(_skillAddress);
+    }
+
+    function setContracts(
+        address _userAddress,
+        address _companyAddress,
+        address _certAddress,
+        address _expAddress,
+        address _jobAddress,
+        address _resumeAddress,
+        address _skillAddress
+    ) external onlyAdmin {
+        user = IUser(_userAddress);
+        company = ICompany(_companyAddress);
+        certificate = ICertificate(_certAddress);
+        experience = IExperience(_expAddress);
+        job = IJob(_jobAddress);
+        resume = IResume(_resumeAddress);
         skill = ISkill(_skillAddress);
     }
 
@@ -205,25 +232,27 @@ contract Resumiro {
         return certificate.isOwnerOfCertificate(_candidateAddress, _id);
     }
 
-    function isVerifierOfCertificate(
-        address _verifierAddress,
-        uint _id
-    ) external view returns (bool) {
-        return certificate.isVerifierOfCertificate(_verifierAddress, _id);
-    }
+    // function isVerifierOfCertificate(
+    //     address _verifierAddress,
+    //     uint _id
+    // ) external view returns (bool) {
+    //     return certificate.isVerifierOfCertificate(_verifierAddress, _id);
+    // }
 
     function addCertificate(
         string memory _name,
+        uint _expireAt,
         string memory _certificateAddress,
         address _candidateAddress,
-        address _verifierAddress,
+        // address _verifierAddress,
         uint _companyId
     ) external {
         certificate.addCertificate(
             _name,
+            _expireAt,
             _certificateAddress,
             _candidateAddress,
-            _verifierAddress,
+            // _verifierAddress,
             _companyId
         );
     }
@@ -231,25 +260,29 @@ contract Resumiro {
     function updateCertificate(
         uint _id,
         string memory _name,
-        string memory _certificateAddress,
+        uint _expiredAt
+    )
+        external
+    /* string memory _certificateAddress,
         address _verifierAddress,
-        uint _companyId
-    ) external {
+        uint _companyId */
+    {
         certificate.updateCertificate(
             _id,
             _name,
-            _certificateAddress,
+            _expiredAt
+            /* _certificateAddress,
             _verifierAddress,
-            _companyId
+            _companyId */
         );
     }
 
     function changeCertificateStatus(
         uint _id,
-        uint _status,
-        uint _verifiedAt
+        uint _status /* ,
+        uint _verifiedAt */
     ) external {
-        certificate.changeCertificateStatus(_id, _status, _verifiedAt);
+        certificate.changeCertificateStatus(_id, _status);
     }
 
     function deleteCertificate(uint _id) external {
@@ -269,11 +302,11 @@ contract Resumiro {
         return certificate.getCertificate(_certificateAddress);
     }
 
-    function getCertificateVerifier(
-        address _verifierAddress
-    ) external view returns (ICertificate.AppCertificate[] memory) {
-        return certificate.getCertificateVerifier(_verifierAddress);
-    }
+    // function getCertificateVerifier(
+    //     address _verifierAddress
+    // ) external view returns (ICertificate.AppCertificate[] memory) {
+    //     return certificate.getCertificateVerifier(_verifierAddress);
+    // }
 
     function getCertificateCandidate(
         address _candidateAddress
@@ -288,12 +321,14 @@ contract Resumiro {
         string memory _position,
         string memory _start,
         string memory _finish,
+        string memory _source,
         uint _companyId
     ) external {
         experience.addExperience(
             _position,
             _start,
             _finish,
+            _source,
             _companyId,
             tx.origin
         );
@@ -311,13 +346,12 @@ contract Resumiro {
             _position,
             _start,
             _finish,
-            _companyId,
-            tx.origin
+            _companyId
         );
     }
 
     function deleteExperience(uint _id) external {
-        experience.deleteExperience(_id, tx.origin);
+        experience.deleteExperience(_id);
     }
 
     function getExperience(
