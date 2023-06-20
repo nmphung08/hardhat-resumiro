@@ -196,7 +196,7 @@ contract Resumiro {
         company.deleteCompany(_id);
     }
 
-    function connectCompanyRecruiter(
+    function connectCompanyUser(
         address _userAddress,
         uint _companyId
     ) external {
@@ -290,7 +290,7 @@ contract Resumiro {
     }
 
     function getCertificate(
-        string memory _certificateAddress
+        uint _id
     )
         external
         view
@@ -299,7 +299,15 @@ contract Resumiro {
             ICertificate.AppCertificate memory
         )
     {
-        return certificate.getCertificate(_certificateAddress);
+        return certificate.getCertificate(_id);
+    }
+
+    function getAllCertificates()
+        external
+        view
+        returns (ICertificate.AppCertificate[] memory)
+    {
+        return certificate.getAllCertificates();
     }
 
     // function getCertificateVerifier(
@@ -352,6 +360,14 @@ contract Resumiro {
 
     function deleteExperience(uint _id) external {
         experience.deleteExperience(_id);
+    }
+
+    function changeExpStatus(
+        uint _id,
+        uint _status,
+        uint _verifiedAt
+    ) external {
+        experience.changeExpStatus(_id, _status, _verifiedAt);
     }
 
     function getExperience(
@@ -423,6 +439,10 @@ contract Resumiro {
 
     function deleteResume(uint _id) external {
         resume.deleteResume(_id);
+    }
+
+    function togglePublic(uint _id, string memory _data) external {
+        resume.togglePublic(_id, _data);
     }
 
     function isExistedResumeRecruiter(

@@ -232,8 +232,11 @@ contract Certificate is ICertificate {
     function _changeCertificateStatus(
         uint _id,
         uint _status
+    )
+        internal
         // uint _expiredAt
-    ) internal onlyRole(ADMIN_COMPANY_ROLE) {
+        onlyRole(ADMIN_COMPANY_ROLE)
+    {
         if (!certIds.contains(_id)) {
             revert Cert__NotExisted({id: _id});
         }
@@ -294,7 +297,8 @@ contract Certificate is ICertificate {
 
     // new ⭐ -> change return
     function _getCertificate(
-        string memory _certificateAddress
+        /* string memory _certificateAddress */
+        uint _id
     )
         internal
         view
@@ -303,19 +307,35 @@ contract Certificate is ICertificate {
             AppCertificate memory cert
         )
     {
-        for (uint i = 0; i < certIds.length(); i++) {
-            if (
-                StringArray.equal(
-                    certs[certIds.at(i)].certificateAddress,
-                    _certificateAddress
-                )
-            ) {
-                cert = certs[certIds.at(i)];
-                break;
-            }
+        // for (uint i = 0; i < certIds.length(); i++) {
+        //     if (
+        //         StringArray.equal(
+        //             certs[certIds.at(i)].certificateAddress,
+        //             _certificateAddress
+        //         )
+        //     ) {
+        //         cert = certs[certIds.at(i)];
+        //         break;
+        //     }
+        // }
+
+        cert = certs[_id];
+    }
+
+    function _getAllCertificates()
+        internal
+        view
+        returns (AppCertificate[] memory)
+    {
+        AppCertificate[] memory certArr = new AppCertificate[](
+            certIds.length()
+        );
+
+        for (uint i = 0; i < certArr.length; i++) {
+            certArr[i] = certs[certIds.at(i)];
         }
 
-        // cert = certs[_id];
+        return certArr;
     }
 
     // only verifier -> done✅
@@ -415,8 +435,7 @@ contract Certificate is ICertificate {
 
     function changeCertificateStatus(
         uint _id,
-        uint _status
-        // uint _expiredAt
+        uint _status // uint _expiredAt
     ) external {
         _changeCertificateStatus(_id, _status);
     }
@@ -426,9 +445,17 @@ contract Certificate is ICertificate {
     }
 
     function getCertificate(
-        string memory _certificateAddress
+        uint _id
     ) external view returns (AppCertificate memory) {
-        return _getCertificate(_certificateAddress);
+        return _getCertificate(_id);
+    }
+
+    function getAllCertificates()
+        external
+        view
+        returns (AppCertificate[] memory)
+    {
+        return _getAllCertificates();
     }
 
     // function getCertificateVerifier(

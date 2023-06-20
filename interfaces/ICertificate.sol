@@ -51,13 +51,22 @@ interface ICertificate {
 
     function deleteCertificate(uint _id) external;
 
+    // function getCertificate(
+    //     string memory _certificateAddress
+    // ) external view returns (AppCertificate memory);
+
     function getCertificate(
-        string memory _certificateAddress
+        uint _id
     ) external view returns (AppCertificate memory);
 
     // function getCertificateVerifier(
     //     address _verifierAddress
     // ) external view returns (AppCertificate[] memory);
+
+    function getAllCertificates()
+        external
+        view
+        returns (AppCertificate[] memory);
 
     function getCertificateCandidate(
         address _candidateAddress

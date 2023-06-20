@@ -42,7 +42,7 @@ interface IResume {
 
     function deleteResume(uint _id) external;
 
-    function togglePublic(uint _id) external;
+    function togglePublic(uint _id, string memory _data) external;
 
     function isExistedResumeRecruiter(
         address _recruiterAddress,

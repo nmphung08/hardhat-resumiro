@@ -13,9 +13,12 @@ async function main() {
         resumiro,
     } = await getContracts()
 
+    console.log("All users: ", await resumiro.getAllUser())
     console.log("All companies: ", await resumiro.getAllCompanies())
     console.log("All jobs: ", await resumiro.getAllJobs())
-    console.log("All Users: ", await resumiro.getAllUser())
+    console.log("All cvs: ", await resumiro.getAllResumes())
+    console.log("All experiences: ", await resumiro.getAllExperiences())
+    console.log("Certificate 2: ", await resumiro.getCertificate(2))
 }
 
 main()

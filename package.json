@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "local": "hardhat run scripts/test.js --network localhost",
+        "ltest": "hardhat run scripts/test.js --network localhost",
         "node": "hardhat node",
         "compile": "hardhat compile",
         "deploy": "hardhat deploy"

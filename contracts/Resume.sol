@@ -40,7 +40,7 @@ contract Resume is IResume {
         uint create_at
     );
 
-    event TogglePublic(uint indexed id, bool isPublic);
+    event TogglePublic(uint indexed id, bool isPublic, string data);
 
     // event UpdateResume(
     //     uint id,
@@ -243,7 +243,8 @@ contract Resume is IResume {
     }
 
     function _togglePublic(
-        uint _id
+        uint _id,
+        string memory _data
     ) internal onlyRole(CANDIDATE_ROLE) onlyOwner(_id) {
         if (!resumeIds.contains(_id)) {
             revert Resume__NotExisted({id: _id});
@@ -253,7 +254,11 @@ contract Resume is IResume {
 
         resumes[_id].isPublic = !_isPublic;
 
-        emit TogglePublic(_id, !_isPublic);
+        if (!_isPublic) {
+            resumes[_id].data = _data;
+        }
+
+        emit TogglePublic(_id, !_isPublic, _data);
     }
 
     //======================RESUME-RECRUITER==========================
@@ -411,8 +416,8 @@ contract Resume is IResume {
         _deleteResume(_id);
     }
 
-    function togglePublic(uint _id) external {
-        _togglePublic(_id);
+    function togglePublic(uint _id, string memory _data) external {
+        _togglePublic(_id, _data);
     }
 
     function isExistedResumeRecruiter(
