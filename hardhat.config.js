@@ -20,12 +20,15 @@ module.exports = {
     networks: {
         ganache: {
             url: "http://0.0.0.0:7545",
+            allowUnlimitedContractSize: true,
+            initialBaseFeePerGas: 0,
             accounts: [
-                "0x8a9fb729d9a2892577c567b419c32e1c26201c71f5c2bc514e5d7508ad4cb020",
-                "0xc19415d4f5e2ff393376559e7cf8d796cdf2649e0c16f1efeceb2691e4ebc5e0",
-                "0x389d7cbe20fa1c0fa0b2c8032b497bcd653b2f9d094cd456f5b31ad869491bc3",
-                "0x3bbe917766aa1a0976c6d9e93ed98f4637917e3fe115114f67f654a901b1a991",
-                "0x7cc73893143c45bd41920b9f92eda77c5fc80c4a3e88782f1202e1ba6f0743c4",
+                "0xd02128be319272504e14ff99dd8c582818b7fb266539eaefa48a30a67781a685",
+                "0xabb2fdf0bb028c87f9adb19e62fa081bb48811c1e0c7a4d0558bc9dfb2cc1a06",
+                "0x640c43c479c9d39496533dc3b32b0771f8c5bb1dac2a74f296309a4ab6702b65",
+                "0x158246b11270e903b6bc3ad5e0c5598f0d9a72b62ad97562b7db81a649b4c8e9",
+                "0x37d683048082c277aa9f53dc3c15cc42b613d7bd95be37030ff2af717067497d",
+                "0xb07d82356da295dde3a97a4929697ccaf7aeeb252cbd01a8637848574d190512",
             ],
             chainId: 1337,
         },

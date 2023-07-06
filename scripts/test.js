@@ -14,11 +14,12 @@ async function main() {
     } = await getContracts()
 
     console.log("All users: ", await resumiro.getAllUser())
-    console.log("All companies: ", await resumiro.getAllCompanies())
-    console.log("All jobs: ", await resumiro.getAllJobs())
-    console.log("All cvs: ", await resumiro.getAllResumes())
-    console.log("All experiences: ", await resumiro.getAllExperiences())
-    console.log("Certificate 2: ", await resumiro.getCertificate(2))
+    // console.log("All companies: ", await resumiro.getAllCompanies())
+    // console.log("All jobs: ", await resumiro.getAllJobs())
+    // console.log("All cvs: ", await resumiro.getAllResumes())
+    // console.log("All experiences: ", await resumiro.getAllExperiences())
+    // console.log("All Certificates: ", await resumiro.getAllCertificates())
+    // console.log("All Skills: ", await resumiro.getAllSkill())
 }
 
 main()

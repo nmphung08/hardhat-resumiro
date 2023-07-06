@@ -1,9 +1,13 @@
 {
     "scripts": {
         "ltest": "hardhat run scripts/test.js --network localhost",
+        "gtest": "hardhat run scripts/test.js --network ganache",
+        "zktest": "hardhat run scripts/test.js --network zkEVM",
         "node": "hardhat node",
         "compile": "hardhat compile",
-        "deploy": "hardhat deploy"
+        "deploy": "hardhat deploy",
+        "gdeploy": "hardhat deploy --network ganache",
+        "zkdeploy": "hardhat deploy --network zkEVM"
     },
     "devDependencies": {
         "@nomicfoundation/hardhat-toolbox": "^2.0.0",
